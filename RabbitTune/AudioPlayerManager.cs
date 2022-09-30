@@ -244,6 +244,12 @@ namespace RabbitTune
             return EqualizerAverageGainDecibels[filterIndex];
         }
 
+        /// <summary>
+        /// 指定されたインデックスのイコライザの値を設定する。<br/>
+        /// 再生中ならプレーヤーにも反映する。
+        /// </summary>
+        /// <param name="filterIndex"></param>
+        /// <param name="value"></param>
         public static void SetAverageGainDB(int filterIndex, double value)
         {
             EqualizerAverageGainDecibels[filterIndex] = value;

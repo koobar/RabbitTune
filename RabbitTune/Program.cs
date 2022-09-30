@@ -16,7 +16,7 @@ namespace RabbitTune
         public static readonly string ApplicationDataPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\\RabbitTune";
         public static readonly string ApplicationConfigFilePath = $"{ApplicationDataPath}\\config.dat";
         public static readonly string DefaultDefaultPlaylistPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyMusic)}\\RabbitTune\\default.m3u8";
-        public static readonly Version ApplicationVersion = new Version(1, 0, 0);
+        public static readonly Version ApplicationVersion = new Version(1, 0, 1);
         public static bool ResetApplicationOptionRequested = false;
 
         // îÒåˆäJïœêî
@@ -196,7 +196,7 @@ namespace RabbitTune
                  reader.GetValueAsInt(AudioPlayerManager.KEY_RESAMPLER_CHANNELS, 2));
             AudioPlayerManager.UseEqualizer = reader.GetValueAsBoolean(AudioPlayerManager.KEY_USE_EQUALIZER);
             AudioPlayerManager.DownSampleTo32KBeforeEqualizerProcess = reader.GetValueAsBoolean(AudioPlayerManager.KEY_EQUALIZER_DOWNSAMPLE_TO_32K);
-            AudioPlayerManager.EqualizerAverageGainDecibels = reader.GetDoubleArrayValue(AudioPlayerManager.KEY_EQUALIZER_GAINDECIBELS).ToArray();
+            AudioPlayerManager.EqualizerAverageGainDecibels = reader.GetDoubleArrayValue(AudioPlayerManager.KEY_EQUALIZER_GAINDECIBELS, 0, 10).ToArray();
             AudioPlayerManager.PlaybackSpeed = reader.GetValueAsFloat(AudioPlayerManager.KEY_PLAYBACK_SPEED, 1.0f);
             AudioPlayerManager.PitchShifterFixClip = reader.GetValueAsBoolean(AudioPlayerManager.KEY_PITCHSHIFTER_FIX_CLIP);
             AudioPlayerManager.Pitch = reader.GetValueAsInt(AudioPlayerManager.KEY_PLAYBACK_PITCH, 0);

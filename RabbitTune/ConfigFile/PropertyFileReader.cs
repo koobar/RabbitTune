@@ -237,25 +237,21 @@ namespace RabbitTune.ConfigFile
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public short[] GetShortArrayValue(string key, params short[] defaultValues)
+        public List<int> GetIntArrayValue(string key, int defaultValue = 0, int defaultLength = 0, bool useDefaultIfLengthIsZero = true)
         {
-            var values = new List<short>();
+            List<int> values = new List<int>();
 
             if (this.loadedProperties != null)
             {
                 int cnt = 0;
-                bool found_anyItems = false;
 
                 while (true)
                 {
-                    string akey = $"{key}[{cnt}](i16s)";
+                    string akey = $"{key}[{cnt}](d)";
 
                     if (this.loadedProperties.ContainsKey(akey))
                     {
-                        var q = short.Parse(this.loadedProperties[akey]);
-
-                        found_anyItems = true;
-                        values.Add(q);
+                        values.Add(GetValueAsInt(akey, 0));
                     }
                     else
                     {
@@ -263,87 +259,14 @@ namespace RabbitTune.ConfigFile
                     }
 
                     cnt++;
-                }
-
-                if (!found_anyItems)
-                {
-                    return defaultValues;
                 }
             }
 
-            return values.ToArray();
-        }
-
-        /// <summary>
-        /// 指定されたキーの配列型のプロパティ値を取得する。
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        public int[] GetIntArrayValue(string key, params int[] defaultValues)
-        {
-            var values = new List<int>();
-
-            if (this.loadedProperties != null)
+            if ((useDefaultIfLengthIsZero && values.Count == 0) || (this.loadedProperties == null))
             {
-                int cnt = 0;
-                bool found_anyItems = false;
-                while (true)
+                for (int i = 0; i < defaultLength; i++)
                 {
-                    string akey = $"{key}[{cnt}](i32s)";
-
-                    if (this.loadedProperties.ContainsKey(akey))
-                    {
-                        var q = int.Parse(this.loadedProperties[akey]);
-
-                        found_anyItems = true;
-                        values.Add(q);
-                    }
-                    else
-                    {
-                        break;
-                    }
-
-                    cnt++;
-                }
-
-                if (!found_anyItems)
-                {
-                    return defaultValues;
-                }
-            }
-
-            return values.ToArray();
-        }
-
-        /// <summary>
-        /// 指定されたキーの配列型のプロパティ値を取得する。
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        public List<long> GetLongArrayValue(string key)
-        {
-            var values = new List<long>();
-
-            if (this.loadedProperties != null)
-            {
-                int cnt = 0;
-
-                while (true)
-                {
-                    string akey = $"{key}[{cnt}](i64s)";
-
-                    if (this.loadedProperties.ContainsKey(akey))
-                    {
-                        var q = long.Parse(this.loadedProperties[akey]);
-
-                        values.Add(q);
-                    }
-                    else
-                    {
-                        break;
-                    }
-
-                    cnt++;
+                    values.Add(defaultValue);
                 }
             }
 
@@ -355,7 +278,7 @@ namespace RabbitTune.ConfigFile
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public List<double> GetDoubleArrayValue(string key)
+        public List<double> GetDoubleArrayValue(string key, double defaultValue = 0, int defaultLength = 0, bool useDefaultIfLengthIsZero = true)
         {
             List<double> values = new List<double>();
 
@@ -377,6 +300,14 @@ namespace RabbitTune.ConfigFile
                     }
 
                     cnt++;
+                }
+            }
+
+            if((useDefaultIfLengthIsZero && values.Count == 0) || (this.loadedProperties == null))
+            {
+                for (int i = 0; i < defaultLength; i++)
+                {
+                    values.Add(defaultValue);
                 }
             }
 
