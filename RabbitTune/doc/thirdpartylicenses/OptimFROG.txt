@@ -1,0 +1,39 @@
+﻿OptimFROG (Decoding Library)
+© 1996-2010, Florin Ghido (http://www.losslessaudio.org)
+======================================================================
+
+OptimFROG - License
+
+OptimFROG is completely free for personal, and also for non-commercial and commercial use. However, in the case of redistribution of the Release Packages, binary Libraries, SFX Decoder archives, and binary command-line Encoders the following terms and conditions apply.
+
+Release Packages
+You are hereby permitted to redistribute the unmodified Release Packages under their original name, through, but not limited to, FTP, WEB sites, storage media associated with printed magazines, or physical devices.
+
+Redistributing any modified, where modification means any change to the contents of a file, or renamed Release Package is not permitted.
+
+An exception is provided for the redistribution of the Release Packages as part of an operating system official repositories (such as, but not limited to, Debian, Ubuntu, FreeBSD, or Fedora), where a relevant subset of the unmodified files from the original Release Package may be partially renamed* and repackaged as considered technically necessary.
+
+Additionally, charging a fee or requesting donations for downloading or otherwise providing any Release Package separately is not permitted.
+
+Please do not directly link to the Release Packages on the OptimFROG website, but instead link to the main OptimFROG download page.
+
+
+* An exception is granted for partial renaming of individual binary files, but not Release Packages, such that a prefix or suffix can be added to the original binary file name if considered necessary for versioning, platform compatibility, or other technical reasons (for example, renaming to libOptimFROG.so.1, ofr64, or OptimFROG64.dll).
+
+Binary Libraries
+You are hereby permitted to redistribute the unmodified binary Libraries under their original name (such as, but not limited to, OptimFROG.dll, libOptimFROG.so, and libOptimFROG.dylib) along with other software or physical device which uses such Libraries by means of the provided SDK.
+
+Redistributing any modified, meaning any change in the contents of a file including executable re-compression, or renamed binary Library is not permitted, with an exception for some partial renames*.
+
+Binary Command-Line Encoders
+You are hereby permitted to redistribute the unmodified binary command-line Encoders under their original name (such as, but not limited to ofr, ofr.exe, ofs, ofs.exe, off, and off.exe) along with other free or open source software which uses such Encoders. Sending a notification email to the OptimFROG author is required, which must include your name, the name of your free or open source software, and the Internet address where your software can be downloaded.
+
+However, for the cases of a physical device, and commercial or ad-supported software, such redistribution of the unmodified binary command-line Encoders under their original name requires prior written permission from the OptimFROG author, by sending of an email request. The email request must include your name, the name of your software or physical device, and the Internet address where your software can be downloaded, or where the physical device is described or advertised.
+
+Redistributing any modified, meaning any change in the contents of a file including executable re-compression, or renamed binary command-line Encoder is not permitted, with an exception for some partial renames*.
+
+SFX Decoder Archives
+Any OptimFROG self-extracting compressed archive created using the binary command-line Encoders by incorporating an unmodified binary SFX Decoder (such as, but not limited to, ofr_sfx.exe or ofr_sfx) can be redistributed under any name and without limitations, subject only to the conditions associated with the uncompressed source file.
+
+
+OptimFROG AND ALL ACCOMPANYING SOFTWARE IS DISTRIBUTED "AS IS". NO WARRANTY OF ANY KIND IS EXPRESSED OR IMPLIED. YOU USE IT AT YOUR OWN RISK. THE AUTHOR WILL NOT BE LIABLE FOR DATA LOSS, DAMAGES, LOSS OF PROFITS OR ANY OTHER KIND OF LOSS WHILE USING OR MISUSING THIS SOFTWARE. USE OF OptimFROG OR ANY ACCOMPANYING SOFTWARE INDICATES YOU AGREED TO ALL OF THE ABOVE CONDITIONS.

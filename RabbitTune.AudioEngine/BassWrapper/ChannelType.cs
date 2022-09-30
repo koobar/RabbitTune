@@ -1,0 +1,43 @@
+﻿namespace RabbitTune.AudioEngine.BassWrapper
+{
+    public enum ChannelType
+    {
+        Unknown,
+        Sample = 0x1,
+        UserStream = 0x10000,
+        OGG = 0x10002,
+        MP1 = 0x10003,
+        MP2 = 0x10004,
+        MP3 = 0x10005,
+        AIFF = 0x10006,
+        CA = 0x10007,
+        MF = 0x10008,
+        CD = 0x10200,
+        WMA = 0x10300,
+        WMA_MP3 = 0x10301,
+        WavPackLossless = 0x10500,
+        WavPackHybrid = 0x10501,
+        WavPackLossy = 0x10502,
+        WavPackHybridLossy = 0x10503,
+        OptimFROG = 0x10600,
+        APE = 0x10700,
+        FLAC = 0x10900,
+        FLAC_OGG = 0x10901,
+        MPC = 0x10a00,
+        AAC = 0x10b00,
+        MP4 = 0x10b01,
+        Speex = 0x10c00,
+        Midi = 0x10d00,
+        ALAC = 0x10e00,
+        TTA = 0x10f00,
+        Video = 0x11100,
+        Opus = 0x11200,
+        DSD = 0x11700,
+        ADX = 0x1f000,
+        Wave = 0x40000,
+        WavePCM = 0x50001,
+        WaveFloat = 0x50003,
+        Dummy = 0x18000,
+        Device = 0x18001
+    }
+}
