@@ -37,6 +37,21 @@ namespace RabbitTune
                 // シーク操作中ではないか？
                 if (!this.SeekBar.Capture)
                 {
+                    // シーク操作が終了したか？
+                    if(this.SeekBar.Tag != null && this.SeekBar.Tag.GetType() == typeof(bool))
+                    {
+                        var flag_seeking = (bool)this.SeekBar.Tag;
+
+                        if (flag_seeking)
+                        {
+                            AudioPlayerManager.Position = this.SeekBar.Value;
+                        }
+
+                        // 後始末
+                        this.SeekBar.Tag = null;
+                        return;
+                    }
+
                     int value = (int)AudioPlayerManager.Position;
 
                     if(value < this.SeekBar.Minimum)
@@ -52,7 +67,11 @@ namespace RabbitTune
                 }
                 else
                 {
-                    AudioPlayerManager.Position = this.SeekBar.Value;
+                    this.SeekBar.Tag = true;
+
+                    // Monkey's Audio などはシーク操作が重い為、値が変更されるたびに
+                    // プロパティを変更するとまともに動かない。
+                    // AudioPlayerManager.Position = this.SeekBar.Value;
                 }
 
                 var time_pos = AudioPlayerManager.GetPosition();
