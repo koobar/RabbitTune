@@ -1,6 +1,7 @@
 ﻿BASS 2.4
 Copyright (c) 1999-2021 Un4seen Developments Ltd. All rights reserved.
-http://www.un4seen.com
+
+URL: http://www.un4seen.com
 ================================================================================
 BASS is free for non-commercial use. If you are a non-commercial entity
 (eg. an individual) and you are not making any money from your product

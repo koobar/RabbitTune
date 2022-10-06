@@ -28,6 +28,7 @@ namespace RabbitTune.AudioEngine.AudioProcess
         {
             this.src = src;
             this.dest = src;
+            this.speedRate = 1.0f;
         }
 
         /// <summary>
@@ -45,6 +46,7 @@ namespace RabbitTune.AudioEngine.AudioProcess
                     int rate = (int)(this.src.WaveFormat.SampleRate / value);
 
                     // 音声をサンプルレート変換する。
+                    // ここでは、MediaFoundationResamplerよりも高速に動作する、WdlResamplingSampleProviderを使用する。
                     this.dest = new WdlResamplingSampleProvider(this.src, rate);
 
                     // 後始末

@@ -37,6 +37,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.AppIconViewer)).BeginInit();
             this.SuspendLayout();
             // 
@@ -80,7 +81,7 @@
             // GitHubLinkLabel
             // 
             this.GitHubLinkLabel.AutoSize = true;
-            this.GitHubLinkLabel.Location = new System.Drawing.Point(66, 45);
+            this.GitHubLinkLabel.Location = new System.Drawing.Point(164, 45);
             this.GitHubLinkLabel.Name = "GitHubLinkLabel";
             this.GitHubLinkLabel.Size = new System.Drawing.Size(45, 15);
             this.GitHubLinkLabel.TabIndex = 4;
@@ -132,11 +133,23 @@
             this.linkLabel2.Text = "オープンソースソフトウェア";
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
+            // linkLabel3
+            // 
+            this.linkLabel3.AutoSize = true;
+            this.linkLabel3.Location = new System.Drawing.Point(66, 45);
+            this.linkLabel3.Name = "linkLabel3";
+            this.linkLabel3.Size = new System.Drawing.Size(92, 15);
+            this.linkLabel3.TabIndex = 9;
+            this.linkLabel3.TabStop = true;
+            this.linkLabel3.Text = "RabbitTuneのHP";
+            this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel3_LinkClicked);
+            // 
             // VersionDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.linkLabel3);
             this.Controls.Add(this.linkLabel2);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.button1);
@@ -173,5 +186,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.LinkLabel linkLabel3;
     }
 }

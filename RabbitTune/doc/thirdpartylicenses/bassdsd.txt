@@ -1,5 +1,7 @@
 ﻿BASSDSD 2.4
 Copyright (c) 2014-2017 Un4seen Developments Ltd. All rights reserved.
+
+URL: http://www.un4seen.com
 ==========================================================================================
 
 Licence

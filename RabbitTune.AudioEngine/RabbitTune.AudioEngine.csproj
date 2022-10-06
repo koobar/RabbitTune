@@ -78,6 +78,7 @@
     <Compile Include="AudioProcess\PitchShifter.cs" />
     <Compile Include="AudioProcess\PlaybackSpeedSetter.cs" />
     <Compile Include="AudioProcess\SampleToPcm.cs" />
+    <Compile Include="AudioProcess\SoundTouchPitchShifter.cs" />
     <Compile Include="AudioProcess\VolumeChanger.cs" />
     <Compile Include="AudioProcess\WaveFormatConversion.cs" />
     <Compile Include="AudioReader.cs" />
@@ -100,6 +101,9 @@
     <Compile Include="Codecs\WavDecoder.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SoundTouch\SoundTouch.cs" />
+    <Compile Include="SoundTouch\SoundTouchInterop.cs" />
+    <Compile Include="AudioProcess\SampleProviders\SoundTouchSampleProvider.cs" />
     <Compile Include="Timer.cs" />
     <Compile Include="Win32Api.cs" />
   </ItemGroup>
@@ -140,6 +144,9 @@
     <Content Include="lib\x64\OptimFROG.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="lib\x64\SoundTouch.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="lib\x86\bass.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -176,9 +183,13 @@
     <Content Include="lib\x86\OptimFROG.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="lib\x86\SoundTouch.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

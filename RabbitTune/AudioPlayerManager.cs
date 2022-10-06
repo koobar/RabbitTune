@@ -41,6 +41,8 @@ namespace RabbitTune
         public const string KEY_PLAYBACK_SPEED = @"PlaybackSpeed";
         public const string KEY_PITCHSHIFTER_FIX_CLIP = @"PitchShifterFixClip";
         public const string KEY_PLAYBACK_PITCH = @"PlaybackPitch";
+        public const string KEY_SOUNDTOUCH_PITCHSHIFTER_PITCHSEMITONES = @"STPitchSemitones";
+        public const string KEY_SOUNDTOUCH_PITCHSHIFTER_FIX_CLIP = @"STPitchShifterFixClip";
         public const string KEY_SOUNDFONTS = @"SoundFonts";
         public const string KEY_MIDI_USE_HWMIXING = @"UseHWMixing";
         public const string KEY_MIDI_USE_SINC_INTERPOLATION = @"UseSincInterpolation";
@@ -351,7 +353,7 @@ namespace RabbitTune
 
         #endregion
 
-        #region ピッチシフト関連
+        #region ピッチシフト(NAudio)関連
 
         // ピッチシフト関連の非公開変数
         private static int pitch = 0;
@@ -395,6 +397,55 @@ namespace RabbitTune
             get
             {
                 return pitchShifterFixClip;
+            }
+        }
+
+        #endregion
+
+        #region ピッチシフト(SoundTouch)関連
+
+        // ピッチシフト(SoundTouch)関連の非公開変数
+        private static int pitchSemitones = 0;
+        private static bool soundTouchPitchShifterFixClip = false;
+
+        /// <summary>
+        /// SoundTouchのピッチシフターのピッチ変化量（半音単位）
+        /// </summary>
+        public static int SoundTouchPitchSemitones
+        {
+            set
+            {
+                if (AudioPlayer != null)
+                {
+                    AudioPlayer.SoundTouchPitchShifterPitchSemitones = value;
+                }
+
+                pitchSemitones = value;
+            }
+            get
+            {
+                return pitchSemitones;
+            }
+        }
+
+        /// <summary>
+        /// SoundTouchによるピッチシフト時のクリッピング（音割れ）防止を使用するかどうか<br/>
+        /// ※このプロパティは再生中の変更に対応していません。
+        /// </summary>
+        public static bool SoundTouchPitchShifterFixClip
+        {
+            set
+            {
+                if (AudioPlayer != null)
+                {
+                    AudioPlayer.SoundTouchPitchShifterFixClip = value;
+                }
+
+                soundTouchPitchShifterFixClip = value;
+            }
+            get
+            {
+                return soundTouchPitchShifterFixClip;
             }
         }
 
@@ -634,6 +685,10 @@ namespace RabbitTune
             // ピッチの設定
             AudioPlayer.PitchShifterFixClip = PitchShifterFixClip;
             AudioPlayer.Pitch = Pitch;
+
+            // SoundTouchによるピッチの設定
+            AudioPlayer.SoundTouchPitchShifterPitchSemitones = SoundTouchPitchSemitones;
+            AudioPlayer.SoundTouchPitchShifterFixClip = SoundTouchPitchShifterFixClip;
 
             // 再生前に設定された音量を反映
             AudioPlayer.Volume = Volume;

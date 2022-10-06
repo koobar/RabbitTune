@@ -16,7 +16,7 @@ namespace RabbitTune
         public static readonly string ApplicationDataPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\\RabbitTune";
         public static readonly string ApplicationConfigFilePath = $"{ApplicationDataPath}\\config.dat";
         public static readonly string DefaultDefaultPlaylistPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyMusic)}\\RabbitTune\\default.m3u8";
-        public static readonly Version ApplicationVersion = new Version(1, 0, 1);
+        public static readonly Version ApplicationVersion = new Version(1, 0, 2);
         public static bool ResetApplicationOptionRequested = false;
 
         // 非公開変数
@@ -129,6 +129,8 @@ namespace RabbitTune
                 writer.WriteProperty(AudioPlayerManager.KEY_PLAYBACK_SPEED, AudioPlayerManager.PlaybackSpeed);
                 writer.WriteProperty(AudioPlayerManager.KEY_PITCHSHIFTER_FIX_CLIP, AudioPlayerManager.PitchShifterFixClip);
                 writer.WriteProperty(AudioPlayerManager.KEY_PLAYBACK_PITCH, AudioPlayerManager.Pitch);
+                writer.WriteProperty(AudioPlayerManager.KEY_SOUNDTOUCH_PITCHSHIFTER_PITCHSEMITONES, AudioPlayerManager.SoundTouchPitchSemitones);
+                writer.WriteProperty(AudioPlayerManager.KEY_SOUNDTOUCH_PITCHSHIFTER_FIX_CLIP, AudioPlayerManager.SoundTouchPitchShifterFixClip);
 
                 // MIDI・サウンドフォントの設定
                 writer.WriteEmptyLine();
@@ -200,6 +202,8 @@ namespace RabbitTune
             AudioPlayerManager.PlaybackSpeed = reader.GetValueAsFloat(AudioPlayerManager.KEY_PLAYBACK_SPEED, 1.0f);
             AudioPlayerManager.PitchShifterFixClip = reader.GetValueAsBoolean(AudioPlayerManager.KEY_PITCHSHIFTER_FIX_CLIP);
             AudioPlayerManager.Pitch = reader.GetValueAsInt(AudioPlayerManager.KEY_PLAYBACK_PITCH, 0);
+            AudioPlayerManager.SoundTouchPitchSemitones = reader.GetValueAsInt(AudioPlayerManager.KEY_SOUNDTOUCH_PITCHSHIFTER_PITCHSEMITONES, 0);
+            AudioPlayerManager.SoundTouchPitchShifterFixClip = reader.GetValueAsBoolean(AudioPlayerManager.KEY_SOUNDTOUCH_PITCHSHIFTER_FIX_CLIP);
 
             // MIDI・サウンドフォントの設定
             var soundFontOptions = reader.GetStringArrayValue(AudioPlayerManager.KEY_SOUNDFONTS);

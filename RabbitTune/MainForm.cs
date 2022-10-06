@@ -142,6 +142,7 @@ namespace RabbitTune
             SetRepeatModeView(ApplicationOptions.RepeatMode);
             SetPlaybackSpeed(AudioPlayerManager.PlaybackSpeed);
             SetPitch(AudioPlayerManager.Pitch);
+            SetSoundTouchPitch(AudioPlayerManager.SoundTouchPitchSemitones);
 ;        }
 
         #region 各種設定値を表示に反映させるためのメソッド群
@@ -778,7 +779,7 @@ namespace RabbitTune
         }
 
         /// <summary>
-        /// ピッチシフタのピッチを設定する。
+        /// ピッチシフターのピッチを設定する。
         /// </summary>
         /// <param name="freqOfA"></param>
         private void SetPitch(int semitones)
@@ -806,6 +807,44 @@ namespace RabbitTune
                 foreach(MenuItem menuItem in this.PitchMenu.MenuItems)
                 {
                     if(menuItem != this.PitchMenuSeparator1 && menuItem != this.FixPitchClipMenu)
+                    {
+                        menuItem.Checked = false;
+                    }
+                }
+
+                checkItem.Checked = true;
+            }
+        }
+
+        /// <summary>
+        /// SoundTouchのピッチシフターのピッチ変化量を設定する。
+        /// </summary>
+        /// <param name="semitones"></param>
+        private void SetSoundTouchPitch(int semitones)
+        {
+            AudioPlayerManager.SoundTouchPitchSemitones = semitones;
+
+            // チェックすべきメニュー項目を取得する。
+            MenuItem checkItem = null;
+            foreach (MenuItem menuItem in this.SoundTouchPitchMenu.MenuItems)
+            {
+                if (menuItem.Tag != null)
+                {
+                    string text = semitones.ToString();
+
+                    if (menuItem.Tag.ToString() == text)
+                    {
+                        checkItem = menuItem;
+                        break;
+                    }
+                }
+            }
+
+            if (checkItem != null)
+            {
+                foreach (MenuItem menuItem in this.SoundTouchPitchMenu.MenuItems)
+                {
+                    if (menuItem != this.STPitchMenuSeparator1 && menuItem != this.STPitchFixClipMenu)
                     {
                         menuItem.Checked = false;
                     }
@@ -1383,11 +1422,21 @@ namespace RabbitTune
             Process.Start($"{Program.GetApplicationExecutingDirectory()}\\History.txt");
         }
 
+        /// <summary>
+        /// イコライザメニューがクリックされた際の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EqualizerMenu_Click(object sender, EventArgs e)
         {
             this.EqualizerDialog.ShowDialog();
         }
 
+        /// <summary>
+        /// 再生速度メニュー内のn倍速メニューがクリックされた際の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PlaybackSpeedMenu_Click(object sender, EventArgs e)
         {
             var menuItem = (MenuItem)sender;
@@ -1396,6 +1445,11 @@ namespace RabbitTune
             SetPlaybackSpeed(rate);
         }
 
+        /// <summary>
+        /// ピッチシフターのピッチ変化量メニューがクリックされた時の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PitchMenu_Click(object sender, EventArgs e)
         {
             var menuItem = (MenuItem)sender;
@@ -1404,9 +1458,27 @@ namespace RabbitTune
             SetPitch(pitch);
         }
 
+        /// <summary>
+        /// オーディオの詳細情報メニューがクリックされた時の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ShowAudioOutputInfoMenu_Click(object sender, EventArgs e)
         {
             this.AudioOutputInfoDialog.ShowDialog();
+        }
+
+        /// <summary>
+        /// SoundTouchによるピッチシフターのピッチ変化量メニューがクリックされた時の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SoundTouchPitchMenu_Click(object sender, EventArgs e)
+        {
+            var menuItem = (MenuItem)sender;
+            var pitch = int.Parse(menuItem.Tag.ToString());
+
+            SetSoundTouchPitch(pitch);
         }
     }
 }

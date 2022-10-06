@@ -39,5 +39,10 @@ namespace RabbitTune.Dialogs
         {
             Process.Start($"{Program.GetApplicationExecutingDirectory()}\\doc\\thirdpartylicenses");
         }
+
+        private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(@"https://sites.google.com/view/rabbittune/home");
+        }
     }
 }

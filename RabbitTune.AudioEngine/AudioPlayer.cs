@@ -1,11 +1,8 @@
 ﻿using NAudio.CoreAudioApi;
 using NAudio.Wave;
-using NAudio.Wave.SampleProviders;
 using RabbitTune.AudioEngine.AudioOutputApi;
 using RabbitTune.AudioEngine.AudioProcess;
 using System;
-using System.Runtime.CompilerServices;
-using System.Windows.Forms;
 
 namespace RabbitTune.AudioEngine
 {
@@ -593,9 +590,9 @@ namespace RabbitTune.AudioEngine
 
         #endregion
 
-        #region ピッチシフト関連
+        #region ピッチシフト(NAudio)
 
-        // ピッチシフト関連の非公開変数
+        // NAudioでのピッチシフト関連の非公開変数
         private PitchShifter pitchShifter;
         private int pitch = 0;
 
@@ -634,6 +631,51 @@ namespace RabbitTune.AudioEngine
             this.pitchShifter.Pitch = this.Pitch;
 
             this.audioProcessSampleProvider = this.pitchShifter;
+        }
+
+        #endregion
+
+        #region ピッチシフト(SoundTouch)
+
+        // SoundTouchでのピッチシフト関連の非公開変数
+        private SoundTouchPitchShifter soundTouchPitchShifter;
+        private float soundTouchPitchSemitones;
+
+        /// <summary>
+        /// SoundTouchでのピッチシフト時の音割れを防止するかどうか
+        /// </summary>
+        public bool SoundTouchPitchShifterFixClip { set; get; } = true;
+
+        /// <summary>
+        /// SoundTouchでのピッチシフト時のピッチ変化量（半音単位）
+        /// </summary>
+        public float SoundTouchPitchShifterPitchSemitones
+        {
+            set
+            {
+                if(this.soundTouchPitchShifter != null)
+                {
+                    this.soundTouchPitchShifter.Pitch = value;
+                }
+
+                // 後始末
+                this.soundTouchPitchSemitones = value;
+            }
+            get
+            {
+                return this.soundTouchPitchSemitones;
+            }
+        }
+
+        /// <summary>
+        /// SoundTouchによるピッチシフターを生成する。
+        /// </summary>
+        private void CreateSoundTouchPitchShifter()
+        {
+            this.soundTouchPitchShifter = new SoundTouchPitchShifter(this.audioProcessSampleProvider, this.SoundTouchPitchShifterFixClip);
+            this.soundTouchPitchShifter.Pitch = this.soundTouchPitchSemitones;
+
+            this.audioProcessSampleProvider = this.soundTouchPitchShifter;
         }
 
         #endregion
@@ -708,12 +750,15 @@ namespace RabbitTune.AudioEngine
             if (this.AudioSource != null)
             {
                 this.audioProcessSampleProvider = new AudioReaderToWaveStream(this.AudioSource).ToSampleProvider();
-                
+
                 // イコライザの作成
                 CreateEqualizer();
 
                 // ピッチシフタの生成
                 CreatePitchShifter();
+
+                // SoundTouchを使用するピッチシフタの生成
+                CreateSoundTouchPitchShifter();
 
                 // 再生速度設定器の生成
                 CreateSpeedSetter();

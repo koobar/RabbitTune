@@ -1,64 +1,36 @@
 ﻿using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
-using System.Collections.Generic;
+using RabbitTune.AudioEngine.AudioProcess.SampleProviders;
 
 namespace RabbitTune.AudioEngine.AudioProcess
 {
-    public class PitchShifter : ISampleProvider
+    internal class SoundTouchPitchShifter : ISampleProvider
     {
         // 非公開変数
-        private readonly Dictionary<int, float> pitchFactors = new Dictionary<int, float>()     // ピッチ変化量とAの周波数の対応表
-        {
-            { -12, 220.0f },
-            { -11, 233.082f },
-            { -10, 246.942f },
-            { -9, 261.626f },
-            { -8, 277.183f },
-            { -7, 293.665f },
-            { -6, 311.127f },
-            { -5, 329.628f },
-            { -4, 349.228f },
-            { -3, 369.994f },
-            { -2, 391.995f },
-            { -1, 415.305f },
-            { 0, 440.0f },
-            { 1, 466.164f },
-            { 2, 493.883f },
-            { 3, 523.251f },
-            { 4, 554.365f },
-            { 5, 587.330f },
-            { 6, 622.254f },
-            { 7, 659.255f },
-            { 8, 698.456f },
-            { 9, 739.989f },
-            { 10, 783.991f },
-            { 11, 830.609f },
-            { 12, 880.0f },
-        };
-        private ISampleProvider src;
-        private SmbPitchShiftingSampleProvider dest;
-        private int pitch = 0;
-        
+        private readonly ISampleProvider src;
+        private readonly SoundTouchSampleProvider dest;
+        private float pitch = 0;
+
         // コンストラクタ
-        public PitchShifter(ISampleProvider source, bool fixClip)
+        public SoundTouchPitchShifter(ISampleProvider source, bool fixClip)
         {
             this.src = source;
             this.dest = Create(source, fixClip);
         }
-        
+
         /// <summary>
-        /// よるピッチシフタを生成する。<br/>
+        /// SoundTouchによるピッチシフタを生成する。<br/>
         /// 第2引数はクリッピング（音割れ）を低減するかどうか。省略時はtrue。
         /// </summary>
         /// <param name="source"></param>
         /// <param name="fixClip"></param>
         /// <returns></returns>
-        private SmbPitchShiftingSampleProvider Create(ISampleProvider source, bool fixClip = true, int fftSize = 4096, long osamp = 4L)
+        private SoundTouchSampleProvider Create(ISampleProvider source, bool fixClip = true)
         {
             var src = source;
 
             // 2チャンネル(ステレオ)を超えるチャンネル数か？
-            if(src.WaveFormat.Channels > 2)
+            if (src.WaveFormat.Channels > 2)
             {
                 // SmbPitchShiftingSampleProviderが2チャンネルを超える
                 // オーディオ入力をサポートしていない為、2チャンネルに変換する。
@@ -70,19 +42,19 @@ namespace RabbitTune.AudioEngine.AudioProcess
                 src = new VolumeSampleProvider(src) { Volume = 0.925f };
             }
 
-            return new SmbPitchShiftingSampleProvider(src, fftSize, osamp, 1f);
+            return new SoundTouchSampleProvider(src, 1000);
         }
-        
+
         /// <summary>
         /// ピッチ変化量
         /// </summary>
-        public int Pitch
+        public float Pitch
         {
             set
             {
                 if (this.dest != null)
                 {
-                    this.dest.PitchFactor = this.pitchFactors[value] / 440.0f;
+                    this.dest.SetPitchSemitones(value);
                 }
 
                 this.pitch = value;
@@ -100,7 +72,7 @@ namespace RabbitTune.AudioEngine.AudioProcess
         {
             get
             {
-                if(this.pitch == 0)
+                if (this.pitch == 0)
                 {
                     return false;
                 }
@@ -143,3 +115,4 @@ namespace RabbitTune.AudioEngine.AudioProcess
         }
     }
 }
+
