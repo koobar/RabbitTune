@@ -19,6 +19,7 @@ namespace RabbitTune
         public const int DEFAULT_WINDOW_HEIGHT = 500;
 
         // 非公開変数
+        private readonly string[] commandLineArguments;
         private readonly AudioOutputInfoDialog AudioOutputInfoDialog;
         private readonly FindDialog FindAudioTrackDialog;
         private readonly SampleRateConversionDialog SampleRateConversionDialog;
@@ -27,7 +28,7 @@ namespace RabbitTune
         private readonly VersionDialog ApplicationVersionDialog;
 
         // コンストラクタ
-        public MainForm()
+        public MainForm(string[] commandLineArgs)
         {
             InitializeComponent();
 
@@ -122,6 +123,9 @@ namespace RabbitTune
                 UpdateAudioWaveFormatStatusText();
             };
 
+            // コマンドライン引数を保持
+            this.commandLineArguments = commandLineArgs;
+
             // フォントを設定
             this.Font = SystemFonts.CaptionFont;
 
@@ -143,7 +147,10 @@ namespace RabbitTune
             SetPlaybackSpeed(AudioPlayerManager.PlaybackSpeed);
             SetPitch(AudioPlayerManager.Pitch);
             SetSoundTouchPitch(AudioPlayerManager.SoundTouchPitchSemitones);
-;        }
+        }
+
+        // デフォルトコンストラクタ
+        public MainForm() : this(null) { }
 
         #region 各種設定値を表示に反映させるためのメソッド群
 
@@ -994,6 +1001,18 @@ namespace RabbitTune
         private void MainForm_Load(object sender, EventArgs e)
         {
             OpenDefaultPlaylist();
+
+            if (this.commandLineArguments != null && this.commandLineArguments.Length > 0)
+            {
+                // コマンドライン引数で渡されたファイルを読み込む。
+                foreach (string arg in this.commandLineArguments)
+                {
+                    if (File.Exists(arg))
+                    {
+                        OpenAnyFile(arg);
+                    }
+                }
+            }
 
             this.PlaylistBrowser.Update();
         }

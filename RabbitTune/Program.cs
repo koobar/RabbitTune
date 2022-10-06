@@ -26,7 +26,7 @@ namespace RabbitTune
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             Engine.Initialize();
 
@@ -38,7 +38,7 @@ namespace RabbitTune
             Application.SetCompatibleTextRenderingDefault(false);
 
             // メインフォーム作成
-            MainForm = new MainForm();
+            MainForm = new MainForm(args);
 
             // 起動処理
             Application.Run(MainForm);

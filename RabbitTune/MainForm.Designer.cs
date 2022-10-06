@@ -116,6 +116,33 @@ namespace RabbitTune
             this.PitchMenuSeparator1 = new System.Windows.Forms.MenuItem();
             this.FixPitchClipMenu = new System.Windows.Forms.MenuItem();
             this.SoundTouchPitchMenu = new System.Windows.Forms.MenuItem();
+            this.STPitchM12Menu = new System.Windows.Forms.MenuItem();
+            this.STPitchM11Menu = new System.Windows.Forms.MenuItem();
+            this.STPitchM10Menu = new System.Windows.Forms.MenuItem();
+            this.STPitchM9Menu = new System.Windows.Forms.MenuItem();
+            this.STPitchM8Menu = new System.Windows.Forms.MenuItem();
+            this.STPitchM7Menu = new System.Windows.Forms.MenuItem();
+            this.STPitchM6Menu = new System.Windows.Forms.MenuItem();
+            this.STPitchM5Menu = new System.Windows.Forms.MenuItem();
+            this.STPitchM4Menu = new System.Windows.Forms.MenuItem();
+            this.STPitchM3Menu = new System.Windows.Forms.MenuItem();
+            this.STPitchM2Menu = new System.Windows.Forms.MenuItem();
+            this.STPitchM1Menu = new System.Windows.Forms.MenuItem();
+            this.STPitchZeroMenu = new System.Windows.Forms.MenuItem();
+            this.STPitchP1Menu = new System.Windows.Forms.MenuItem();
+            this.STPitchP2Menu = new System.Windows.Forms.MenuItem();
+            this.STPitchP3Menu = new System.Windows.Forms.MenuItem();
+            this.STPitchP4Menu = new System.Windows.Forms.MenuItem();
+            this.STPitchP5Menu = new System.Windows.Forms.MenuItem();
+            this.STPitchP6Menu = new System.Windows.Forms.MenuItem();
+            this.STPitchP7Menu = new System.Windows.Forms.MenuItem();
+            this.STPitchP8Menu = new System.Windows.Forms.MenuItem();
+            this.STPitchP9Menu = new System.Windows.Forms.MenuItem();
+            this.STPitchP10Menu = new System.Windows.Forms.MenuItem();
+            this.STPitchP11Menu = new System.Windows.Forms.MenuItem();
+            this.STPitchP12Menu = new System.Windows.Forms.MenuItem();
+            this.STPitchMenuSeparator1 = new System.Windows.Forms.MenuItem();
+            this.STPitchFixClipMenu = new System.Windows.Forms.MenuItem();
             this.PlayMenu = new System.Windows.Forms.MenuItem();
             this.StopMenu = new System.Windows.Forms.MenuItem();
             this.PauseOrResumeMenu = new System.Windows.Forms.MenuItem();
@@ -161,33 +188,6 @@ namespace RabbitTune
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.VolumeSlider = new RabbitTune.Controls.ToolStripSlider();
             this.MainTabControl = new RabbitTune.Controls.PlaylistsTabControl();
-            this.STPitchM12Menu = new System.Windows.Forms.MenuItem();
-            this.STPitchM11Menu = new System.Windows.Forms.MenuItem();
-            this.STPitchM10Menu = new System.Windows.Forms.MenuItem();
-            this.STPitchM9Menu = new System.Windows.Forms.MenuItem();
-            this.STPitchM8Menu = new System.Windows.Forms.MenuItem();
-            this.STPitchM7Menu = new System.Windows.Forms.MenuItem();
-            this.STPitchM6Menu = new System.Windows.Forms.MenuItem();
-            this.STPitchM5Menu = new System.Windows.Forms.MenuItem();
-            this.STPitchM4Menu = new System.Windows.Forms.MenuItem();
-            this.STPitchM3Menu = new System.Windows.Forms.MenuItem();
-            this.STPitchM2Menu = new System.Windows.Forms.MenuItem();
-            this.STPitchM1Menu = new System.Windows.Forms.MenuItem();
-            this.STPitchZeroMenu = new System.Windows.Forms.MenuItem();
-            this.STPitchP1Menu = new System.Windows.Forms.MenuItem();
-            this.STPitchP2Menu = new System.Windows.Forms.MenuItem();
-            this.STPitchP3Menu = new System.Windows.Forms.MenuItem();
-            this.STPitchP4Menu = new System.Windows.Forms.MenuItem();
-            this.STPitchP5Menu = new System.Windows.Forms.MenuItem();
-            this.STPitchP6Menu = new System.Windows.Forms.MenuItem();
-            this.STPitchP7Menu = new System.Windows.Forms.MenuItem();
-            this.STPitchP8Menu = new System.Windows.Forms.MenuItem();
-            this.STPitchP9Menu = new System.Windows.Forms.MenuItem();
-            this.STPitchP10Menu = new System.Windows.Forms.MenuItem();
-            this.STPitchP11Menu = new System.Windows.Forms.MenuItem();
-            this.STPitchP12Menu = new System.Windows.Forms.MenuItem();
-            this.STPitchMenuSeparator1 = new System.Windows.Forms.MenuItem();
-            this.STPitchFixClipMenu = new System.Windows.Forms.MenuItem();
             this.statusStrip1.SuspendLayout();
             this.LeftToolPanel.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -868,6 +868,192 @@ namespace RabbitTune
             this.STPitchFixClipMenu});
             this.SoundTouchPitchMenu.Text = "ピッチ調整(SoundTouch)";
             // 
+            // STPitchM12Menu
+            // 
+            this.STPitchM12Menu.Index = 0;
+            this.STPitchM12Menu.Tag = "-12";
+            this.STPitchM12Menu.Text = "-12半音";
+            this.STPitchM12Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
+            // 
+            // STPitchM11Menu
+            // 
+            this.STPitchM11Menu.Index = 1;
+            this.STPitchM11Menu.Tag = "-11";
+            this.STPitchM11Menu.Text = "-11半音";
+            this.STPitchM11Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
+            // 
+            // STPitchM10Menu
+            // 
+            this.STPitchM10Menu.Index = 2;
+            this.STPitchM10Menu.Tag = "-10";
+            this.STPitchM10Menu.Text = "-10半音";
+            this.STPitchM10Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
+            // 
+            // STPitchM9Menu
+            // 
+            this.STPitchM9Menu.Index = 3;
+            this.STPitchM9Menu.Tag = "-9";
+            this.STPitchM9Menu.Text = "-9半音";
+            this.STPitchM9Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
+            // 
+            // STPitchM8Menu
+            // 
+            this.STPitchM8Menu.Index = 4;
+            this.STPitchM8Menu.Tag = "-8";
+            this.STPitchM8Menu.Text = "-8半音";
+            this.STPitchM8Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
+            // 
+            // STPitchM7Menu
+            // 
+            this.STPitchM7Menu.Index = 5;
+            this.STPitchM7Menu.Tag = "-7";
+            this.STPitchM7Menu.Text = "-7半音";
+            this.STPitchM7Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
+            // 
+            // STPitchM6Menu
+            // 
+            this.STPitchM6Menu.Index = 6;
+            this.STPitchM6Menu.Tag = "-6";
+            this.STPitchM6Menu.Text = "-6半音";
+            this.STPitchM6Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
+            // 
+            // STPitchM5Menu
+            // 
+            this.STPitchM5Menu.Index = 7;
+            this.STPitchM5Menu.Tag = "-5";
+            this.STPitchM5Menu.Text = "-5半音";
+            this.STPitchM5Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
+            // 
+            // STPitchM4Menu
+            // 
+            this.STPitchM4Menu.Index = 8;
+            this.STPitchM4Menu.Tag = "-4";
+            this.STPitchM4Menu.Text = "-4半音";
+            this.STPitchM4Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
+            // 
+            // STPitchM3Menu
+            // 
+            this.STPitchM3Menu.Index = 9;
+            this.STPitchM3Menu.Tag = "-3";
+            this.STPitchM3Menu.Text = "-3半音";
+            this.STPitchM3Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
+            // 
+            // STPitchM2Menu
+            // 
+            this.STPitchM2Menu.Index = 10;
+            this.STPitchM2Menu.Tag = "-2";
+            this.STPitchM2Menu.Text = "-2半音";
+            this.STPitchM2Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
+            // 
+            // STPitchM1Menu
+            // 
+            this.STPitchM1Menu.Index = 11;
+            this.STPitchM1Menu.Tag = "-1";
+            this.STPitchM1Menu.Text = "-1半音";
+            this.STPitchM1Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
+            // 
+            // STPitchZeroMenu
+            // 
+            this.STPitchZeroMenu.Index = 12;
+            this.STPitchZeroMenu.Tag = "0";
+            this.STPitchZeroMenu.Text = "±0";
+            this.STPitchZeroMenu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
+            // 
+            // STPitchP1Menu
+            // 
+            this.STPitchP1Menu.Index = 13;
+            this.STPitchP1Menu.Tag = "1";
+            this.STPitchP1Menu.Text = "+1半音";
+            this.STPitchP1Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
+            // 
+            // STPitchP2Menu
+            // 
+            this.STPitchP2Menu.Index = 14;
+            this.STPitchP2Menu.Tag = "2";
+            this.STPitchP2Menu.Text = "+2半音";
+            this.STPitchP2Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
+            // 
+            // STPitchP3Menu
+            // 
+            this.STPitchP3Menu.Index = 15;
+            this.STPitchP3Menu.Tag = "3";
+            this.STPitchP3Menu.Text = "+3半音";
+            this.STPitchP3Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
+            // 
+            // STPitchP4Menu
+            // 
+            this.STPitchP4Menu.Index = 16;
+            this.STPitchP4Menu.Tag = "4";
+            this.STPitchP4Menu.Text = "+4半音";
+            this.STPitchP4Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
+            // 
+            // STPitchP5Menu
+            // 
+            this.STPitchP5Menu.Index = 17;
+            this.STPitchP5Menu.Tag = "5";
+            this.STPitchP5Menu.Text = "+5半音";
+            this.STPitchP5Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
+            // 
+            // STPitchP6Menu
+            // 
+            this.STPitchP6Menu.Index = 18;
+            this.STPitchP6Menu.Tag = "6";
+            this.STPitchP6Menu.Text = "+6半音";
+            this.STPitchP6Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
+            // 
+            // STPitchP7Menu
+            // 
+            this.STPitchP7Menu.Index = 19;
+            this.STPitchP7Menu.Tag = "7";
+            this.STPitchP7Menu.Text = "+7半音";
+            this.STPitchP7Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
+            // 
+            // STPitchP8Menu
+            // 
+            this.STPitchP8Menu.Index = 20;
+            this.STPitchP8Menu.Tag = "8";
+            this.STPitchP8Menu.Text = "+8半音";
+            this.STPitchP8Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
+            // 
+            // STPitchP9Menu
+            // 
+            this.STPitchP9Menu.Index = 21;
+            this.STPitchP9Menu.Tag = "9";
+            this.STPitchP9Menu.Text = "+9半音";
+            this.STPitchP9Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
+            // 
+            // STPitchP10Menu
+            // 
+            this.STPitchP10Menu.Index = 22;
+            this.STPitchP10Menu.Tag = "10";
+            this.STPitchP10Menu.Text = "+10半音";
+            this.STPitchP10Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
+            // 
+            // STPitchP11Menu
+            // 
+            this.STPitchP11Menu.Index = 23;
+            this.STPitchP11Menu.Tag = "11";
+            this.STPitchP11Menu.Text = "+11半音";
+            this.STPitchP11Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
+            // 
+            // STPitchP12Menu
+            // 
+            this.STPitchP12Menu.Index = 24;
+            this.STPitchP12Menu.Tag = "12";
+            this.STPitchP12Menu.Text = "+12半音";
+            this.STPitchP12Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
+            // 
+            // STPitchMenuSeparator1
+            // 
+            this.STPitchMenuSeparator1.Index = 25;
+            this.STPitchMenuSeparator1.Text = "-";
+            // 
+            // STPitchFixClipMenu
+            // 
+            this.STPitchFixClipMenu.Checked = true;
+            this.STPitchFixClipMenu.Index = 26;
+            this.STPitchFixClipMenu.Text = "音割れ防止";
+            // 
             // PlayMenu
             // 
             this.PlayMenu.Index = 4;
@@ -1229,192 +1415,6 @@ namespace RabbitTune
             this.MainTabControl.SelectedIndex = 0;
             this.MainTabControl.Size = new System.Drawing.Size(550, 372);
             this.MainTabControl.TabIndex = 11;
-            // 
-            // STPitchM12Menu
-            // 
-            this.STPitchM12Menu.Index = 0;
-            this.STPitchM12Menu.Tag = "-12";
-            this.STPitchM12Menu.Text = "-12半音";
-            this.STPitchM12Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
-            // 
-            // STPitchM11Menu
-            // 
-            this.STPitchM11Menu.Index = 1;
-            this.STPitchM11Menu.Tag = "-11";
-            this.STPitchM11Menu.Text = "-11半音";
-            this.STPitchM11Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
-            // 
-            // STPitchM10Menu
-            // 
-            this.STPitchM10Menu.Index = 2;
-            this.STPitchM10Menu.Tag = "-10";
-            this.STPitchM10Menu.Text = "-10半音";
-            this.STPitchM10Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
-            // 
-            // STPitchM9Menu
-            // 
-            this.STPitchM9Menu.Index = 3;
-            this.STPitchM9Menu.Tag = "-9";
-            this.STPitchM9Menu.Text = "-9半音";
-            this.STPitchM9Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
-            // 
-            // STPitchM8Menu
-            // 
-            this.STPitchM8Menu.Index = 4;
-            this.STPitchM8Menu.Tag = "-8";
-            this.STPitchM8Menu.Text = "-8半音";
-            this.STPitchM8Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
-            // 
-            // STPitchM7Menu
-            // 
-            this.STPitchM7Menu.Index = 5;
-            this.STPitchM7Menu.Tag = "-7";
-            this.STPitchM7Menu.Text = "-7半音";
-            this.STPitchM7Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
-            // 
-            // STPitchM6Menu
-            // 
-            this.STPitchM6Menu.Index = 6;
-            this.STPitchM6Menu.Tag = "-6";
-            this.STPitchM6Menu.Text = "-6半音";
-            this.STPitchM6Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
-            // 
-            // STPitchM5Menu
-            // 
-            this.STPitchM5Menu.Index = 7;
-            this.STPitchM5Menu.Tag = "-5";
-            this.STPitchM5Menu.Text = "-5半音";
-            this.STPitchM5Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
-            // 
-            // STPitchM4Menu
-            // 
-            this.STPitchM4Menu.Index = 8;
-            this.STPitchM4Menu.Tag = "-4";
-            this.STPitchM4Menu.Text = "-4半音";
-            this.STPitchM4Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
-            // 
-            // STPitchM3Menu
-            // 
-            this.STPitchM3Menu.Index = 9;
-            this.STPitchM3Menu.Tag = "-3";
-            this.STPitchM3Menu.Text = "-3半音";
-            this.STPitchM3Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
-            // 
-            // STPitchM2Menu
-            // 
-            this.STPitchM2Menu.Index = 10;
-            this.STPitchM2Menu.Tag = "-2";
-            this.STPitchM2Menu.Text = "-2半音";
-            this.STPitchM2Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
-            // 
-            // STPitchM1Menu
-            // 
-            this.STPitchM1Menu.Index = 11;
-            this.STPitchM1Menu.Tag = "-1";
-            this.STPitchM1Menu.Text = "-1半音";
-            this.STPitchM1Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
-            // 
-            // STPitchZeroMenu
-            // 
-            this.STPitchZeroMenu.Index = 12;
-            this.STPitchZeroMenu.Tag = "0";
-            this.STPitchZeroMenu.Text = "±0";
-            this.STPitchZeroMenu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
-            // 
-            // STPitchP1Menu
-            // 
-            this.STPitchP1Menu.Index = 13;
-            this.STPitchP1Menu.Tag = "1";
-            this.STPitchP1Menu.Text = "+1半音";
-            this.STPitchP1Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
-            // 
-            // STPitchP2Menu
-            // 
-            this.STPitchP2Menu.Index = 14;
-            this.STPitchP2Menu.Tag = "2";
-            this.STPitchP2Menu.Text = "+2半音";
-            this.STPitchP2Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
-            // 
-            // STPitchP3Menu
-            // 
-            this.STPitchP3Menu.Index = 15;
-            this.STPitchP3Menu.Tag = "3";
-            this.STPitchP3Menu.Text = "+3半音";
-            this.STPitchP3Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
-            // 
-            // STPitchP4Menu
-            // 
-            this.STPitchP4Menu.Index = 16;
-            this.STPitchP4Menu.Tag = "4";
-            this.STPitchP4Menu.Text = "+4半音";
-            this.STPitchP4Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
-            // 
-            // STPitchP5Menu
-            // 
-            this.STPitchP5Menu.Index = 17;
-            this.STPitchP5Menu.Tag = "5";
-            this.STPitchP5Menu.Text = "+5半音";
-            this.STPitchP5Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
-            // 
-            // STPitchP6Menu
-            // 
-            this.STPitchP6Menu.Index = 18;
-            this.STPitchP6Menu.Tag = "6";
-            this.STPitchP6Menu.Text = "+6半音";
-            this.STPitchP6Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
-            // 
-            // STPitchP7Menu
-            // 
-            this.STPitchP7Menu.Index = 19;
-            this.STPitchP7Menu.Tag = "7";
-            this.STPitchP7Menu.Text = "+7半音";
-            this.STPitchP7Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
-            // 
-            // STPitchP8Menu
-            // 
-            this.STPitchP8Menu.Index = 20;
-            this.STPitchP8Menu.Tag = "8";
-            this.STPitchP8Menu.Text = "+8半音";
-            this.STPitchP8Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
-            // 
-            // STPitchP9Menu
-            // 
-            this.STPitchP9Menu.Index = 21;
-            this.STPitchP9Menu.Tag = "9";
-            this.STPitchP9Menu.Text = "+9半音";
-            this.STPitchP9Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
-            // 
-            // STPitchP10Menu
-            // 
-            this.STPitchP10Menu.Index = 22;
-            this.STPitchP10Menu.Tag = "10";
-            this.STPitchP10Menu.Text = "+10半音";
-            this.STPitchP10Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
-            // 
-            // STPitchP11Menu
-            // 
-            this.STPitchP11Menu.Index = 23;
-            this.STPitchP11Menu.Tag = "11";
-            this.STPitchP11Menu.Text = "+11半音";
-            this.STPitchP11Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
-            // 
-            // STPitchP12Menu
-            // 
-            this.STPitchP12Menu.Index = 24;
-            this.STPitchP12Menu.Tag = "12";
-            this.STPitchP12Menu.Text = "+12半音";
-            this.STPitchP12Menu.Click += new System.EventHandler(this.SoundTouchPitchMenu_Click);
-            // 
-            // STPitchMenuSeparator1
-            // 
-            this.STPitchMenuSeparator1.Index = 25;
-            this.STPitchMenuSeparator1.Text = "-";
-            // 
-            // STPitchFixClipMenu
-            // 
-            this.STPitchFixClipMenu.Checked = true;
-            this.STPitchFixClipMenu.Index = 26;
-            this.STPitchFixClipMenu.Text = "音割れ防止";
             // 
             // MainForm
             // 
