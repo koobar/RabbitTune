@@ -22,7 +22,7 @@ namespace RabbitTune.Dialogs
 
         private void GitHubLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(@"https://github.com/koobar/RabbitTune.Windows");
+            Process.Start(@"https://github.com/koobar/RabbitTune");
         }
 
         private void button1_Click(object sender, EventArgs e)

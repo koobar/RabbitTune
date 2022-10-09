@@ -69,6 +69,7 @@ namespace RabbitTune
             this.RemoveAllItemsMenu = new System.Windows.Forms.MenuItem();
             this.ViewMenu = new System.Windows.Forms.MenuItem();
             this.AlwaysOnTopMenu = new System.Windows.Forms.MenuItem();
+            this.ShowInTaskTrayMenu = new System.Windows.Forms.MenuItem();
             this.ViewMenuSeparator1 = new System.Windows.Forms.MenuItem();
             this.ShowLeftSideToolPanelMenu = new System.Windows.Forms.MenuItem();
             this.ShowAudioOutputInfoMenu = new System.Windows.Forms.MenuItem();
@@ -188,6 +189,25 @@ namespace RabbitTune
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.VolumeSlider = new RabbitTune.Controls.ToolStripSlider();
             this.MainTabControl = new RabbitTune.Controls.PlaylistsTabControl();
+            this.TaskTrayContextMenu = new System.Windows.Forms.ContextMenu();
+            this.StopTaskTrayMenu = new System.Windows.Forms.MenuItem();
+            this.PauseOrResumeTaskTrayMenu = new System.Windows.Forms.MenuItem();
+            this.PlayTaskTrayMenu = new System.Windows.Forms.MenuItem();
+            this.PreviousTaskTrayMenu = new System.Windows.Forms.MenuItem();
+            this.NextTaskTrayMenu = new System.Windows.Forms.MenuItem();
+            this.RandomTaskTrayMenu = new System.Windows.Forms.MenuItem();
+            this.TaskTrayMenuSeparator1 = new System.Windows.Forms.MenuItem();
+            this.PlaybackOrderTaskTrayMenu = new System.Windows.Forms.MenuItem();
+            this.NoRepeatTaskTrayMenu = new System.Windows.Forms.MenuItem();
+            this.PlaybackOrderTaskTrayMenuSeparator1 = new System.Windows.Forms.MenuItem();
+            this.RepeatSingleTrackTaskTrayMenu = new System.Windows.Forms.MenuItem();
+            this.RepeatAllTracksTaskTrayMenu = new System.Windows.Forms.MenuItem();
+            this.RandomRepeatTaskTrayMenu = new System.Windows.Forms.MenuItem();
+            this.TaskTrayMenuSeparator2 = new System.Windows.Forms.MenuItem();
+            this.ShowAsNormalWindowTaskTrayMenu = new System.Windows.Forms.MenuItem();
+            this.TaskTrayNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.TaskTrayMenuSeparator3 = new System.Windows.Forms.MenuItem();
+            this.ExitApplicationTaskTrayMenu = new System.Windows.Forms.MenuItem();
             this.statusStrip1.SuspendLayout();
             this.LeftToolPanel.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -472,6 +492,7 @@ namespace RabbitTune
             this.ViewMenu.Index = 2;
             this.ViewMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.AlwaysOnTopMenu,
+            this.ShowInTaskTrayMenu,
             this.ViewMenuSeparator1,
             this.ShowLeftSideToolPanelMenu,
             this.ShowAudioOutputInfoMenu});
@@ -483,21 +504,27 @@ namespace RabbitTune
             this.AlwaysOnTopMenu.Text = "常に最前面に表示";
             this.AlwaysOnTopMenu.Click += new System.EventHandler(this.AlwaysOnTopMenu_Click);
             // 
+            // ShowInTaskTrayMenu
+            // 
+            this.ShowInTaskTrayMenu.Index = 1;
+            this.ShowInTaskTrayMenu.Text = "タスクトレイに格納";
+            this.ShowInTaskTrayMenu.Click += new System.EventHandler(this.ShowInTaskTrayMenu_Click);
+            // 
             // ViewMenuSeparator1
             // 
-            this.ViewMenuSeparator1.Index = 1;
+            this.ViewMenuSeparator1.Index = 2;
             this.ViewMenuSeparator1.Text = "-";
             // 
             // ShowLeftSideToolPanelMenu
             // 
             this.ShowLeftSideToolPanelMenu.Checked = true;
-            this.ShowLeftSideToolPanelMenu.Index = 2;
+            this.ShowLeftSideToolPanelMenu.Index = 3;
             this.ShowLeftSideToolPanelMenu.Text = "左側ツールパネルの表示";
             this.ShowLeftSideToolPanelMenu.Click += new System.EventHandler(this.ShowLeftSideToolPanelMenu_Click);
             // 
             // ShowAudioOutputInfoMenu
             // 
-            this.ShowAudioOutputInfoMenu.Index = 3;
+            this.ShowAudioOutputInfoMenu.Index = 4;
             this.ShowAudioOutputInfoMenu.Text = "オーディオの詳細情報";
             this.ShowAudioOutputInfoMenu.Click += new System.EventHandler(this.ShowAudioOutputInfoMenu_Click);
             // 
@@ -1416,6 +1443,130 @@ namespace RabbitTune
             this.MainTabControl.Size = new System.Drawing.Size(550, 372);
             this.MainTabControl.TabIndex = 11;
             // 
+            // TaskTrayContextMenu
+            // 
+            this.TaskTrayContextMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.StopTaskTrayMenu,
+            this.PauseOrResumeTaskTrayMenu,
+            this.PlayTaskTrayMenu,
+            this.PreviousTaskTrayMenu,
+            this.NextTaskTrayMenu,
+            this.RandomTaskTrayMenu,
+            this.TaskTrayMenuSeparator1,
+            this.PlaybackOrderTaskTrayMenu,
+            this.TaskTrayMenuSeparator2,
+            this.ShowAsNormalWindowTaskTrayMenu,
+            this.TaskTrayMenuSeparator3,
+            this.ExitApplicationTaskTrayMenu});
+            // 
+            // StopTaskTrayMenu
+            // 
+            this.StopTaskTrayMenu.Index = 0;
+            this.StopTaskTrayMenu.Text = "停止";
+            this.StopTaskTrayMenu.Click += new System.EventHandler(this.StopMenu_Click);
+            // 
+            // PauseOrResumeTaskTrayMenu
+            // 
+            this.PauseOrResumeTaskTrayMenu.Index = 1;
+            this.PauseOrResumeTaskTrayMenu.Text = "一時停止/再開";
+            this.PauseOrResumeTaskTrayMenu.Click += new System.EventHandler(this.PauseOrResumeMenu_Click);
+            // 
+            // PlayTaskTrayMenu
+            // 
+            this.PlayTaskTrayMenu.Index = 2;
+            this.PlayTaskTrayMenu.Text = "再生";
+            this.PlayTaskTrayMenu.Click += new System.EventHandler(this.PlayMenu_Clicked);
+            // 
+            // PreviousTaskTrayMenu
+            // 
+            this.PreviousTaskTrayMenu.Index = 3;
+            this.PreviousTaskTrayMenu.Text = "前のトラック";
+            this.PreviousTaskTrayMenu.Click += new System.EventHandler(this.PreviousMenu_Click);
+            // 
+            // NextTaskTrayMenu
+            // 
+            this.NextTaskTrayMenu.Index = 4;
+            this.NextTaskTrayMenu.Text = "次のトラック";
+            this.NextTaskTrayMenu.Click += new System.EventHandler(this.NextMenu_Click);
+            // 
+            // RandomTaskTrayMenu
+            // 
+            this.RandomTaskTrayMenu.Index = 5;
+            this.RandomTaskTrayMenu.Text = "ランダム";
+            this.RandomTaskTrayMenu.Click += new System.EventHandler(this.RandomMenu_Click);
+            // 
+            // TaskTrayMenuSeparator1
+            // 
+            this.TaskTrayMenuSeparator1.Index = 6;
+            this.TaskTrayMenuSeparator1.Text = "-";
+            // 
+            // PlaybackOrderTaskTrayMenu
+            // 
+            this.PlaybackOrderTaskTrayMenu.Index = 7;
+            this.PlaybackOrderTaskTrayMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.NoRepeatTaskTrayMenu,
+            this.PlaybackOrderTaskTrayMenuSeparator1,
+            this.RepeatSingleTrackTaskTrayMenu,
+            this.RepeatAllTracksTaskTrayMenu,
+            this.RandomRepeatTaskTrayMenu});
+            this.PlaybackOrderTaskTrayMenu.Text = "再生順";
+            // 
+            // NoRepeatTaskTrayMenu
+            // 
+            this.NoRepeatTaskTrayMenu.Checked = true;
+            this.NoRepeatTaskTrayMenu.Index = 0;
+            this.NoRepeatTaskTrayMenu.Text = "リピートしない";
+            this.NoRepeatTaskTrayMenu.Click += new System.EventHandler(this.NoRepeatMenu_Click);
+            // 
+            // PlaybackOrderTaskTrayMenuSeparator1
+            // 
+            this.PlaybackOrderTaskTrayMenuSeparator1.Index = 1;
+            this.PlaybackOrderTaskTrayMenuSeparator1.Text = "-";
+            // 
+            // RepeatSingleTrackTaskTrayMenu
+            // 
+            this.RepeatSingleTrackTaskTrayMenu.Index = 2;
+            this.RepeatSingleTrackTaskTrayMenu.Text = "単曲リピート";
+            this.RepeatSingleTrackTaskTrayMenu.Click += new System.EventHandler(this.RepeatSingleTrackMenu_Click);
+            // 
+            // RepeatAllTracksTaskTrayMenu
+            // 
+            this.RepeatAllTracksTaskTrayMenu.Index = 3;
+            this.RepeatAllTracksTaskTrayMenu.Text = "全曲リピート";
+            this.RepeatAllTracksTaskTrayMenu.Click += new System.EventHandler(this.RepeatAllTracksMenu_Click);
+            // 
+            // RandomRepeatTaskTrayMenu
+            // 
+            this.RandomRepeatTaskTrayMenu.Index = 4;
+            this.RandomRepeatTaskTrayMenu.Text = "ランダム";
+            this.RandomRepeatTaskTrayMenu.Click += new System.EventHandler(this.RandomRepeatMenu_Click);
+            // 
+            // TaskTrayMenuSeparator2
+            // 
+            this.TaskTrayMenuSeparator2.Index = 8;
+            this.TaskTrayMenuSeparator2.Text = "-";
+            // 
+            // ShowAsNormalWindowTaskTrayMenu
+            // 
+            this.ShowAsNormalWindowTaskTrayMenu.Index = 9;
+            this.ShowAsNormalWindowTaskTrayMenu.Text = "ウィンドウを表示(&W)";
+            this.ShowAsNormalWindowTaskTrayMenu.Click += new System.EventHandler(this.ShowAsNormalWindowTaskTrayMenu_Click);
+            // 
+            // TaskTrayNotifyIcon
+            // 
+            this.TaskTrayNotifyIcon.Visible = true;
+            // 
+            // TaskTrayMenuSeparator3
+            // 
+            this.TaskTrayMenuSeparator3.Index = 10;
+            this.TaskTrayMenuSeparator3.Text = "-";
+            // 
+            // ExitApplicationTaskTrayMenu
+            // 
+            this.ExitApplicationTaskTrayMenu.Index = 11;
+            this.ExitApplicationTaskTrayMenu.Text = "終了(&X)";
+            this.ExitApplicationTaskTrayMenu.Click += new System.EventHandler(this.ExitApplicationMenu_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -1604,5 +1755,25 @@ namespace RabbitTune
         private MenuItem STPitchP12Menu;
         private MenuItem STPitchMenuSeparator1;
         private MenuItem STPitchFixClipMenu;
+        private ContextMenu TaskTrayContextMenu;
+        private MenuItem StopTaskTrayMenu;
+        private MenuItem PauseOrResumeTaskTrayMenu;
+        private MenuItem PlayTaskTrayMenu;
+        private MenuItem PreviousTaskTrayMenu;
+        private MenuItem NextTaskTrayMenu;
+        private MenuItem RandomTaskTrayMenu;
+        private MenuItem TaskTrayMenuSeparator1;
+        private MenuItem PlaybackOrderTaskTrayMenu;
+        private MenuItem NoRepeatTaskTrayMenu;
+        private MenuItem PlaybackOrderTaskTrayMenuSeparator1;
+        private MenuItem RepeatSingleTrackTaskTrayMenu;
+        private MenuItem RepeatAllTracksTaskTrayMenu;
+        private MenuItem RandomRepeatTaskTrayMenu;
+        private NotifyIcon TaskTrayNotifyIcon;
+        private MenuItem TaskTrayMenuSeparator2;
+        private MenuItem ShowAsNormalWindowTaskTrayMenu;
+        private MenuItem ShowInTaskTrayMenu;
+        private MenuItem TaskTrayMenuSeparator3;
+        private MenuItem ExitApplicationTaskTrayMenu;
     }
 }

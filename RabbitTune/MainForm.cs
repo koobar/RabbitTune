@@ -152,33 +152,6 @@ namespace RabbitTune
         // デフォルトコンストラクタ
         public MainForm() : this(null) { }
 
-        #region 各種設定値を表示に反映させるためのメソッド群
-
-        private void SetRepeatModeView(RepeatMode repeatMode)
-        {
-            switch (repeatMode)
-            {
-                case RepeatMode.NoRepeat:
-                    this.NoRepeatMenu.Checked = true;
-                    this.RepeatSingleTrackMenu.Checked = this.RepeatAllTracksMenu.Checked = this.RandomRepeatMenu.Checked = false;
-                    break;
-                case RepeatMode.Single:
-                    this.RepeatSingleTrackMenu.Checked = true;
-                    this.NoRepeatMenu.Checked = this.RepeatAllTracksMenu.Checked = this.RandomRepeatMenu.Checked = false;
-                    break;
-                case RepeatMode.AllTracks:
-                    this.RepeatAllTracksMenu.Checked = true;
-                    this.NoRepeatMenu.Checked = this.RepeatSingleTrackMenu.Checked = this.RandomRepeatMenu.Checked = false;
-                    break;
-                case RepeatMode.RandomTrack:
-                    this.RandomRepeatMenu.Checked = true;
-                    this.NoRepeatMenu.Checked = this.RepeatSingleTrackMenu.Checked = this.RepeatAllTracksMenu.Checked = false;
-                    break;
-            }
-        }
-
-        #endregion
-
         #region プロパティ
 
         /// <summary>
@@ -197,6 +170,26 @@ namespace RabbitTune
             }
         }
 
+        private bool showInTaskTray = false;
+
+        /// <summary>
+        /// タスクトレイへ格納するかどうか
+        /// </summary>
+        public bool ShowInTaskTray
+        {
+            set
+            {
+                this.TaskTrayNotifyIcon.ContextMenu = this.TaskTrayContextMenu;
+                this.TaskTrayNotifyIcon.Icon = this.Icon;
+                this.TaskTrayNotifyIcon.Visible = value;
+                this.Visible = !value;
+            }
+            get
+            {
+                return this.showInTaskTray;
+            }
+        }
+
         /// <summary>
         /// 現在選択しているタブのプレイリストビューワのインスタンス。<br/>
         /// ページが選択されていない、または選択されたページがプレイリストのページでない場合、nullを返す。
@@ -207,7 +200,7 @@ namespace RabbitTune
             {
                 var page = this.MainTabControl.SelectedTab;
 
-                if(page != null && page.GetType() == typeof(PlaylistViewerTabPage))
+                if (page != null && page.GetType() == typeof(PlaylistViewerTabPage))
                 {
                     return ((PlaylistViewerTabPage)page).PlaylistViewer;
                 }
@@ -241,6 +234,37 @@ namespace RabbitTune
             get
             {
                 return this.LeftToolPanel.Visible;
+            }
+        }
+
+        #endregion
+
+        #region 各種設定値を表示に反映させるためのメソッド群
+
+        private void SetRepeatModeView(RepeatMode repeatMode)
+        {
+            switch (repeatMode)
+            {
+                case RepeatMode.NoRepeat:
+                    this.NoRepeatMenu.Checked = this.NoRepeatTaskTrayMenu.Checked =  true;
+                    this.RepeatSingleTrackMenu.Checked = this.RepeatAllTracksMenu.Checked = this.RandomRepeatMenu.Checked = false;
+                    this.RepeatSingleTrackMenu.Checked = this.RepeatAllTracksTaskTrayMenu.Checked = this.RandomRepeatTaskTrayMenu.Checked = false;
+                    break;
+                case RepeatMode.Single:
+                    this.RepeatSingleTrackMenu.Checked = this.RepeatAllTracksTaskTrayMenu.Checked = true;
+                    this.NoRepeatMenu.Checked = this.RepeatAllTracksMenu.Checked = this.RandomRepeatMenu.Checked = false;
+                    this.NoRepeatTaskTrayMenu.Checked = this.RepeatAllTracksTaskTrayMenu.Checked = this.RandomRepeatTaskTrayMenu.Checked = false;
+                    break;
+                case RepeatMode.AllTracks:
+                    this.RepeatAllTracksMenu.Checked = this.RepeatAllTracksTaskTrayMenu.Checked = true;
+                    this.NoRepeatMenu.Checked = this.RepeatSingleTrackMenu.Checked = this.RandomRepeatMenu.Checked = false;
+                    this.NoRepeatTaskTrayMenu.Checked = this.RepeatSingleTrackMenu.Checked = this.RandomRepeatTaskTrayMenu.Checked = false;
+                    break;
+                case RepeatMode.RandomTrack:
+                    this.RandomRepeatMenu.Checked = this.RandomRepeatTaskTrayMenu.Checked = true;
+                    this.NoRepeatMenu.Checked = this.RepeatSingleTrackMenu.Checked = this.RepeatAllTracksMenu.Checked = false;
+                    this.NoRepeatTaskTrayMenu.Checked = this.RepeatSingleTrackMenu.Checked = this.RepeatAllTracksTaskTrayMenu.Checked = false;
+                    break;
             }
         }
 
@@ -1498,6 +1522,18 @@ namespace RabbitTune
             var pitch = int.Parse(menuItem.Tag.ToString());
 
             SetSoundTouchPitch(pitch);
+        }
+
+        private void ShowInTaskTrayMenu_Click(object sender, EventArgs e)
+        {
+            this.ShowInTaskTrayMenu.Checked = !this.ShowInTaskTrayMenu.Checked;
+            this.ShowInTaskTray = this.ShowInTaskTrayMenu.Checked;
+        }
+
+        private void ShowAsNormalWindowTaskTrayMenu_Click(object sender, EventArgs e)
+        {
+            this.ShowInTaskTrayMenu.Checked = false;
+            this.ShowInTaskTray = false;
         }
     }
 }

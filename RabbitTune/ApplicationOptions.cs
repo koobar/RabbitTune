@@ -14,6 +14,7 @@ namespace RabbitTune
         public const string KEY_SHOW_LEFTTOOLPANEL = @"ShowLeftSideToolPanel";
         public const string KEY_ALWAYS_ON_TOP = @"AlwaysOnTop";
 
+
         // 設定値
         public static string DefaultPlaylistPath;
         public static bool AlwaysOnTop = false;
