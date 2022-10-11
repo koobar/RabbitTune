@@ -38,11 +38,6 @@ namespace RabbitTune
             this.PlayingAudioWaveFormatText = new System.Windows.Forms.ToolStripStatusLabel();
             this.PlaybackPositionStatusText = new System.Windows.Forms.ToolStripStatusLabel();
             this.SeekBar = new System.Windows.Forms.HScrollBar();
-            this.LeftToolPanel = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.PlaylistBrowser = new RabbitTune.Controls.PlaylistBrowser();
-            this.TrackPictureViewer = new System.Windows.Forms.PictureBox();
-            this.LeftSideSplitter = new System.Windows.Forms.Splitter();
             this.MainMenu = new System.Windows.Forms.MainMenu(this.components);
             this.FileMenu = new System.Windows.Forms.MenuItem();
             this.CreateNewPlaylistMenu = new System.Windows.Forms.MenuItem();
@@ -70,6 +65,7 @@ namespace RabbitTune
             this.ViewMenu = new System.Windows.Forms.MenuItem();
             this.AlwaysOnTopMenu = new System.Windows.Forms.MenuItem();
             this.ShowInTaskTrayMenu = new System.Windows.Forms.MenuItem();
+            this.ShowAsMiniplayerModeMenu = new System.Windows.Forms.MenuItem();
             this.ViewMenuSeparator1 = new System.Windows.Forms.MenuItem();
             this.ShowLeftSideToolPanelMenu = new System.Windows.Forms.MenuItem();
             this.ShowAudioOutputInfoMenu = new System.Windows.Forms.MenuItem();
@@ -188,7 +184,6 @@ namespace RabbitTune
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.VolumeSlider = new RabbitTune.Controls.ToolStripSlider();
-            this.MainTabControl = new RabbitTune.Controls.PlaylistsTabControl();
             this.TaskTrayContextMenu = new System.Windows.Forms.ContextMenu();
             this.StopTaskTrayMenu = new System.Windows.Forms.MenuItem();
             this.PauseOrResumeTaskTrayMenu = new System.Windows.Forms.MenuItem();
@@ -205,14 +200,22 @@ namespace RabbitTune
             this.RandomRepeatTaskTrayMenu = new System.Windows.Forms.MenuItem();
             this.TaskTrayMenuSeparator2 = new System.Windows.Forms.MenuItem();
             this.ShowAsNormalWindowTaskTrayMenu = new System.Windows.Forms.MenuItem();
-            this.TaskTrayNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.TaskTrayMenuSeparator3 = new System.Windows.Forms.MenuItem();
             this.ExitApplicationTaskTrayMenu = new System.Windows.Forms.MenuItem();
+            this.TaskTrayNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.MainContentsPanel = new System.Windows.Forms.Panel();
+            this.MainTabControl = new RabbitTune.Controls.PlaylistsTabControl();
+            this.LeftSideSplitter = new System.Windows.Forms.Splitter();
+            this.LeftToolPanel = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.PlaylistBrowser = new RabbitTune.Controls.PlaylistBrowser();
+            this.TrackPictureViewer = new System.Windows.Forms.PictureBox();
             this.statusStrip1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
+            this.MainContentsPanel.SuspendLayout();
             this.LeftToolPanel.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TrackPictureViewer)).BeginInit();
-            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -258,64 +261,6 @@ namespace RabbitTune
             this.SeekBar.Name = "SeekBar";
             this.SeekBar.Size = new System.Drawing.Size(734, 17);
             this.SeekBar.TabIndex = 3;
-            // 
-            // LeftToolPanel
-            // 
-            this.LeftToolPanel.Controls.Add(this.tableLayoutPanel1);
-            this.LeftToolPanel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.LeftToolPanel.Location = new System.Drawing.Point(0, 42);
-            this.LeftToolPanel.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this.LeftToolPanel.Name = "LeftToolPanel";
-            this.LeftToolPanel.Size = new System.Drawing.Size(180, 372);
-            this.LeftToolPanel.TabIndex = 4;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.PlaylistBrowser, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.TrackPictureViewer, 0, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(180, 372);
-            this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // PlaylistBrowser
-            // 
-            this.PlaylistBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PlaylistBrowser.Font = new System.Drawing.Font("Yu Gothic UI", 9F);
-            this.PlaylistBrowser.Location = new System.Drawing.Point(4, 2);
-            this.PlaylistBrowser.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this.PlaylistBrowser.Name = "PlaylistBrowser";
-            this.PlaylistBrowser.SelectedIndex = -1;
-            this.PlaylistBrowser.Size = new System.Drawing.Size(172, 363);
-            this.PlaylistBrowser.TabIndex = 4;
-            this.PlaylistBrowser.PlaylistOpenRequested += new System.EventHandler(this.PlaylistBrowser_PlaylistOpenRequested);
-            // 
-            // TrackPictureViewer
-            // 
-            this.TrackPictureViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TrackPictureViewer.Location = new System.Drawing.Point(4, 369);
-            this.TrackPictureViewer.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this.TrackPictureViewer.Name = "TrackPictureViewer";
-            this.TrackPictureViewer.Size = new System.Drawing.Size(172, 1);
-            this.TrackPictureViewer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.TrackPictureViewer.TabIndex = 3;
-            this.TrackPictureViewer.TabStop = false;
-            // 
-            // LeftSideSplitter
-            // 
-            this.LeftSideSplitter.Location = new System.Drawing.Point(180, 42);
-            this.LeftSideSplitter.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this.LeftSideSplitter.Name = "LeftSideSplitter";
-            this.LeftSideSplitter.Size = new System.Drawing.Size(4, 372);
-            this.LeftSideSplitter.TabIndex = 5;
-            this.LeftSideSplitter.TabStop = false;
             // 
             // MainMenu
             // 
@@ -493,6 +438,7 @@ namespace RabbitTune
             this.ViewMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.AlwaysOnTopMenu,
             this.ShowInTaskTrayMenu,
+            this.ShowAsMiniplayerModeMenu,
             this.ViewMenuSeparator1,
             this.ShowLeftSideToolPanelMenu,
             this.ShowAudioOutputInfoMenu});
@@ -510,21 +456,27 @@ namespace RabbitTune
             this.ShowInTaskTrayMenu.Text = "タスクトレイに格納";
             this.ShowInTaskTrayMenu.Click += new System.EventHandler(this.ShowInTaskTrayMenu_Click);
             // 
+            // ShowAsMiniplayerModeMenu
+            // 
+            this.ShowAsMiniplayerModeMenu.Index = 2;
+            this.ShowAsMiniplayerModeMenu.Text = "ミニプレーヤーモード";
+            this.ShowAsMiniplayerModeMenu.Click += new System.EventHandler(this.ShowAsMiniplayerModeMenu_Click);
+            // 
             // ViewMenuSeparator1
             // 
-            this.ViewMenuSeparator1.Index = 2;
+            this.ViewMenuSeparator1.Index = 3;
             this.ViewMenuSeparator1.Text = "-";
             // 
             // ShowLeftSideToolPanelMenu
             // 
             this.ShowLeftSideToolPanelMenu.Checked = true;
-            this.ShowLeftSideToolPanelMenu.Index = 3;
+            this.ShowLeftSideToolPanelMenu.Index = 4;
             this.ShowLeftSideToolPanelMenu.Text = "左側ツールパネルの表示";
             this.ShowLeftSideToolPanelMenu.Click += new System.EventHandler(this.ShowLeftSideToolPanelMenu_Click);
             // 
             // ShowAudioOutputInfoMenu
             // 
-            this.ShowAudioOutputInfoMenu.Index = 4;
+            this.ShowAudioOutputInfoMenu.Index = 5;
             this.ShowAudioOutputInfoMenu.Text = "オーディオの詳細情報";
             this.ShowAudioOutputInfoMenu.Click += new System.EventHandler(this.ShowAudioOutputInfoMenu_Click);
             // 
@@ -1434,15 +1386,6 @@ namespace RabbitTune
             this.VolumeSlider.Value = 80;
             this.VolumeSlider.ValueChanged += new System.EventHandler(this.VolumeSlider_ValueChanged);
             // 
-            // MainTabControl
-            // 
-            this.MainTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainTabControl.Location = new System.Drawing.Point(184, 42);
-            this.MainTabControl.Name = "MainTabControl";
-            this.MainTabControl.SelectedIndex = 0;
-            this.MainTabControl.Size = new System.Drawing.Size(550, 372);
-            this.MainTabControl.TabIndex = 11;
-            // 
             // TaskTrayContextMenu
             // 
             this.TaskTrayContextMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
@@ -1552,10 +1495,6 @@ namespace RabbitTune
             this.ShowAsNormalWindowTaskTrayMenu.Text = "ウィンドウを表示(&W)";
             this.ShowAsNormalWindowTaskTrayMenu.Click += new System.EventHandler(this.ShowAsNormalWindowTaskTrayMenu_Click);
             // 
-            // TaskTrayNotifyIcon
-            // 
-            this.TaskTrayNotifyIcon.Visible = true;
-            // 
             // TaskTrayMenuSeparator3
             // 
             this.TaskTrayMenuSeparator3.Index = 10;
@@ -1567,14 +1506,93 @@ namespace RabbitTune
             this.ExitApplicationTaskTrayMenu.Text = "終了(&X)";
             this.ExitApplicationTaskTrayMenu.Click += new System.EventHandler(this.ExitApplicationMenu_Click);
             // 
+            // TaskTrayNotifyIcon
+            // 
+            this.TaskTrayNotifyIcon.Visible = true;
+            // 
+            // MainContentsPanel
+            // 
+            this.MainContentsPanel.Controls.Add(this.MainTabControl);
+            this.MainContentsPanel.Controls.Add(this.LeftSideSplitter);
+            this.MainContentsPanel.Controls.Add(this.LeftToolPanel);
+            this.MainContentsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainContentsPanel.Location = new System.Drawing.Point(0, 42);
+            this.MainContentsPanel.Name = "MainContentsPanel";
+            this.MainContentsPanel.Size = new System.Drawing.Size(734, 372);
+            this.MainContentsPanel.TabIndex = 12;
+            // 
+            // MainTabControl
+            // 
+            this.MainTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainTabControl.Location = new System.Drawing.Point(184, 0);
+            this.MainTabControl.Name = "MainTabControl";
+            this.MainTabControl.SelectedIndex = 0;
+            this.MainTabControl.Size = new System.Drawing.Size(550, 372);
+            this.MainTabControl.TabIndex = 12;
+            // 
+            // LeftSideSplitter
+            // 
+            this.LeftSideSplitter.Location = new System.Drawing.Point(180, 0);
+            this.LeftSideSplitter.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.LeftSideSplitter.Name = "LeftSideSplitter";
+            this.LeftSideSplitter.Size = new System.Drawing.Size(4, 372);
+            this.LeftSideSplitter.TabIndex = 6;
+            this.LeftSideSplitter.TabStop = false;
+            // 
+            // LeftToolPanel
+            // 
+            this.LeftToolPanel.Controls.Add(this.tableLayoutPanel1);
+            this.LeftToolPanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.LeftToolPanel.Location = new System.Drawing.Point(0, 0);
+            this.LeftToolPanel.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.LeftToolPanel.Name = "LeftToolPanel";
+            this.LeftToolPanel.Size = new System.Drawing.Size(180, 372);
+            this.LeftToolPanel.TabIndex = 5;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.PlaylistBrowser, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.TrackPictureViewer, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(180, 372);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // PlaylistBrowser
+            // 
+            this.PlaylistBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PlaylistBrowser.Font = new System.Drawing.Font("Yu Gothic UI", 9F);
+            this.PlaylistBrowser.Location = new System.Drawing.Point(4, 2);
+            this.PlaylistBrowser.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.PlaylistBrowser.Name = "PlaylistBrowser";
+            this.PlaylistBrowser.SelectedIndex = -1;
+            this.PlaylistBrowser.Size = new System.Drawing.Size(172, 363);
+            this.PlaylistBrowser.TabIndex = 4;
+            // 
+            // TrackPictureViewer
+            // 
+            this.TrackPictureViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TrackPictureViewer.Location = new System.Drawing.Point(4, 369);
+            this.TrackPictureViewer.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.TrackPictureViewer.Name = "TrackPictureViewer";
+            this.TrackPictureViewer.Size = new System.Drawing.Size(172, 1);
+            this.TrackPictureViewer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.TrackPictureViewer.TabIndex = 3;
+            this.TrackPictureViewer.TabStop = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(734, 436);
-            this.Controls.Add(this.MainTabControl);
-            this.Controls.Add(this.LeftSideSplitter);
-            this.Controls.Add(this.LeftToolPanel);
+            this.Controls.Add(this.MainContentsPanel);
             this.Controls.Add(this.SeekBar);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
@@ -1589,11 +1607,12 @@ namespace RabbitTune
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            this.MainContentsPanel.ResumeLayout(false);
             this.LeftToolPanel.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.TrackPictureViewer)).EndInit();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1602,11 +1621,6 @@ namespace RabbitTune
         #endregion
         private StatusStrip statusStrip1;
         private HScrollBar SeekBar;
-        private Panel LeftToolPanel;
-        private Splitter LeftSideSplitter;
-        private TableLayoutPanel tableLayoutPanel1;
-        private PictureBox TrackPictureViewer;
-        private PlaylistBrowser PlaylistBrowser;
         private MainMenu MainMenu;
         private MenuItem FileMenu;
         private MenuItem CreateNewPlaylistMenu;
@@ -1673,7 +1687,6 @@ namespace RabbitTune
         private MenuItem ShowReadMeMenu;
         private MenuItem ShowHistoryMenu;
         private MenuItem HelpMenuSeparator1;
-        private PlaylistsTabControl MainTabControl;
         private MenuItem AudioProcessMenu;
         private MenuItem SampleRateConversionMenu;
         private ToolStripButton QuickSearchbutton;
@@ -1775,5 +1788,13 @@ namespace RabbitTune
         private MenuItem ShowInTaskTrayMenu;
         private MenuItem TaskTrayMenuSeparator3;
         private MenuItem ExitApplicationTaskTrayMenu;
+        private Panel MainContentsPanel;
+        private PlaylistsTabControl MainTabControl;
+        private Splitter LeftSideSplitter;
+        private Panel LeftToolPanel;
+        private TableLayoutPanel tableLayoutPanel1;
+        private PlaylistBrowser PlaylistBrowser;
+        private PictureBox TrackPictureViewer;
+        private MenuItem ShowAsMiniplayerModeMenu;
     }
 }

@@ -26,6 +26,9 @@ namespace RabbitTune
         private readonly EqualizerDialog EqualizerDialog;
         private readonly OptionDialog DetailOptionDialog;
         private readonly VersionDialog ApplicationVersionDialog;
+        private bool showInTaskTray = false;                    // タスクトレイへ格納中かどうか
+        private bool showAsMiniplayerMode = false;              // ミニプレーヤー表示中ならtrue, それ以外ならfalse
+        private int defaultViewHeight;                          // 標準表示の際のウィンドウの高さ。ミニプレーヤー表示からの切り替え用。ミニプレーヤー表示を有効化した際に値がバックアップされる。
 
         // コンストラクタ
         public MainForm(string[] commandLineArgs)
@@ -170,8 +173,6 @@ namespace RabbitTune
             }
         }
 
-        private bool showInTaskTray = false;
-
         /// <summary>
         /// タスクトレイへ格納するかどうか
         /// </summary>
@@ -187,6 +188,41 @@ namespace RabbitTune
             get
             {
                 return this.showInTaskTray;
+            }
+        }
+
+        /// <summary>
+        /// ミニプレーヤー表示中かどうか
+        /// </summary>
+        public bool ShowAsMiniplayerMode
+        {
+            set
+            {
+                this.MainContentsPanel.Visible = !value;
+
+                // ミニプレーヤー表示の有効化か？
+                if (value)
+                {
+                    int height = this.Height - this.MainContentsPanel.Height;
+
+                    this.defaultViewHeight = this.Height;
+                    this.Height = height;
+                    this.FormBorderStyle = FormBorderStyle.FixedSingle;     // ウィンドウサイズの変更を許可しない
+                    this.MaximizeBox = false;                               // ウィンドウの最大化ボタンを無効化
+                }
+                else
+                {
+                    this.Height = this.defaultViewHeight;
+                    this.FormBorderStyle = FormBorderStyle.Sizable;         // ウィンドウサイズの変更を許可する
+                    this.MaximizeBox = true;                                // ウィンドウの最大化ボタンを有効化
+                }
+
+                // 後始末
+                this.showAsMiniplayerMode = value;
+            }
+            get
+            {
+                return this.showAsMiniplayerMode;
             }
         }
 
@@ -1534,6 +1570,12 @@ namespace RabbitTune
         {
             this.ShowInTaskTrayMenu.Checked = false;
             this.ShowInTaskTray = false;
+        }
+
+        private void ShowAsMiniplayerModeMenu_Click(object sender, EventArgs e)
+        {
+            this.ShowAsMiniplayerModeMenu.Checked = !this.ShowAsMiniplayerModeMenu.Checked;
+            this.ShowAsMiniplayerMode = this.ShowAsMiniplayerModeMenu.Checked;
         }
     }
 }

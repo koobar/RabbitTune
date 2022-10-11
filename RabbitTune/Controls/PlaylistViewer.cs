@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
 
 namespace RabbitTune.Controls
@@ -679,6 +680,21 @@ namespace RabbitTune.Controls
 
                 // イベントの実行
                 this.PlaylistFileChanged?.Invoke(null, null);
+
+                // 読み込まれなかったファイルが存在するか？
+                if(reader.NotFoundFiles.Count > 0)
+                {
+                    var mes = new StringBuilder();
+                    mes.AppendLine($"{reader.NotFoundFiles.Count} 個のファイルが、利用可能な場所に存在しなかったため、読み込まれませんでした。");
+                    mes.AppendLine("読み込みがスキップされたファイルは、以下の通りです。");
+
+                    foreach(string skipped in reader.NotFoundFiles)
+                    {
+                        mes.AppendLine($"　{skipped}");
+                    }
+
+                    MessageBox.Show(mes.ToString(), $"{reader.NotFoundFiles.Count} 個のファイルの読み込みに失敗", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             else
             {

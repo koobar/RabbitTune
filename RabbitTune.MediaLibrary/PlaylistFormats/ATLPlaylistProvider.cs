@@ -26,19 +26,28 @@ namespace RabbitTune.MediaLibrary.PlaylistFormats
         /// プレイリストを読み込む。
         /// </summary>
         /// <param name="path"></param>
-        public void ReadPlaylist(string path)
+        public void ReadPlaylist(string path, out List<string> notFoundFiles)
         {
             var io = PlaylistIOFactory.GetInstance().GetPlaylistIO(path);
-
+            notFoundFiles = new List<string>();
             this.Tracks = new List<AudioTrack>();
 
             foreach(var trackLocation in io.FilePaths)
             {
-                string ext = Path.GetExtension(trackLocation).ToLower();
-
-                if(this.ImportFileExtensions != null)
+                // ファイルが存在するか？
+                if (File.Exists(trackLocation))
                 {
-                    if(this.ImportFileExtensions.IndexOf(ext) != -1)
+                    string ext = Path.GetExtension(trackLocation).ToLower();
+
+                    if (this.ImportFileExtensions != null)
+                    {
+                        if (this.ImportFileExtensions.IndexOf(ext) != -1)
+                        {
+                            var track = new AudioTrack(trackLocation);
+                            this.Tracks.Add(track);
+                        }
+                    }
+                    else
                     {
                         var track = new AudioTrack(trackLocation);
                         this.Tracks.Add(track);
@@ -46,8 +55,7 @@ namespace RabbitTune.MediaLibrary.PlaylistFormats
                 }
                 else
                 {
-                    var track = new AudioTrack(trackLocation);
-                    this.Tracks.Add(track);
+                    notFoundFiles.Add(trackLocation);
                 }
             }
         }
