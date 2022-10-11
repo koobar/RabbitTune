@@ -13,7 +13,7 @@ namespace RabbitTune
         public const string KEY_MAINWND_HEIGHT = @"MainFormHeight";
         public const string KEY_SHOW_LEFTTOOLPANEL = @"ShowLeftSideToolPanel";
         public const string KEY_ALWAYS_ON_TOP = @"AlwaysOnTop";
-
+        public const string KEY_SHOW_AS_MINIPLAYER_MODE = @"ShowAsMiniplayerMode";
 
         // 設定値
         public static string DefaultPlaylistPath;
@@ -22,5 +22,6 @@ namespace RabbitTune
         public static FormWindowState MainFormWindowState;
         public static Size MainFormSize;
         public static bool ShowMainFormLeftSideToolPanel;
+        public static bool ShowMainFormAsMiniplayerMode;
     }
 }

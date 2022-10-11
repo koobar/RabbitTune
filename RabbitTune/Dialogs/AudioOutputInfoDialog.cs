@@ -2,6 +2,7 @@
 using RabbitTune.AudioEngine.AudioOutputApi;
 using System;
 using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 
 namespace RabbitTune.Dialogs
@@ -32,21 +33,24 @@ namespace RabbitTune.Dialogs
                 AudioPlayerManager.GetOutputWaveFormat(out int osr, out int osb, out int osc);
                 AudioPlayerManager.GetDeviceOutputWaveFormat(out int dsr, out int dsb, out int dsc);
 
-                return $@"【ファイル情報】
-コーデック：{AudioReader.GetFormatName(AudioPlayerManager.GetCurrentTrack().Location)}
+                var strbuilder = new StringBuilder();
+                strbuilder.AppendLine($"【ファイル情報】");
+                strbuilder.AppendLine($"コーデック：{AudioReader.GetFormatName(AudioPlayerManager.GetCurrentTrack().Location)}");
+                strbuilder.AppendLine();
+                strbuilder.AppendLine($"【フォーマット】");
+                strbuilder.AppendLine($"入力フォーマット：({isr}Hz, {isb}bits, {isc}ch)");
+                strbuilder.AppendLine($"出力フォーマット：({osr}Hz, {osb}bits, {osc}ch)");
+                strbuilder.AppendLine();
+                strbuilder.AppendLine($"【デバイス】");
+                strbuilder.AppendLine($"デバイス名：{AudioPlayerManager.AudioOutputDevice}");
+                strbuilder.AppendLine($"デバイスAPI：{getApiDisplayText(AudioPlayerManager.OutputDeviceApiType)}");
+                strbuilder.AppendLine($"WASAPI排他モード:{getBooleanDisplayText(AudioPlayerManager.UseWasapiExclusiveMode)}");
+                strbuilder.AppendLine($"WASAPIデータ供給：{wasapi_data_mode}");
+                strbuilder.AppendLine($"レイテンシ：{AudioPlayerManager.PlaybackLatency}");
+                strbuilder.AppendLine($"MMCSS:{getBooleanDisplayText(AudioPlayerManager.EnableMMCSS)}");
+                strbuilder.AppendLine($"出力可能フォーマット：({dsr}Hz, {dsb}bits, {dsc}ch)");
 
-【フォーマット】
-入力フォーマット：({isr}Hz, {isb}bits, {isc}ch)
-出力フォーマット：({osr}Hz, {osb}bits, {osc}ch)
-
-【デバイス】
-デバイス名：{AudioPlayerManager.AudioOutputDevice}
-デバイスAPI：{getApiDisplayText(AudioPlayerManager.OutputDeviceApiType)}
-WASAPI排他モード:{getBooleanDisplayText(AudioPlayerManager.UseWasapiExclusiveMode)}
-WASAPIデータ供給：{wasapi_data_mode}
-レイテンシ：{AudioPlayerManager.PlaybackLatency}
-MMCSS:{getBooleanDisplayText(AudioPlayerManager.EnableMMCSS)}
-出力可能フォーマット：({dsr}Hz, {dsb}bits, {dsc}ch)";
+                return strbuilder.ToString();
             }
 
             string getApiDisplayText(AudioOutputDeviceApiType api)

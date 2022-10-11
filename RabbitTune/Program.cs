@@ -92,6 +92,7 @@ namespace RabbitTune
                 writer.WriteProperty(ApplicationOptions.KEY_MAINWND_WIDTH, wndSize.Width);
                 writer.WriteProperty(ApplicationOptions.KEY_MAINWND_HEIGHT, wndSize.Height);
                 writer.WriteProperty(ApplicationOptions.KEY_SHOW_LEFTTOOLPANEL, MainForm.ShowLeftSideToolPanel);
+                writer.WriteProperty(ApplicationOptions.KEY_SHOW_AS_MINIPLAYER_MODE, MainForm.ShowAsMiniplayerMode);
 
                 // アプリ設定
                 writer.WriteEmptyLine();
@@ -168,6 +169,7 @@ namespace RabbitTune
                 reader.GetValueAsInt(ApplicationOptions.KEY_MAINWND_WIDTH, MainForm.DEFAULT_WINDOW_WIDTH),
                 reader.GetValueAsInt(ApplicationOptions.KEY_MAINWND_HEIGHT, MainForm.DEFAULT_WINDOW_HEIGHT));
             ApplicationOptions.ShowMainFormLeftSideToolPanel = reader.GetValueAsBoolean(ApplicationOptions.KEY_SHOW_LEFTTOOLPANEL, true);
+            ApplicationOptions.ShowMainFormAsMiniplayerMode = reader.GetValueAsBoolean(ApplicationOptions.KEY_SHOW_AS_MINIPLAYER_MODE, false);
 
             // プレイリストなど
             PlaylistsDataBase.AutoInvokeAnyEvents = false;

@@ -101,10 +101,6 @@ namespace RabbitTune
                             AudioPlayerManager.Close();
                             AudioPlayerManager.SetTrack(track);
                             AudioPlayerManager.Play();
-
-                            // 以下のコードでは一部のファイルが正常に再生できない（特にM4A）
-                            //AudioPlayerManager.Position = 0;
-                            //AudioPlayerManager.Play();
                             break;
                         case RepeatMode.AllTracks:
                             PlayNextTrack();
@@ -139,21 +135,30 @@ namespace RabbitTune
             this.EqualizerDialog = new EqualizerDialog();
             this.DetailOptionDialog = new OptionDialog();
             this.ApplicationVersionDialog = new VersionDialog();
+        }
 
+        // デフォルトコンストラクタ
+        public MainForm() : this(null) { }
+
+        /// <summary>
+        /// 各種設定値を表示に反映する。<br/>
+        /// 一部のコントロールのレイアウト崩れの原因になるので、フォーム読み込み後に呼び出すこと。（コンストラクタで呼ばない）
+        /// </summary>
+        private void ApplyFormOptions()
+        {
             // 各種設定値を表示に反映
             this.VolumeSlider.Value = AudioPlayerManager.Volume;
             this.AlwaysOnTop = ApplicationOptions.AlwaysOnTop;
             this.WindowState = ApplicationOptions.MainFormWindowState;
             this.Size = ApplicationOptions.MainFormSize;
+            this.defaultViewHeight = this.Size.Height;
             this.ShowLeftSideToolPanel = ApplicationOptions.ShowMainFormLeftSideToolPanel;
+            this.ShowAsMiniplayerMode = ApplicationOptions.ShowMainFormAsMiniplayerMode;
             SetRepeatModeView(ApplicationOptions.RepeatMode);
             SetPlaybackSpeed(AudioPlayerManager.PlaybackSpeed);
             SetPitch(AudioPlayerManager.Pitch);
             SetSoundTouchPitch(AudioPlayerManager.SoundTouchPitchSemitones);
         }
-
-        // デフォルトコンストラクタ
-        public MainForm() : this(null) { }
 
         /// <summary>
         /// 通常のウィンドウ状態におけるフォームのサイズを取得する。<br/>
@@ -173,6 +178,66 @@ namespace RabbitTune
             }
 
             return new Size(width, height);
+        }
+        
+        /// <summary>
+        /// ミニプレーヤーモードと標準モードを切り替える。
+        /// </summary>
+        /// <param name="enabled"></param>
+        public void SwitchMiniplayerMode(bool enabled)
+        {
+            this.MainContentsPanel.Visible = !enabled;
+            this.ShowAsMiniplayerModeMenu.Checked = enabled;
+            this.showAsMiniplayerMode = enabled;
+
+            // ミニプレーヤー表示の有効化か？
+            if (enabled)
+            {
+                int height = this.Height - this.MainContentsPanel.Height;
+
+                this.defaultViewHeight = this.Height;
+                this.Height = height;
+                this.FormBorderStyle = FormBorderStyle.FixedSingle;     // ウィンドウサイズの変更を許可しない
+                this.MaximizeBox = false;                               // ウィンドウの最大化ボタンを無効化
+                this.statusStrip1.Dock = DockStyle.Bottom;
+            }
+            else
+            {
+                this.Height = this.defaultViewHeight;
+                this.FormBorderStyle = FormBorderStyle.Sizable;         // ウィンドウサイズの変更を許可する
+                this.MaximizeBox = true;                                // ウィンドウの最大化ボタンを有効化
+            }
+        }
+
+        /// <summary>
+        /// 指定されたリピートモードのメニュー項目をチェックする。
+        /// </summary>
+        /// <param name="repeatMode"></param>
+        private void SetRepeatModeView(RepeatMode repeatMode)
+        {
+            switch (repeatMode)
+            {
+                case RepeatMode.NoRepeat:
+                    this.NoRepeatMenu.Checked = this.NoRepeatTaskTrayMenu.Checked = true;
+                    this.RepeatSingleTrackMenu.Checked = this.RepeatAllTracksMenu.Checked = this.RandomRepeatMenu.Checked = false;
+                    this.RepeatSingleTrackMenu.Checked = this.RepeatAllTracksTaskTrayMenu.Checked = this.RandomRepeatTaskTrayMenu.Checked = false;
+                    break;
+                case RepeatMode.Single:
+                    this.RepeatSingleTrackMenu.Checked = this.RepeatAllTracksTaskTrayMenu.Checked = true;
+                    this.NoRepeatMenu.Checked = this.RepeatAllTracksMenu.Checked = this.RandomRepeatMenu.Checked = false;
+                    this.NoRepeatTaskTrayMenu.Checked = this.RepeatAllTracksTaskTrayMenu.Checked = this.RandomRepeatTaskTrayMenu.Checked = false;
+                    break;
+                case RepeatMode.AllTracks:
+                    this.RepeatAllTracksMenu.Checked = this.RepeatAllTracksTaskTrayMenu.Checked = true;
+                    this.NoRepeatMenu.Checked = this.RepeatSingleTrackMenu.Checked = this.RandomRepeatMenu.Checked = false;
+                    this.NoRepeatTaskTrayMenu.Checked = this.RepeatSingleTrackMenu.Checked = this.RandomRepeatTaskTrayMenu.Checked = false;
+                    break;
+                case RepeatMode.RandomTrack:
+                    this.RandomRepeatMenu.Checked = this.RandomRepeatTaskTrayMenu.Checked = true;
+                    this.NoRepeatMenu.Checked = this.RepeatSingleTrackMenu.Checked = this.RepeatAllTracksMenu.Checked = false;
+                    this.NoRepeatTaskTrayMenu.Checked = this.RepeatSingleTrackMenu.Checked = this.RepeatAllTracksTaskTrayMenu.Checked = false;
+                    break;
+            }
         }
 
         #region プロパティ
@@ -218,27 +283,7 @@ namespace RabbitTune
         {
             set
             {
-                this.MainContentsPanel.Visible = !value;
-
-                // ミニプレーヤー表示の有効化か？
-                if (value)
-                {
-                    int height = this.Height - this.MainContentsPanel.Height;
-
-                    this.defaultViewHeight = this.Height;
-                    this.Height = height;
-                    this.FormBorderStyle = FormBorderStyle.FixedSingle;     // ウィンドウサイズの変更を許可しない
-                    this.MaximizeBox = false;                               // ウィンドウの最大化ボタンを無効化
-                }
-                else
-                {
-                    this.Height = this.defaultViewHeight;
-                    this.FormBorderStyle = FormBorderStyle.Sizable;         // ウィンドウサイズの変更を許可する
-                    this.MaximizeBox = true;                                // ウィンドウの最大化ボタンを有効化
-                }
-
-                // 後始末
-                this.showAsMiniplayerMode = value;
+                SwitchMiniplayerMode(value);
             }
             get
             {
@@ -290,37 +335,6 @@ namespace RabbitTune
             get
             {
                 return this.LeftToolPanel.Visible;
-            }
-        }
-
-        #endregion
-
-        #region 各種設定値を表示に反映させるためのメソッド群
-
-        private void SetRepeatModeView(RepeatMode repeatMode)
-        {
-            switch (repeatMode)
-            {
-                case RepeatMode.NoRepeat:
-                    this.NoRepeatMenu.Checked = this.NoRepeatTaskTrayMenu.Checked =  true;
-                    this.RepeatSingleTrackMenu.Checked = this.RepeatAllTracksMenu.Checked = this.RandomRepeatMenu.Checked = false;
-                    this.RepeatSingleTrackMenu.Checked = this.RepeatAllTracksTaskTrayMenu.Checked = this.RandomRepeatTaskTrayMenu.Checked = false;
-                    break;
-                case RepeatMode.Single:
-                    this.RepeatSingleTrackMenu.Checked = this.RepeatAllTracksTaskTrayMenu.Checked = true;
-                    this.NoRepeatMenu.Checked = this.RepeatAllTracksMenu.Checked = this.RandomRepeatMenu.Checked = false;
-                    this.NoRepeatTaskTrayMenu.Checked = this.RepeatAllTracksTaskTrayMenu.Checked = this.RandomRepeatTaskTrayMenu.Checked = false;
-                    break;
-                case RepeatMode.AllTracks:
-                    this.RepeatAllTracksMenu.Checked = this.RepeatAllTracksTaskTrayMenu.Checked = true;
-                    this.NoRepeatMenu.Checked = this.RepeatSingleTrackMenu.Checked = this.RandomRepeatMenu.Checked = false;
-                    this.NoRepeatTaskTrayMenu.Checked = this.RepeatSingleTrackMenu.Checked = this.RandomRepeatTaskTrayMenu.Checked = false;
-                    break;
-                case RepeatMode.RandomTrack:
-                    this.RandomRepeatMenu.Checked = this.RandomRepeatTaskTrayMenu.Checked = true;
-                    this.NoRepeatMenu.Checked = this.RepeatSingleTrackMenu.Checked = this.RepeatAllTracksMenu.Checked = false;
-                    this.NoRepeatTaskTrayMenu.Checked = this.RepeatSingleTrackMenu.Checked = this.RepeatAllTracksTaskTrayMenu.Checked = false;
-                    break;
             }
         }
 
@@ -1070,7 +1084,7 @@ namespace RabbitTune
             // 元々の処理を実行。
             base.OnLoad(e);
         }
-        
+
         #endregion
 
         /// <summary>
@@ -1080,6 +1094,10 @@ namespace RabbitTune
         /// <param name="e"></param>
         private void MainForm_Load(object sender, EventArgs e)
         {
+            // 各種設定値を表示に反映
+            ApplyFormOptions();
+
+            // デフォルトプレイリストを開く
             OpenDefaultPlaylist();
 
             if (this.commandLineArguments != null && this.commandLineArguments.Length > 0)
