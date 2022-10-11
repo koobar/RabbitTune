@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace RabbitTune
@@ -141,8 +142,7 @@ namespace RabbitTune
         public MainForm() : this(null) { }
 
         /// <summary>
-        /// 各種設定値を表示に反映する。<br/>
-        /// 一部のコントロールのレイアウト崩れの原因になるので、フォーム読み込み後に呼び出すこと。（コンストラクタで呼ばない）
+        /// 各種設定値を表示に反映する。
         /// </summary>
         private void ApplyFormOptions()
         {
@@ -179,27 +179,34 @@ namespace RabbitTune
 
             return new Size(width, height);
         }
-        
+
+        #region フォームの表示・描画・更新
+
         /// <summary>
         /// ミニプレーヤーモードと標準モードを切り替える。
         /// </summary>
         /// <param name="enabled"></param>
-        public void SwitchMiniplayerMode(bool enabled)
+        public void SetMiniplayerMode(bool enabled)
         {
-            this.MainContentsPanel.Visible = !enabled;
             this.ShowAsMiniplayerModeMenu.Checked = enabled;
             this.showAsMiniplayerMode = enabled;
 
             // ミニプレーヤー表示の有効化か？
             if (enabled)
             {
+                if(this.WindowState == FormWindowState.Maximized)
+                {
+                    // 最大化中にミニプレーヤーモードに切り替えると不具合が出る場合があるので、
+                    // 切り替え前に標準サイズに戻す。
+                    this.WindowState = FormWindowState.Normal;
+                }
+
                 int height = this.Height - this.MainContentsPanel.Height;
 
                 this.defaultViewHeight = this.Height;
                 this.Height = height;
                 this.FormBorderStyle = FormBorderStyle.FixedSingle;     // ウィンドウサイズの変更を許可しない
                 this.MaximizeBox = false;                               // ウィンドウの最大化ボタンを無効化
-                this.statusStrip1.Dock = DockStyle.Bottom;
             }
             else
             {
@@ -239,6 +246,135 @@ namespace RabbitTune
                     break;
             }
         }
+
+        /// <summary>
+        /// トラックの画像の表示状態を設定する。
+        /// </summary>
+        /// <param name="visible"></param>
+        private void SetTrackImageViewerVisible(bool visible)
+        {
+            if (visible)
+            {
+                int size = this.LeftToolPanel.Width;
+                this.TrackPictureViewer.Width = size;
+                this.TrackPictureViewer.Height = size;
+                this.TrackPictureViewer.BorderStyle = BorderStyle.FixedSingle;
+            }
+            else
+            {
+                this.TrackPictureViewer.Width = 0;
+                this.TrackPictureViewer.Height = 0;
+                this.TrackPictureViewer.BorderStyle = BorderStyle.None;
+            }
+        }
+
+        /// <summary>
+        /// 指定されたトラックに含まれる画像をビューに表示する。
+        /// </summary>
+        /// <param name="track"></param>
+        private void ShowTrackPicture(AudioTrack track)
+        {
+            Image img = null;
+            var worker = new BackgroundWorker();
+            worker.DoWork += delegate
+            {
+                img = track.GetTrackPicture();
+            };
+            worker.RunWorkerCompleted += delegate
+            {
+                if (this.TrackPictureViewer.Image != null)
+                {
+                    this.TrackPictureViewer.Image.Dispose();        // メモリリーク回避
+                    this.TrackPictureViewer.Image = null;
+                }
+
+                // 画像を表示
+                this.TrackPictureViewer.Image = img;
+                SetTrackImageViewerVisible(img != null);
+
+                // 後始末
+                worker.Dispose();
+            };
+
+            // 画像を非同期で読み込んで表示
+            worker.RunWorkerAsync();
+        }
+
+        /// <summary>
+        /// ステータスバーに表示する再生中のトラックのフォーマット情報を更新する。
+        /// </summary>
+        private void UpdateAudioWaveFormatStatusText()
+        {
+            string fmt = "不明なフォーマット";
+
+            if (this.CurrentPlaylistViewer.SelectedAudioTrack != null)
+            {
+                fmt = AudioReader.GetFormatName(this.CurrentPlaylistViewer.SelectedAudioTrack.Location);
+            }
+
+            // ファイルの種類（コーデック名）の表示を更新
+            this.PlayingAudioFormatStatusText.Text = fmt;
+
+            // 波形フォーマットの表示を更新
+            AudioPlayerManager.GetInputWaveFormat(out int isr, out int isb, out int isc);
+            AudioPlayerManager.GetOutputWaveFormat(out int psr, out int psb, out int psc);
+            string waveformat = $"INPUT: ({isr}Hz, {getChannelDescription(isc)}, {isb}bits), ";
+
+            // リサンプラーが有効か？
+            if (AudioPlayerManager.UseReSampler)
+            {
+                // リサンプラーのフォーマットも表示に追加
+                waveformat += $"RESAMPLER: ({AudioPlayerManager.ReSamplerSampleRate}Hz, {getChannelDescription(AudioPlayerManager.ReSamplerChannels)}, {AudioPlayerManager.ReSamplerBitsPerSample}bits), ";
+            }
+
+            // 出力デバイスに渡されるオーディオソース(音響処理後のデータ)のフォーマットを追加
+            waveformat += $"OUTPUT: ({psr}Hz, {getChannelDescription(psc)}, {psb}bits)";
+
+            // 表示に反映
+            this.PlayingAudioWaveFormatText.Text = waveformat;
+
+            string getChannelDescription(int channels)
+            {
+                switch (channels)
+                {
+                    case 1:
+                        return "mono";
+                    case 2:
+                        return "stereo";
+                    default:
+                        return channels.ToString();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 停止中（一時停止中を除く）にこのメソッドを呼び出すと、トラックのフォーマット情報を非表示化し、<br/>
+        /// 再生中にこのメソッドを呼び出すと、トラックのフォーマット情報を表示する。
+        /// </summary>
+        private void UpdateAudioWaveFormatStatusTextVisible()
+        {
+            bool visible = AudioPlayerManager.IsPlaying || AudioPlayerManager.IsPausing;
+
+            this.PlayingAudioFormatStatusText.Visible = visible;
+            this.PlayingAudioWaveFormatText.Visible = visible;
+        }
+
+        /// <summary>
+        /// フォームのタイトルを更新する。
+        /// </summary>
+        private void UpdateFormTitle()
+        {
+            if(AudioPlayerManager.IsPlaying || AudioPlayerManager.IsPausing)
+            {
+                this.Text = $"{Program.ApplicationName} - {AudioPlayerManager.GetCurrentTrack().Title}";
+            }
+            else
+            {
+                this.Text = Program.ApplicationName;
+            }
+        }
+
+        #endregion
 
         #region プロパティ
 
@@ -283,7 +419,7 @@ namespace RabbitTune
         {
             set
             {
-                SwitchMiniplayerMode(value);
+                SetMiniplayerMode(value);
             }
             get
             {
@@ -709,118 +845,6 @@ namespace RabbitTune
         #region 再生コントロールなど再生に関連する処理
 
         /// <summary>
-        /// トラックの画像の表示状態を設定する。
-        /// </summary>
-        /// <param name="visible"></param>
-        private void SetTrackImageViewerVisible(bool visible)
-        {
-            if (visible)
-            {
-                int size = this.LeftToolPanel.Width;
-                this.TrackPictureViewer.Width = size;
-                this.TrackPictureViewer.Height = size;
-                this.TrackPictureViewer.BorderStyle = BorderStyle.FixedSingle;
-            }
-            else
-            {
-                this.TrackPictureViewer.Width = 0;
-                this.TrackPictureViewer.Height = 0;
-                this.TrackPictureViewer.BorderStyle = BorderStyle.None;
-            }
-        }
-
-        /// <summary>
-        /// 指定されたトラックに含まれる画像をビューに表示する。
-        /// </summary>
-        /// <param name="track"></param>
-        private void ShowTrackPicture(AudioTrack track)
-        {
-            Image img = null;
-            var worker = new BackgroundWorker();
-            worker.DoWork += delegate
-            {
-                img = track.GetTrackPicture();
-            };
-            worker.RunWorkerCompleted += delegate
-            {
-                if (this.TrackPictureViewer.Image != null)
-                {
-                    this.TrackPictureViewer.Image.Dispose();        // メモリリーク回避
-                    this.TrackPictureViewer.Image = null;
-                }
-
-                // 画像を表示
-                this.TrackPictureViewer.Image = img;
-                SetTrackImageViewerVisible(img != null);
-
-                // 後始末
-                worker.Dispose();
-            };
-
-            // 画像を非同期で読み込んで表示
-            worker.RunWorkerAsync();
-        }
-
-        /// <summary>
-        /// ステータスバーに表示する再生中のトラックのフォーマット情報を更新する。
-        /// </summary>
-        private void UpdateAudioWaveFormatStatusText()
-        {
-            string fmt = "不明なフォーマット";
-
-            if (this.CurrentPlaylistViewer.SelectedAudioTrack != null)
-            {
-                fmt = AudioReader.GetFormatName(this.CurrentPlaylistViewer.SelectedAudioTrack.Location);
-            }
-
-            // ファイルの種類（コーデック名）の表示を更新
-            this.PlayingAudioFormatStatusText.Text = fmt;
-
-            // 波形フォーマットの表示を更新
-            AudioPlayerManager.GetInputWaveFormat(out int isr, out int isb, out int isc);
-            AudioPlayerManager.GetOutputWaveFormat(out int psr, out int psb, out int psc);
-            string waveformat = $"INPUT: ({isr}Hz, {getChannelDescription(isc)}, {isb}bits), ";
-
-            // リサンプラーが有効か？
-            if (AudioPlayerManager.UseReSampler)
-            {
-                // リサンプラーのフォーマットも表示に追加
-                waveformat += $"RESAMPLER: ({AudioPlayerManager.ReSamplerSampleRate}Hz, {getChannelDescription(AudioPlayerManager.ReSamplerChannels)}, {AudioPlayerManager.ReSamplerBitsPerSample}bits), ";
-            }
-
-            // 出力デバイスに渡されるオーディオソース(音響処理後のデータ)のフォーマットを追加
-            waveformat += $"OUTPUT: ({psr}Hz, {getChannelDescription(psc)}, {psb}bits)";
-            
-            // 表示に反映
-            this.PlayingAudioWaveFormatText.Text = waveformat;
-
-            string getChannelDescription(int channels)
-            {
-                switch (channels)
-                {
-                    case 1:
-                        return "mono";
-                    case 2:
-                        return "stereo";
-                    default:
-                        return channels.ToString();
-                }
-            }
-        }
-
-        /// <summary>
-        /// 停止中（一時停止中を除く）にこのメソッドを呼び出すと、トラックのフォーマット情報を非表示化し、<br/>
-        /// 再生中にこのメソッドを呼び出すと、トラックのフォーマット情報を表示する。
-        /// </summary>
-        private void UpdateAudioWaveFormatStatusTextVisible()
-        {
-            bool visible = AudioPlayerManager.IsPlaying || AudioPlayerManager.IsPausing;
-
-            this.PlayingAudioFormatStatusText.Visible = visible;
-            this.PlayingAudioWaveFormatText.Visible = visible;
-        }
-
-        /// <summary>
         /// 再生速度を設定する。
         /// </summary>
         /// <param name="speed"></param>
@@ -983,6 +1007,7 @@ namespace RabbitTune
 
                 // 後始末
                 UpdateAudioWaveFormatStatusTextVisible();
+                UpdateFormTitle();
             }
         }
 
@@ -1043,6 +1068,7 @@ namespace RabbitTune
 
             // 表示を更新
             UpdateAudioWaveFormatStatusTextVisible();
+            UpdateFormTitle();
             SetTrackImageViewerVisible(false);
 
             // 後始末
@@ -1112,6 +1138,7 @@ namespace RabbitTune
                 }
             }
 
+            // プレイリストブラウザを更新
             this.PlaylistBrowser.Update();
         }
 
