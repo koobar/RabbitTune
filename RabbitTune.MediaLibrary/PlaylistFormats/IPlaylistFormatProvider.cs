@@ -13,7 +13,7 @@ namespace RabbitTune.MediaLibrary.PlaylistFormats
         /// 指定されたプレイリストファイルを読み込む。
         /// </summary>
         /// <param name="path"></param>
-        void ReadPlaylist(string path, out List<string> notFoundFiles);
+        void ReadPlaylist(string path);
 
         /// <summary>
         /// 指定されたパスにプレイリストを保存する。

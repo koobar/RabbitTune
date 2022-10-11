@@ -7,14 +7,7 @@ namespace RabbitTune.MediaLibrary
         // コンストラクタ
         public PlaylistReader(string path, IList<string> importFileExtensions) : base(path, importFileExtensions)
         {
-            base.playlistProvider.ReadPlaylist(path, out List<string> notFoundFiles);
-
-            this.NotFoundFiles = notFoundFiles;
+            base.playlistProvider.ReadPlaylist(path);
         }
-
-        /// <summary>
-        /// プレイリストに含まれているものの、存在しなかったファイルの一覧
-        /// </summary>
-        public IList<string> NotFoundFiles { private set; get; }
     }
 }
