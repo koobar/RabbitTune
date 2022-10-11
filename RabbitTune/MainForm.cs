@@ -155,6 +155,26 @@ namespace RabbitTune
         // デフォルトコンストラクタ
         public MainForm() : this(null) { }
 
+        /// <summary>
+        /// 通常のウィンドウ状態におけるフォームのサイズを取得する。<br/>
+        /// ミニプレーヤー表示であっても、標準モード時のフォームのサイズを返す。
+        /// </summary>
+        /// <returns></returns>
+        public Size GetRestoreFormSize()
+        {
+            int width = this.RestoreBounds.Width;
+            int height = this.RestoreBounds.Height;
+
+            // ミニプレーヤーモードが有効か？
+            if (this.ShowAsMiniplayerMode)
+            {
+                // 標準モードの場合のフォームの高さを取得。
+                height = this.defaultViewHeight;
+            }
+
+            return new Size(width, height);
+        }
+
         #region プロパティ
 
         /// <summary>

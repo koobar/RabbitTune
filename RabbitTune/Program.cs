@@ -84,12 +84,13 @@ namespace RabbitTune
                 var writer = new PropertyFileWriter(ApplicationConfigFilePath);
 
                 // メインフォームの表示設定
+                var wndSize = MainForm.GetRestoreFormSize();
                 writer.WriteEmptyLine();
                 writer.WriteComment("MainForm Layouts");
                 writer.WriteProperty(ApplicationOptions.KEY_ALWAYS_ON_TOP, ApplicationOptions.AlwaysOnTop);
                 writer.WriteProperty(ApplicationOptions.KEY_MAINWND_STATE, MainForm.WindowState);
-                writer.WriteProperty(ApplicationOptions.KEY_MAINWND_WIDTH, MainForm.RestoreBounds.Width);
-                writer.WriteProperty(ApplicationOptions.KEY_MAINWND_HEIGHT, MainForm.RestoreBounds.Height);
+                writer.WriteProperty(ApplicationOptions.KEY_MAINWND_WIDTH, wndSize.Width);
+                writer.WriteProperty(ApplicationOptions.KEY_MAINWND_HEIGHT, wndSize.Height);
                 writer.WriteProperty(ApplicationOptions.KEY_SHOW_LEFTTOOLPANEL, MainForm.ShowLeftSideToolPanel);
 
                 // アプリ設定
