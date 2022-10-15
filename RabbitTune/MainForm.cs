@@ -153,6 +153,8 @@ namespace RabbitTune
             this.defaultViewHeight = this.Size.Height;
             this.ShowLeftSideToolPanel = ApplicationOptions.ShowMainFormLeftSideToolPanel;
             this.ShowAsMiniplayerMode = ApplicationOptions.ShowMainFormAsMiniplayerMode;
+            this.VolumeSlider.Value = AudioPlayerManager.Volume;
+            this.PanSlider.Value = AudioPlayerManager.Pan;
             SetRepeatModeView(ApplicationOptions.RepeatMode);
             SetPlaybackSpeed(AudioPlayerManager.PlaybackSpeed);
             SetPitch(AudioPlayerManager.Pitch);
@@ -1681,6 +1683,16 @@ namespace RabbitTune
         {
             this.ShowAsMiniplayerModeMenu.Checked = !this.ShowAsMiniplayerModeMenu.Checked;
             this.ShowAsMiniplayerMode = this.ShowAsMiniplayerModeMenu.Checked;
+        }
+
+        private void PanSlider_ValueChanged(object sender, EventArgs e)
+        {
+            AudioPlayerManager.Pan = this.PanSlider.Value;
+        }
+
+        private void ResetPanButton_Click(object sender, EventArgs e)
+        {
+            this.PanSlider.Value = 0;
         }
     }
 }

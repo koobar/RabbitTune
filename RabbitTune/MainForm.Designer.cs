@@ -210,6 +210,9 @@ namespace RabbitTune
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.PlaylistBrowser = new RabbitTune.Controls.PlaylistBrowser();
             this.TrackPictureViewer = new System.Windows.Forms.PictureBox();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.PanSlider = new RabbitTune.Controls.ToolStripSlider();
+            this.ResetPanButton = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.MainContentsPanel.SuspendLayout();
@@ -1212,7 +1215,10 @@ namespace RabbitTune
             this.toolStripButton1,
             this.toolStripSeparator5,
             this.toolStripLabel1,
-            this.VolumeSlider});
+            this.VolumeSlider,
+            this.toolStripLabel2,
+            this.PanSlider,
+            this.ResetPanButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -1328,7 +1334,7 @@ namespace RabbitTune
             // 
             this.SearchBox.Font = new System.Drawing.Font("Yu Gothic UI", 9F);
             this.SearchBox.Name = "SearchBox";
-            this.SearchBox.Size = new System.Drawing.Size(150, 25);
+            this.SearchBox.Size = new System.Drawing.Size(120, 25);
             // 
             // QuickSearchbutton
             // 
@@ -1381,7 +1387,7 @@ namespace RabbitTune
             this.VolumeSlider.Maximum = 100;
             this.VolumeSlider.Minimum = 0;
             this.VolumeSlider.Name = "VolumeSlider";
-            this.VolumeSlider.Size = new System.Drawing.Size(104, 22);
+            this.VolumeSlider.Size = new System.Drawing.Size(80, 22);
             this.VolumeSlider.Text = "toolStripTraceBarItem1";
             this.VolumeSlider.Value = 80;
             this.VolumeSlider.ValueChanged += new System.EventHandler(this.VolumeSlider_ValueChanged);
@@ -1575,6 +1581,7 @@ namespace RabbitTune
             this.PlaylistBrowser.SelectedIndex = -1;
             this.PlaylistBrowser.Size = new System.Drawing.Size(172, 363);
             this.PlaylistBrowser.TabIndex = 4;
+            this.PlaylistBrowser.PlaylistOpenRequested += new System.EventHandler(this.PlaylistBrowser_PlaylistOpenRequested);
             // 
             // TrackPictureViewer
             // 
@@ -1586,6 +1593,32 @@ namespace RabbitTune
             this.TrackPictureViewer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.TrackPictureViewer.TabIndex = 3;
             this.TrackPictureViewer.TabStop = false;
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(43, 22);
+            this.toolStripLabel2.Text = "定位：";
+            // 
+            // PanSlider
+            // 
+            this.PanSlider.Maximum = 100;
+            this.PanSlider.Minimum = -100;
+            this.PanSlider.Name = "PanSlider";
+            this.PanSlider.Size = new System.Drawing.Size(80, 22);
+            this.PanSlider.Text = "toolStripSlider1";
+            this.PanSlider.Value = 0;
+            this.PanSlider.ValueChanged += new System.EventHandler(this.PanSlider_ValueChanged);
+            // 
+            // ResetPanButton
+            // 
+            this.ResetPanButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.ResetPanButton.Image = ((System.Drawing.Image)(resources.GetObject("ResetPanButton.Image")));
+            this.ResetPanButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ResetPanButton.Name = "ResetPanButton";
+            this.ResetPanButton.Size = new System.Drawing.Size(78, 19);
+            this.ResetPanButton.Text = "定位をリセット";
+            this.ResetPanButton.Click += new System.EventHandler(this.ResetPanButton_Click);
             // 
             // MainForm
             // 
@@ -1796,5 +1829,8 @@ namespace RabbitTune
         private PlaylistBrowser PlaylistBrowser;
         private PictureBox TrackPictureViewer;
         private MenuItem ShowAsMiniplayerModeMenu;
+        private ToolStripLabel toolStripLabel2;
+        private ToolStripSlider PanSlider;
+        private ToolStripButton ResetPanButton;
     }
 }

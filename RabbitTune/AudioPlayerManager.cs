@@ -5,6 +5,7 @@ using RabbitTune.AudioEngine.Codecs.BassCompat;
 using RabbitTune.MediaLibrary;
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace RabbitTune
@@ -35,6 +36,7 @@ namespace RabbitTune
         public const string KEY_RESAMPLER_BITSPERSAMPLE = @"ReSamplerBitsPerSample";
         public const string KEY_RESAMPLER_CHANNELS = @"ReSamplerChannels";
         public const string KEY_AUDIO_OUTPUT_VOLUME = @"AudioOutputVolume";
+        public const string KEY_AUDIO_OUTPUT_PANNING = @"AudioOutputPanning";
         public const string KEY_USE_EQUALIZER = @"UseEqualuzer";
         public const string KEY_EQUALIZER_DOWNSAMPLE_TO_32K = @"EqualizerDownSampleTo32K";
         public const string KEY_EQUALIZER_GAINDECIBELS = @"EqualizerGainDecibels";
@@ -451,6 +453,36 @@ namespace RabbitTune
 
         #endregion
 
+        #region 定位関連
+
+        // 定位関連の非公開変数
+        private static int _pan = 0;
+
+        /// <summary>
+        /// 定位<br/>
+        /// -100から100の範囲内の整数で指定。-100に近いほど左、100に近いほど右から音が聞こえる。<br/>
+        /// 0を指定することで、左右均等（デフォルト）になる。
+        /// </summary>
+        public static int Pan
+        {
+            set
+            {
+                if(AudioPlayer != null)
+                {
+                    AudioPlayer.Pan = value;
+                }
+
+                // 後始末
+                _pan = value;
+            }
+            get
+            {
+                return _pan;
+            }
+        }
+
+        #endregion
+
         #region デバイス出力フォーマットのプロパティ
 
         /// <summary>
@@ -692,6 +724,9 @@ namespace RabbitTune
 
             // 再生前に設定された音量を反映
             AudioPlayer.Volume = Volume;
+
+            // 再生前に設定された定位を反映
+            AudioPlayer.Pan = Pan;
         }
 
         /// <summary>

@@ -138,36 +138,6 @@ namespace RabbitTune.AudioEngine
             }
         }
 
-        /// <summary>
-        /// 音量
-        /// </summary>
-        public int Volume
-        {
-            set
-            {
-                // NAudioが受け付ける音量の値は0から1の浮動小数点数なので、
-                // 0から100の整数を浮動小数点数に変換する。
-                float volume = value / 100.0f;
-
-                /*if (this.AudioOutputDevice != null && this.IsDeviceInitialized)
-                {
-                    this.AudioOutputDevice.Volume = volume;
-                }*/
-
-                if(this.volumeChanger != null)
-                {
-                    this.volumeChanger.Volume = volume;
-                }
-
-                // 後始末
-                this.volume = value;
-            }
-            get
-            {
-                return this.volume;
-            }
-        }
-
         #endregion
 
         #region デバイス出力生成用メソッド群
@@ -686,12 +656,81 @@ namespace RabbitTune.AudioEngine
         private VolumeChanger volumeChanger;
 
         /// <summary>
+        /// 音量
+        /// </summary>
+        public int Volume
+        {
+            set
+            {
+                // NAudioが受け付ける音量の値は0から1の浮動小数点数なので、
+                // 0から100の整数を浮動小数点数に変換する。
+                float volume = value / 100.0f;
+
+                if (this.volumeChanger != null)
+                {
+                    this.volumeChanger.Volume = volume;
+                }
+
+                // 後始末
+                this.volume = value;
+            }
+            get
+            {
+                return this.volume;
+            }
+        }
+
+        /// <summary>
         /// 音量調節エフェクタを生成する。
         /// </summary>
         private void CreateVolumeChanger()
         {
             this.volumeChanger = new VolumeChanger(this.audioProcessSampleProvider);
             this.audioProcessSampleProvider = this.volumeChanger;
+        }
+
+        #endregion
+
+        #region 定位（パン）
+
+        // 定位設定に関連する非公開変数
+        private PanSetter panSetter;
+        private int _pan;
+        private float _pan_f;
+
+        /// <summary>
+        /// 定位<br/>
+        /// -100から100の範囲内の整数で指定。-100に近いほど左、100に近いほど右から音が聞こえる。<br/>
+        /// 0を指定することで、左右均等（デフォルト）になる。
+        /// </summary>
+        public int Pan
+        {
+            set
+            {
+                float pan = value / 100.0f;
+                
+                if(this.panSetter != null)
+                {
+                    this.panSetter.Pan = pan;
+                }
+
+                this._pan = value;
+                this._pan_f = pan;
+            }
+            get
+            {
+                return this._pan;
+            }
+        }
+
+        /// <summary>
+        /// 定位設定エフェクタを生成する。
+        /// </summary>
+        private void CreatePanSetter()
+        {
+            this.panSetter = new PanSetter(this.audioProcessSampleProvider);
+            this.panSetter.Pan = this._pan_f;
+            this.audioProcessSampleProvider = this.panSetter;
         }
 
         #endregion
@@ -766,8 +805,11 @@ namespace RabbitTune.AudioEngine
                 // リサンプラーの生成
                 CreateReSampler(useReSampler, reSamplerSampleRate, reSamplerBitsPerSample, reSamplerChannels);          // 一般設定用
 
-                // 音量調節エフェクタの設定
+                // 音量調節エフェクタの生成
                 CreateVolumeChanger();
+
+                // 定位調節エフェクタの生成
+                CreatePanSetter();
 
                 // 出力用WaveProviderを設定
                 CreateOutputWaveProvider();
