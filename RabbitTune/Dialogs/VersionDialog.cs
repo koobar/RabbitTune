@@ -42,7 +42,7 @@ namespace RabbitTune.Dialogs
 
         private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(@"https://sites.google.com/view/rabbittune/home");
+            Process.Start(@"https://rabbittune.jimdofree.com/");
         }
     }
 }

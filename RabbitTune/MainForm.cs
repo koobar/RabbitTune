@@ -8,7 +8,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace RabbitTune
@@ -587,6 +586,25 @@ namespace RabbitTune
         #region プレイリストの管理に関連する処理
 
         /// <summary>
+        /// 未保存のプレイリストを表示しているプレイリストビューワの一覧を取得する。
+        /// </summary>
+        /// <returns></returns>
+        private PlaylistViewer[] GetUnsavedPlaylistViewers()
+        {
+            List<PlaylistViewer> viewers = new List<PlaylistViewer>();
+
+            foreach(PlaylistViewerTabPage tp in this.MainTabControl.TabPages)
+            {
+                if (tp.PlaylistViewer.IsChanged)
+                {
+                    viewers.Add(tp.PlaylistViewer);
+                }
+            }
+
+            return viewers.ToArray();
+        }
+
+        /// <summary>
         /// 新しいプレイリスト表示タブを作成し、そのインスタンスを返す。
         /// </summary>
         /// <param name="path"></param>
@@ -1154,6 +1172,28 @@ namespace RabbitTune
 
             // デフォルトプレイリストを保存する。
             SavePlaylist(this.DefaultPlaylistViewer);
+
+            var unsavedPlaylists = GetUnsavedPlaylistViewers();
+            if(unsavedPlaylists.Length > 0)
+            {
+                var result = MessageBox.Show(
+                    $"{unsavedPlaylists.Length} 個の未保存のプレイリストがあります。\n これらのプレイリストをすべて保存しますか？",
+                    "保存確認",
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Warning);
+
+                if(result == DialogResult.Yes)
+                {
+                    foreach(var playlist in unsavedPlaylists)
+                    {
+                        SavePlaylist(playlist);
+                    }
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
+            }
         }
 
         /// <summary>
