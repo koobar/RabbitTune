@@ -5,45 +5,51 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Windows.Forms;
 
 namespace RabbitTune.AudioEngine
 {
     public class AudioReader
     {
         // 非公開変数
+        private static readonly Type MediaFoundationDecoderType = typeof(MediaFoundationReader);
+        private static readonly Type BassDecoderType = typeof(BassDecoder);
+        private static readonly Type BassMidiDecoderType = typeof(BassMidiDecoder);
+        private static readonly Type WavDecoderType = typeof(WavDecoder);
+        private static readonly Type AiffDecoderType = typeof(AiffFileReader);
         private static readonly List<AudioFormatInfo> AudioFormatInfoCollection = new List<AudioFormatInfo>()
         {
-            new AudioFormatInfo("WAV", typeof(WavDecoder), false, ".wav"),
-            new AudioFormatInfo("AIFF", typeof(AiffFileReader), false, ".aif", ".aiff", ".aifc"),
+            new AudioFormatInfo("WAV", WavDecoderType, false, ".wav"),
+            new AudioFormatInfo("AIFF", AiffDecoderType, false, ".aif", ".aiff", ".aifc"),
 
             // media foundation
-            new AudioFormatInfo("AMR", typeof(MediaFoundationReader), true, ".amr"),
-            new AudioFormatInfo("3GPP", typeof(MediaFoundationReader),true, ".3gp"),
-            new AudioFormatInfo("3GPP2", typeof(MediaFoundationReader),true, ".3g2"),
-            new AudioFormatInfo("M2A", typeof(MediaFoundationReader), false, ".m2a"),
-            new AudioFormatInfo("M4A", typeof(MediaFoundationReader), false, ".m4a"),
-            new AudioFormatInfo("AAC", typeof(MediaFoundationReader), false, ".aac"),
-            new AudioFormatInfo("FLAC", typeof(MediaFoundationReader), false, ".flac"),
-            new AudioFormatInfo("MP1", typeof(MediaFoundationReader), false, ".mp1"),
-            new AudioFormatInfo("MP2", typeof(MediaFoundationReader), false, ".mp2"),
-            new AudioFormatInfo("MP3", typeof(MediaFoundationReader), false, ".mp3"),
-            new AudioFormatInfo("WMA", typeof(MediaFoundationReader), false, ".wma"),
-            new AudioFormatInfo("E-AC-3", typeof(MediaFoundationReader), false, ".eac3"),
+            new AudioFormatInfo("AMR", MediaFoundationDecoderType, true, ".amr"),
+            new AudioFormatInfo("3GPP", MediaFoundationDecoderType,true, ".3gp"),
+            new AudioFormatInfo("3GPP2", MediaFoundationDecoderType,true, ".3g2"),
+            new AudioFormatInfo("M2A", MediaFoundationDecoderType, false, ".m2a"),
+            new AudioFormatInfo("M4A", MediaFoundationDecoderType, false, ".m4a"),
+            new AudioFormatInfo("AAC", MediaFoundationDecoderType, false, ".aac"),
+            new AudioFormatInfo("FLAC",MediaFoundationDecoderType, false, ".flac"),
+            new AudioFormatInfo("MP1", MediaFoundationDecoderType, false, ".mp1"),
+            new AudioFormatInfo("MP2", MediaFoundationDecoderType, false, ".mp2"),
+            new AudioFormatInfo("MP3", MediaFoundationDecoderType, false, ".mp3"),
+            new AudioFormatInfo("WMA", MediaFoundationDecoderType, false, ".wma"),
+            new AudioFormatInfo("E-AC-3", MediaFoundationDecoderType, false, ".eac3"),
         };
         private static readonly List<AudioFormatInfo> AdditionalAudioFormatInfoCollection = new List<AudioFormatInfo>()
         {
-            new AudioFormatInfo("OGG", typeof(BassDecoder), true, ".ogg"),
-            new AudioFormatInfo("OGA", typeof(BassDecoder), true, ".oga"),
-            new AudioFormatInfo("Opus", typeof(BassDecoder), true, ".opus"),
-            new AudioFormatInfo("WavPack", typeof(BassDecoder), true, ".wv"),
-            new AudioFormatInfo("DSD", typeof(BassDecoder), true, ".dsf", ".dff", ".dsd"),
-            new AudioFormatInfo("Audio CD Track", typeof(BassDecoder), true, ".cda"),
-            new AudioFormatInfo("OptimFROG", typeof(BassDecoder), true, ".ofr"),
-            new AudioFormatInfo("Musepack", typeof(BassDecoder), true, ".mpc"),
-            new AudioFormatInfo("Speex", typeof(BassDecoder), true, ".spx"),
-            new AudioFormatInfo("TTA", typeof(BassDecoder), true, ".tta"),
-            new AudioFormatInfo("Monkey's Audio", typeof(BassDecoder), true, ".ape"),
-            new AudioFormatInfo("MIDI", typeof(BassMidiDecoder), true, ".mid"),
+            new AudioFormatInfo("OGG", BassDecoderType, true, ".ogg"),
+            new AudioFormatInfo("OGA", BassDecoderType, true, ".oga"),
+            new AudioFormatInfo("Opus", BassDecoderType, true, ".opus"),
+            new AudioFormatInfo("WavPack", BassDecoderType, true, ".wv"),
+            new AudioFormatInfo("DSD", BassDecoderType, true, ".dsf", ".dff", ".dsd"),
+            new AudioFormatInfo("Audio CD Track", BassDecoderType, true, ".cda"),
+            new AudioFormatInfo("OptimFROG", BassDecoderType, true, ".ofr"),
+            new AudioFormatInfo("Musepack", BassDecoderType, true, ".mpc"),
+            new AudioFormatInfo("Speex", BassDecoderType, true, ".spx"),
+            new AudioFormatInfo("TTA", BassDecoderType, true, ".tta"),
+            new AudioFormatInfo("Monkey's Audio", BassDecoderType, true, ".ape"),
+            new AudioFormatInfo("MIDI", BassMidiDecoderType, true, ".mid"),
         };
         private readonly WaveStream source;
 
@@ -272,7 +278,35 @@ namespace RabbitTune.AudioEngine
         /// </summary>
         public void Dispose()
         {
-            this.source?.Dispose();
+            if(this.source != null)
+            {
+                var t = this.source.GetType();
+
+                if(t == MediaFoundationDecoderType)
+                {
+                    ((MediaFoundationReader)this.source).Dispose();
+                }
+                else if (t == BassDecoderType)
+                {
+                    ((BassDecoder)this.source).Dispose();
+                }
+                else if (t == BassMidiDecoderType)
+                {
+                    ((BassMidiDecoder)this.source).Dispose();
+                }
+                else if (t == WavDecoderType)
+                {
+                    ((WavDecoder)this.source).Dispose();
+                }
+                else if (t == AiffDecoderType)
+                {
+                    ((AiffFileReader)this.source).Dispose();
+                }
+                else
+                {
+                    this.source.Dispose();
+                }
+            }
         }
 
         /// <summary>

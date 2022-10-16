@@ -3,6 +3,8 @@ using RabbitTune.AudioEngine.BassWrapper;
 using RabbitTune.AudioEngine.BassWrapper.Midi;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using BassSoundFont = RabbitTune.AudioEngine.BassWrapper.Midi.SoundFont;
 
 namespace RabbitTune.AudioEngine.Codecs.BassCompat
@@ -13,11 +15,14 @@ namespace RabbitTune.AudioEngine.Codecs.BassCompat
         private const int BASS_ERR_HANDLE = 0;
 
         // 非公開変数
+        private readonly List<int> soundFontHandles;
         private int BassHandle;
-
+        
         // コンストラクタ
         public BassMidiDecoder(string path)
         {
+            this.soundFontHandles = new List<int>();
+
             // ファイルを読み込む。
             ReadAudioFile(path);
         }
@@ -47,7 +52,7 @@ namespace RabbitTune.AudioEngine.Codecs.BassCompat
         /// <returns></returns>
         private static BassFlags GetBassFlags()
         {
-            BassFlags flags = BassFlags.Decode;
+            BassFlags flags = BassFlags.Decode | BassFlags.AsyncFile;
 
             if (UseSincInterpolation)
             {
@@ -75,7 +80,8 @@ namespace RabbitTune.AudioEngine.Codecs.BassCompat
             {
                 BassMidi.SetAutoFont(2);
                 int handle = BassMidi.CreateStreamFromFile(path, 0, 0, GetBassFlags());
-                
+                BassMidiNative.BASS_MIDI_StreamLoadSamples(handle);
+
                 if (handle != 0)
                 {
                     var fonts = new List<BassSoundFont>();
@@ -86,10 +92,14 @@ namespace RabbitTune.AudioEngine.Codecs.BassCompat
                     {
                         if (font.Enabled)
                         {
-                            fonts.Add(font.ToBassSoundFont());
+                            var bassFont = font.ToBassSoundFont();
+
+                            // サウンドフォントを読み込んで追加
+                            LoadSoundFont(bassFont.Handle);
+                            fonts.Add(bassFont);
                         }
                     }
-
+                    
                     // サウンドフォントを設定
                     BassMidi.SetStreamSoundFont(handle, fonts);
 
@@ -104,6 +114,24 @@ namespace RabbitTune.AudioEngine.Codecs.BassCompat
             else
             {
                 throw new Exception("No Soundfonts.");
+            }
+        }
+
+        /// <summary>
+        /// サウンドフォントを読み込む。
+        /// </summary>
+        /// <param name="handle"></param>
+        private void LoadSoundFont(int handle)
+        {
+            Task.Factory.StartNew(() => fontLoad());
+
+            // 後始末
+            this.soundFontHandles.Add(handle);
+
+            // 非同期的にサウンドフォントを読み込む。
+            void fontLoad()
+            {
+                BassMidiNative.BASS_MIDI_FontLoad(handle, -1, -1);
             }
         }
 
@@ -160,8 +188,15 @@ namespace RabbitTune.AudioEngine.Codecs.BassCompat
         /// </summary>
         public new void Dispose()
         {
-            base.Dispose();
             Bass.StreamFree(this.BassHandle);
+
+            foreach (int handle in this.soundFontHandles)
+            {
+                BassMidiNative.BASS_MIDI_FontUnload(handle, -1, -1);
+                BassMidi.Free(handle);
+            }
+
+            base.Dispose();
         }
 
         /// <summary>

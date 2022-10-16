@@ -20,7 +20,9 @@ namespace RabbitTune.AudioEngine.BassWrapper.Midi
         /// <returns></returns>
         public static int CreateStreamFromFile(string path, long offset = 0, long length = 0, BassFlags flags = BassFlags.Default)
         {
-            return BassMidiNative.BASS_MIDI_StreamCreateFile(false, path, offset, length, flags | BassFlags.Unicode);
+            int handle = BassMidiNative.BASS_MIDI_StreamCreateFile(false, path, offset, length, flags | BassFlags.Unicode);
+
+            return handle;
         }
 
         /// <summary>

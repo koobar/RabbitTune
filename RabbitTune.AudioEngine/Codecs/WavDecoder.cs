@@ -56,6 +56,11 @@ namespace RabbitTune.AudioEngine.Codecs
         public override long Position { get => this.source.Position; set => this.source.Position = value; }
 
         /// <summary>
+        /// 破棄
+        /// </summary>
+        public new void Dispose() => this.source.Dispose();
+
+        /// <summary>
         /// ストリームから読み込む。
         /// </summary>
         /// <param name="buffer"></param>

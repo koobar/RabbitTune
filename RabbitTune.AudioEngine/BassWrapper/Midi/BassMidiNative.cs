@@ -134,5 +134,33 @@ namespace RabbitTune.AudioEngine.BassWrapper.Midi
         {
             return BASS_MIDI_FontInit_Native(path, flags | SoundFontInitFlags.Unicode);
         }
+
+        /// <summary>
+        /// サウンドフォントを読み込む。
+        /// </summary>
+        /// <param name="Handle"></param>
+        /// <param name="Preset"></param>
+        /// <param name="Bank"></param>
+        /// <returns></returns>
+        [DllImport(DLLNAME, EntryPoint = "BASS_MIDI_FontLoad")]
+        public static extern bool BASS_MIDI_FontLoad(int Handle, int Preset, int Bank);
+
+        /// <summary>
+        /// 指定されたハンドルのMIDIファイルに必要なサンプルを予め読み込む。
+        /// </summary>
+        /// <param name="Handle"></param>
+        /// <returns></returns>
+        [DllImport(DLLNAME, EntryPoint = "BASS_MIDI_StreamLoadSamples")]
+        public static extern bool BASS_MIDI_StreamLoadSamples(int handle);
+
+        /// <summary>
+        /// 指定されたハンドルのサウンドフォントの、指定されたプリセット、バンクをアンロードする。
+        /// </summary>
+        /// <param name="Handle"></param>
+        /// <param name="Preset"></param>
+        /// <param name="Bank"></param>
+        /// <returns></returns>
+        [DllImport(DLLNAME, EntryPoint = "BASS_MIDI_FontUnload")]
+        public static extern bool BASS_MIDI_FontUnload(int Handle, int Preset, int Bank);
     }
 }
