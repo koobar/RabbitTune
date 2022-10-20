@@ -184,6 +184,9 @@ namespace RabbitTune
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.VolumeSlider = new RabbitTune.Controls.ToolStripSlider();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.PanSlider = new RabbitTune.Controls.ToolStripSlider();
+            this.ResetPanButton = new System.Windows.Forms.ToolStripButton();
             this.TaskTrayContextMenu = new System.Windows.Forms.ContextMenu();
             this.StopTaskTrayMenu = new System.Windows.Forms.MenuItem();
             this.PauseOrResumeTaskTrayMenu = new System.Windows.Forms.MenuItem();
@@ -210,9 +213,6 @@ namespace RabbitTune
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.PlaylistBrowser = new RabbitTune.Controls.PlaylistBrowser();
             this.TrackPictureViewer = new System.Windows.Forms.PictureBox();
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-            this.PanSlider = new RabbitTune.Controls.ToolStripSlider();
-            this.ResetPanButton = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.MainContentsPanel.SuspendLayout();
@@ -1384,13 +1384,43 @@ namespace RabbitTune
             // 
             // VolumeSlider
             // 
+            this.VolumeSlider.LargeChange = 1;
             this.VolumeSlider.Maximum = 100;
             this.VolumeSlider.Minimum = 0;
             this.VolumeSlider.Name = "VolumeSlider";
             this.VolumeSlider.Size = new System.Drawing.Size(80, 22);
+            this.VolumeSlider.SmallChange = 1;
             this.VolumeSlider.Text = "toolStripTraceBarItem1";
             this.VolumeSlider.Value = 80;
             this.VolumeSlider.ValueChanged += new System.EventHandler(this.VolumeSlider_ValueChanged);
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(43, 22);
+            this.toolStripLabel2.Text = "定位：";
+            // 
+            // PanSlider
+            // 
+            this.PanSlider.LargeChange = 1;
+            this.PanSlider.Maximum = 100;
+            this.PanSlider.Minimum = -100;
+            this.PanSlider.Name = "PanSlider";
+            this.PanSlider.Size = new System.Drawing.Size(80, 22);
+            this.PanSlider.SmallChange = 1;
+            this.PanSlider.Text = "toolStripSlider1";
+            this.PanSlider.Value = 0;
+            this.PanSlider.ValueChanged += new System.EventHandler(this.PanSlider_ValueChanged);
+            // 
+            // ResetPanButton
+            // 
+            this.ResetPanButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.ResetPanButton.Image = ((System.Drawing.Image)(resources.GetObject("ResetPanButton.Image")));
+            this.ResetPanButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ResetPanButton.Name = "ResetPanButton";
+            this.ResetPanButton.Size = new System.Drawing.Size(45, 22);
+            this.ResetPanButton.Text = "リセット";
+            this.ResetPanButton.Click += new System.EventHandler(this.ResetPanButton_Click);
             // 
             // TaskTrayContextMenu
             // 
@@ -1593,32 +1623,6 @@ namespace RabbitTune
             this.TrackPictureViewer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.TrackPictureViewer.TabIndex = 3;
             this.TrackPictureViewer.TabStop = false;
-            // 
-            // toolStripLabel2
-            // 
-            this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(43, 22);
-            this.toolStripLabel2.Text = "定位：";
-            // 
-            // PanSlider
-            // 
-            this.PanSlider.Maximum = 100;
-            this.PanSlider.Minimum = -100;
-            this.PanSlider.Name = "PanSlider";
-            this.PanSlider.Size = new System.Drawing.Size(80, 22);
-            this.PanSlider.Text = "toolStripSlider1";
-            this.PanSlider.Value = 0;
-            this.PanSlider.ValueChanged += new System.EventHandler(this.PanSlider_ValueChanged);
-            // 
-            // ResetPanButton
-            // 
-            this.ResetPanButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.ResetPanButton.Image = ((System.Drawing.Image)(resources.GetObject("ResetPanButton.Image")));
-            this.ResetPanButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ResetPanButton.Name = "ResetPanButton";
-            this.ResetPanButton.Size = new System.Drawing.Size(78, 19);
-            this.ResetPanButton.Text = "定位をリセット";
-            this.ResetPanButton.Click += new System.EventHandler(this.ResetPanButton_Click);
             // 
             // MainForm
             // 

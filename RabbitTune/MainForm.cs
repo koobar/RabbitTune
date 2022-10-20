@@ -135,6 +135,13 @@ namespace RabbitTune
             this.EqualizerDialog = new EqualizerDialog();
             this.DetailOptionDialog = new OptionDialog();
             this.ApplicationVersionDialog = new VersionDialog();
+
+            // OSがWindows 10以降か？
+            if (Environment.OSVersion.Version.Major >= 10)
+            {
+                var preference = Convert.ToInt32(true);
+                WinApi.DwmSetWindowAttribute(this.Handle, WinApi.DWMWINDOWATTRIBUTE.DWMWA_USE_IMMERSIVE_DARK_MODE, ref preference, sizeof(uint));
+            }
         }
 
         // デフォルトコンストラクタ

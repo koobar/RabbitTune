@@ -16,5 +16,13 @@ namespace RabbitTune.MediaLibrary
         /// プレイリストに含まれているものの、存在しなかったファイルの一覧
         /// </summary>
         public IList<string> NotFoundFiles { private set; get; }
+
+        /// <summary>
+        /// 破棄
+        /// </summary>
+        public void Dispose()
+        {
+            base.playlistProvider.Dispose();
+        }
     }
 }

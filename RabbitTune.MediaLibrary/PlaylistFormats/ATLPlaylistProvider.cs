@@ -23,6 +23,14 @@ namespace RabbitTune.MediaLibrary.PlaylistFormats
         public List<AudioTrack> Tracks { set; get; }
 
         /// <summary>
+        /// 破棄
+        /// </summary>
+        public void Dispose()
+        {
+            this.Tracks.Clear();
+        }
+
+        /// <summary>
         /// プレイリストを読み込む。
         /// </summary>
         /// <param name="path"></param>

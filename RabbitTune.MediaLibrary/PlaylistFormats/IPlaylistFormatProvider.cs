@@ -20,5 +20,10 @@ namespace RabbitTune.MediaLibrary.PlaylistFormats
         /// </summary>
         /// <param name="path"></param>
         void SavePlaylist(string path);
+
+        /// <summary>
+        /// 破棄
+        /// </summary>
+        void Dispose();
     }
 }

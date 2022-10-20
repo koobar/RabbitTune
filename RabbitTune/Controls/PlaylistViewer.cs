@@ -87,6 +87,12 @@ namespace RabbitTune.Controls
             UpdateViewer();
         }
 
+        public new void Dispose()
+        {
+            this.AudioTracksViewer.Dispose();
+            base.Dispose();
+        }
+
         /// <summary>
         /// コンテキストメニューを作成する。
         /// </summary>
@@ -695,6 +701,9 @@ namespace RabbitTune.Controls
 
                     MessageBox.Show(mes.ToString(), $"{reader.NotFoundFiles.Count} 個のファイルの読み込みに失敗", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+
+                // 後始末
+                reader.Dispose();
             }
             else
             {

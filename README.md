@@ -21,11 +21,11 @@ RabbitTune は、以下の要件を満たす環境での使用を想定して開
  - Windows 10
  - Windows 11
 ### .NET Framework
- - .NET Framework 4.7.2 以降必須。（Windows 10 バージョン1809 以降なら標準でインストール済み）
+ - .NET Framework 4.8 以降必須。
 
 RabbitTune は、日本語版 Windows 環境での使用を想定しています。また、.NET Core や、  
-.NET n(nはバージョン) 等がインストールされていても、.NET Framework 4.7.2 または  
-それ以降のバージョンがインストールされていない環境では動作しません。
+.NET n(nはバージョン) 等がインストールされていても、.NET Framework 4.8 または  それ以降の  
+バージョンがインストールされていない環境では動作しません。
 
 ## ライセンス
 RabbitTune 本体は、MIT License を採用しています。RabbitTune で使用しているライブラリの  
@@ -33,7 +33,7 @@ RabbitTune 本体は、MIT License を採用しています。RabbitTune で使�
 記載したテキストファイルが用意されていますので、そちらをご覧ください。
 
 ## 連絡先
-RabbitTune に関するお問い合わせやクレーム等は、以下に示す連絡先で受け付けております。  
+RabbitTune に関するお問い合わせやクレーム等は、以下の連絡先で受け付けております。  
 
  - GitHubページのIssue（推奨）
  - koobar14@gmail.com（非推奨）

@@ -180,11 +180,9 @@ namespace RabbitTune.MediaLibrary
             {
                 if(this.tagReader != null)
                 {
-                    int year = this.tagReader.Year;
-
-                    if(year != 0)
+                    if(this.tagReader.Year != null)
                     {
-                        return year;
+                        return this.tagReader.Year.Value;
                     }
                 }
 
@@ -249,11 +247,9 @@ namespace RabbitTune.MediaLibrary
             {
                 if (this.tagReader != null)
                 {
-                    int track = this.tagReader.TrackNumber;
-
-                    if (track != 0)
+                    if(this.tagReader.TrackNumber != null)
                     {
-                        return track;
+                        return this.tagReader.TrackNumber.Value;
                     }
                 }
 

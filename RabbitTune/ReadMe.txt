@@ -7,7 +7,7 @@ Copyright (c) 2022 koobar <koobar14@gmail.com>
 
 ●動作環境
 　・Microsoft Windows 8.1/10/11（日本語環境）
-　・Microsoft .NET Framework 4.7.2 以降
+　・Microsoft .NET Framework 4.8 以降
 
 ●ライセンス
 　本ソフトウェアは、MITライセンスで配布されるフリーソフトです。

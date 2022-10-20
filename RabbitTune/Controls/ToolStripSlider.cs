@@ -67,5 +67,35 @@ namespace RabbitTune.Controls
                 return ((Slider)base.Control).Maximum;
             }
         }
+
+        /// <summary>
+        /// つまみが少し動いた際の変化量
+        /// </summary>
+        public int SmallChange
+        {
+            set
+            {
+                ((Slider)base.Control).SmallChange = value;
+            }
+            get
+            {
+                return ((Slider)base.Control).SmallChange;
+            }
+        }
+
+        /// <summary>
+        /// つまみが大きく動いた際の変化量
+        /// </summary>
+        public int LargeChange
+        {
+            set
+            {
+                ((Slider)base.Control).LargeChange = value;
+            }
+            get
+            {
+                return ((Slider)base.Control).LargeChange;
+            }
+        }
     }
 }
