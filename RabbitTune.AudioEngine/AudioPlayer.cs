@@ -3,6 +3,7 @@ using NAudio.Wave;
 using RabbitTune.AudioEngine.AudioOutputApi;
 using RabbitTune.AudioEngine.AudioProcess;
 using System;
+using System.Windows.Forms;
 
 namespace RabbitTune.AudioEngine
 {
@@ -350,16 +351,17 @@ namespace RabbitTune.AudioEngine
                 this.AudioOutputDevice.Stop();
                 this.AudioOutputDevice.Dispose();
 
-                // 出力デバイスを再生成
-                CreateDeviceOutput();
-
                 // 設定を反映
                 this.waveFormatConversion.SetWaveFormat(new WaveFormat(rate, bitsPerSample, channels), 60);
                 this.waveFormatConversion.Enabled = useReSampler;
+                this.audioProcessSampleProvider = this.waveFormatConversion;
                 CreateOutputWaveProvider();
 
+                // 出力デバイスを再生成
+                CreateDeviceOutput();
+
                 // 設定変更前に再生中だったか？
-                if(state == PlaybackState.Playing)
+                if (state == PlaybackState.Playing)
                 {
                     this.AudioOutputDevice.Init(this.OutputAudioSource);
                     this.AudioOutputDevice.Play();
@@ -370,6 +372,7 @@ namespace RabbitTune.AudioEngine
                 // 設定を反映
                 this.waveFormatConversion.SetWaveFormat(new WaveFormat(rate, bitsPerSample, channels), 60);
                 this.waveFormatConversion.Enabled = useReSampler;
+                this.audioProcessSampleProvider = this.waveFormatConversion;
                 CreateOutputWaveProvider();
             }
 
