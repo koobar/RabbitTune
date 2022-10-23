@@ -1,5 +1,6 @@
 ﻿using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
+using System.Windows.Forms;
 
 namespace RabbitTune.AudioEngine.AudioProcess
 {
@@ -42,7 +43,7 @@ namespace RabbitTune.AudioEngine.AudioProcess
         {
             get
             {
-                return this.Pan != 0f;
+                return (int)(this.Pan * 100) != 0;
             }
         }
 
@@ -67,7 +68,7 @@ namespace RabbitTune.AudioEngine.AudioProcess
         {
             if (this.Enabled)
             {
-                return this.panningProvider.Read(buffer, offset, count);
+                return this.dest.Read(buffer, offset, count);
             }
 
             return this.src.Read(buffer, offset, count);

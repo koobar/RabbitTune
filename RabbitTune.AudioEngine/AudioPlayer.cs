@@ -805,14 +805,14 @@ namespace RabbitTune.AudioEngine
                 // 再生速度設定器の生成
                 CreateSpeedSetter();
 
-                // リサンプラーの生成
-                CreateReSampler(useReSampler, reSamplerSampleRate, reSamplerBitsPerSample, reSamplerChannels);          // 一般設定用
-
                 // 音量調節エフェクタの生成
                 CreateVolumeChanger();
 
                 // 定位調節エフェクタの生成
                 CreatePanSetter();
+
+                // リサンプラーの生成
+                CreateReSampler(useReSampler, reSamplerSampleRate, reSamplerBitsPerSample, reSamplerChannels);          // 一般設定用
 
                 // 出力用WaveProviderを設定
                 CreateOutputWaveProvider();
