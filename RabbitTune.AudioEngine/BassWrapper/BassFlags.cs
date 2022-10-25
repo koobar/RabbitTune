@@ -1,6 +1,6 @@
 ﻿namespace RabbitTune.AudioEngine.BassWrapper
 {
-    internal enum BassFlags : uint
+    public enum BassFlags : uint
     {
         Default,
         Byte = 0x1,

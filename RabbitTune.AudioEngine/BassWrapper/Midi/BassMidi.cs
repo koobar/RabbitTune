@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace RabbitTune.AudioEngine.BassWrapper.Midi
 {
-    internal static class BassMidi
+    public static class BassMidi
     {
         // 公開定数
         public const int BASS_CONFIGURE_AUTOFONT = 66562;

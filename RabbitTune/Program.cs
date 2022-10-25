@@ -29,6 +29,7 @@ namespace RabbitTune
         [STAThread]
         static void Main(string[] args)
         {
+            // エンジンを初期化する。
             Engine.Initialize();
 
             // 設定を読み込む。
@@ -148,6 +149,12 @@ namespace RabbitTune
                 }
                 writer.WriteStringArrayProperty(AudioPlayerManager.KEY_SOUNDFONTS, fonts);
 
+                // DSDの設定
+                writer.WriteEmptyLine();
+                writer.WriteComment("DSD Options");
+                writer.WriteProperty(AudioPlayerManager.KEY_DSDTOPCM_SAMPLERATE, AudioPlayerManager.DsdToPcmSampleRate);
+                writer.WriteProperty(AudioPlayerManager.KEY_DSDTOPCM_GAIN, AudioPlayerManager.DsdToPcmGain);
+
                 // 後始末
                 writer.Dispose();
             }
@@ -221,6 +228,10 @@ namespace RabbitTune
             AudioPlayerManager.SoundFonts = soundFonts;
             AudioPlayerManager.MidiUseHardwareMixing = reader.GetValueAsBoolean(AudioPlayerManager.KEY_MIDI_USE_HWMIXING);
             AudioPlayerManager.MidiUseSincInterpolation = reader.GetValueAsBoolean(AudioPlayerManager.KEY_MIDI_USE_SINC_INTERPOLATION);
+
+            // DSDの設定
+            AudioPlayerManager.DsdToPcmSampleRate = reader.GetValueAsInt(AudioPlayerManager.KEY_DSDTOPCM_SAMPLERATE, 88200);
+            AudioPlayerManager.DsdToPcmGain = reader.GetValueAsInt(AudioPlayerManager.KEY_DSDTOPCM_GAIN, 6);
         }
     }
 }

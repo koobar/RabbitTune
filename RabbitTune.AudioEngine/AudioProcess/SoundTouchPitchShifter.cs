@@ -8,14 +8,24 @@ namespace RabbitTune.AudioEngine.AudioProcess
     {
         // 非公開変数
         private readonly ISampleProvider src;
-        private readonly SoundTouchSampleProvider dest;
+        private readonly SoundTouchSampleProvider soundTouch;
+        private readonly ISampleProvider dest;
         private float pitch = 0;
 
         // コンストラクタ
         public SoundTouchPitchShifter(ISampleProvider source, bool fixClip)
         {
             this.src = source;
-            this.dest = Create(source, fixClip);
+            this.soundTouch = Create(source, fixClip, out int dsr);
+
+            if(dsr != source.WaveFormat.SampleRate)
+            {
+                this.dest = this.soundTouch;
+            }
+            else
+            {
+                this.dest = new WaveFormatConversion(this.soundTouch, true, 1, dsr, 32, this.soundTouch.WaveFormat.Channels);
+            }
         }
 
         /// <summary>
@@ -25,7 +35,7 @@ namespace RabbitTune.AudioEngine.AudioProcess
         /// <param name="source"></param>
         /// <param name="fixClip"></param>
         /// <returns></returns>
-        private SoundTouchSampleProvider Create(ISampleProvider source, bool fixClip = true)
+        private SoundTouchSampleProvider Create(ISampleProvider source, bool fixClip, out int defaultSampleRate)
         {
             var src = source;
 
@@ -35,6 +45,14 @@ namespace RabbitTune.AudioEngine.AudioProcess
                 // SmbPitchShiftingSampleProviderが2チャンネルを超える
                 // オーディオ入力をサポートしていない為、2チャンネルに変換する。
                 src = src.ToStereo();
+            }
+
+            // サンプルレートが176400Hzを超える場合、環境によっては例外が発生する
+            // 不具合を確認したので、一度176400Hzにダウンサンプルする。
+            defaultSampleRate = src.WaveFormat.SampleRate;
+            if(src.WaveFormat.SampleRate > 176400)
+            {
+                src = new WaveFormatConversion(src, true, 1, 176400, 32, src.WaveFormat.Channels);
             }
 
             if (fixClip)
@@ -52,9 +70,9 @@ namespace RabbitTune.AudioEngine.AudioProcess
         {
             set
             {
-                if (this.dest != null)
+                if (this.soundTouch != null)
                 {
-                    this.dest.SetPitchSemitones(value);
+                    this.soundTouch.SetPitchSemitones(value);
                 }
 
                 this.pitch = value;

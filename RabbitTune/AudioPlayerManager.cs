@@ -1,6 +1,7 @@
 ﻿using RabbitTune.AudioEngine;
 using RabbitTune.AudioEngine.AudioOutputApi;
 using RabbitTune.AudioEngine.AudioProcess;
+using RabbitTune.AudioEngine.BassWrapper.Dsd;
 using RabbitTune.AudioEngine.Codecs;
 using RabbitTune.MediaLibrary;
 using System;
@@ -48,6 +49,8 @@ namespace RabbitTune
         public const string KEY_MIDI_USE_HWMIXING = @"UseHWMixing";
         public const string KEY_MIDI_USE_SINC_INTERPOLATION = @"UseSincInterpolation";
         public const string KEY_ENABLE_MMCSS = @"EnableMMCSS";
+        public const string KEY_DSDTOPCM_SAMPLERATE = @"DSDToPCMSampleRate";
+        public const string KEY_DSDTOPCM_GAIN = @"DSDToPCMGain";
 
         // 公開イベント
         public static event EventHandler PlaybackPositionChanged;
@@ -510,11 +513,11 @@ namespace RabbitTune
         {
             set
             {
-                BassMidiDecoder.SoundFonts = value;
+                MidiDecoder.SoundFonts = value;
             }
             get
             {
-                return BassMidiDecoder.SoundFonts;
+                return MidiDecoder.SoundFonts;
             }
         }
 
@@ -526,11 +529,11 @@ namespace RabbitTune
         {
             set
             {
-                BassMidiDecoder.UseSincInterpolation = value;
+                MidiDecoder.UseSincInterpolation = value;
             }
             get
             {
-                return BassMidiDecoder.UseSincInterpolation;
+                return MidiDecoder.UseSincInterpolation;
             }
         }
 
@@ -542,11 +545,39 @@ namespace RabbitTune
         {
             set
             {
-                BassMidiDecoder.UseHWMixing = value;
+                MidiDecoder.UseHWMixing = value;
             }
             get
             {
-                return BassMidiDecoder.UseHWMixing;
+                return MidiDecoder.UseHWMixing;
+            }
+        }
+
+        #endregion
+
+        #region DSD関連
+
+        public static int DsdToPcmSampleRate
+        {
+            set
+            {
+                BassDsd.SetDSDToPCMFrequency(value);
+            }
+            get
+            {
+                return BassDsd.GetDSDToPCMFrequency();
+            }
+        }
+
+        public static int DsdToPcmGain
+        {
+            set
+            {
+                BassDsd.SetDSDToPCMGain(value);
+            }
+            get
+            {
+                return BassDsd.GetDSDToPCMGain();
             }
         }
 

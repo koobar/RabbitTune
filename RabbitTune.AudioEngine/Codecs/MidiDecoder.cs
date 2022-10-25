@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RabbitTune.AudioEngine.Codecs
 {
-    public class BassMidiDecoder : WaveStream, IWaveProvider
+    public class MidiDecoder : WaveStream, IWaveProvider
     {
         // 非公開定数
         private const int BASS_ERR_HANDLE = 0;
@@ -17,7 +17,7 @@ namespace RabbitTune.AudioEngine.Codecs
         private int BassHandle;
         
         // コンストラクタ
-        public BassMidiDecoder(string path)
+        public MidiDecoder(string path)
         {
             this.soundFontHandles = new List<int>();
 

@@ -12,7 +12,7 @@ namespace RabbitTune.AudioEngine
         // 非公開変数
         private static readonly Type MediaFoundationDecoderType = typeof(MediaFoundationReader);
         private static readonly Type BassDecoderType = typeof(BassDecoder);
-        private static readonly Type BassMidiDecoderType = typeof(BassMidiDecoder);
+        private static readonly Type BassMidiDecoderType = typeof(MidiDecoder);
         private static readonly Type WavDecoderType = typeof(WavDecoder);
         private static readonly Type AiffDecoderType = typeof(AiffFileReader);
         private static readonly List<AudioFormatInfo> AudioFormatInfoCollection = new List<AudioFormatInfo>()
@@ -40,13 +40,13 @@ namespace RabbitTune.AudioEngine
             new AudioFormatInfo("OGA", BassDecoderType, true, ".oga"),
             new AudioFormatInfo("Opus", BassDecoderType, true, ".opus"),
             new AudioFormatInfo("WavPack", BassDecoderType, true, ".wv"),
-            new AudioFormatInfo("DSD", BassDecoderType, true, ".dsf", ".dff", ".dsd"),
             new AudioFormatInfo("Audio CD Track", BassDecoderType, true, ".cda"),
             new AudioFormatInfo("OptimFROG", BassDecoderType, true, ".ofr"),
             new AudioFormatInfo("Musepack", BassDecoderType, true, ".mpc"),
             new AudioFormatInfo("Speex", BassDecoderType, true, ".spx"),
             new AudioFormatInfo("TTA", BassDecoderType, true, ".tta"),
             new AudioFormatInfo("Monkey's Audio", BassDecoderType, true, ".ape"),
+            new AudioFormatInfo("DSD", BassDecoderType, true, ".dsf", ".dff", ".dsd"),
             new AudioFormatInfo("MIDI", BassMidiDecoderType, true, ".mid"),
         };
         private readonly WaveStream source;
@@ -290,7 +290,7 @@ namespace RabbitTune.AudioEngine
                 }
                 else if (t == BassMidiDecoderType)
                 {
-                    ((BassMidiDecoder)this.source).Dispose();
+                    ((MidiDecoder)this.source).Dispose();
                 }
                 else if (t == WavDecoderType)
                 {

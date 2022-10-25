@@ -31,15 +31,18 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.OKButton = new System.Windows.Forms.Button();
             this.DlgCancelButton = new System.Windows.Forms.Button();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.OptionsTabControl = new System.Windows.Forms.TabControl();
             this.AudioPlaybackOption = new System.Windows.Forms.TabPage();
             this.AudioOptionPanel = new RabbitTune.Controls.OptionPanels.AudioOptionPanel();
             this.MIDIPlaybackOption = new System.Windows.Forms.TabPage();
             this.MIDIOptionPanel = new RabbitTune.Controls.OptionPanels.MidiOptionPanel();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.DSDPlaybackOptionPanel = new RabbitTune.Controls.OptionPanels.DSDPlaybackOptionPanel();
             this.panel1.SuspendLayout();
-            this.tabControl1.SuspendLayout();
+            this.OptionsTabControl.SuspendLayout();
             this.AudioPlaybackOption.SuspendLayout();
             this.MIDIPlaybackOption.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -74,16 +77,17 @@
             this.DlgCancelButton.UseVisualStyleBackColor = true;
             this.DlgCancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
-            // tabControl1
+            // OptionsTabControl
             // 
-            this.tabControl1.Controls.Add(this.AudioPlaybackOption);
-            this.tabControl1.Controls.Add(this.MIDIPlaybackOption);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(394, 295);
-            this.tabControl1.TabIndex = 1;
+            this.OptionsTabControl.Controls.Add(this.AudioPlaybackOption);
+            this.OptionsTabControl.Controls.Add(this.MIDIPlaybackOption);
+            this.OptionsTabControl.Controls.Add(this.tabPage1);
+            this.OptionsTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.OptionsTabControl.Location = new System.Drawing.Point(0, 0);
+            this.OptionsTabControl.Name = "OptionsTabControl";
+            this.OptionsTabControl.SelectedIndex = 0;
+            this.OptionsTabControl.Size = new System.Drawing.Size(394, 295);
+            this.OptionsTabControl.TabIndex = 1;
             // 
             // AudioPlaybackOption
             // 
@@ -129,12 +133,31 @@
             this.MIDIOptionPanel.Size = new System.Drawing.Size(386, 267);
             this.MIDIOptionPanel.TabIndex = 0;
             // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.DSDPlaybackOptionPanel);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(386, 267);
+            this.tabPage1.TabIndex = 3;
+            this.tabPage1.Text = "DSD再生設定";
+            // 
+            // DSDPlaybackOptionPanel
+            // 
+            this.DSDPlaybackOptionPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DSDPlaybackOptionPanel.Font = new System.Drawing.Font("Yu Gothic UI", 9F);
+            this.DSDPlaybackOptionPanel.Location = new System.Drawing.Point(0, 0);
+            this.DSDPlaybackOptionPanel.Name = "DSDPlaybackOptionPanel";
+            this.DSDPlaybackOptionPanel.Size = new System.Drawing.Size(386, 267);
+            this.DSDPlaybackOptionPanel.TabIndex = 0;
+            // 
             // OptionDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(394, 325);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.OptionsTabControl);
             this.Controls.Add(this.panel1);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Yu Gothic UI", 9F);
@@ -146,9 +169,10 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "詳細設定";
             this.panel1.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
+            this.OptionsTabControl.ResumeLayout(false);
             this.AudioPlaybackOption.ResumeLayout(false);
             this.MIDIPlaybackOption.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -158,10 +182,12 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button OKButton;
         private System.Windows.Forms.Button DlgCancelButton;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl OptionsTabControl;
         private System.Windows.Forms.TabPage AudioPlaybackOption;
         private Controls.OptionPanels.AudioOptionPanel AudioOptionPanel;
         private System.Windows.Forms.TabPage MIDIPlaybackOption;
         private Controls.OptionPanels.MidiOptionPanel MIDIOptionPanel;
+        private System.Windows.Forms.TabPage tabPage1;
+        private Controls.OptionPanels.DSDPlaybackOptionPanel DSDPlaybackOptionPanel;
     }
 }

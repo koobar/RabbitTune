@@ -1,6 +1,6 @@
 ﻿namespace RabbitTune.AudioEngine.BassWrapper.Dsd
 {
-    internal static class BassDsd
+    public static class BassDsd
     {
         // 非公開定数
         public const int DSD_FREQUENCY = 67584;

@@ -97,7 +97,7 @@
     <Compile Include="BassWrapper\Midi\BassMidiSoundFontInfo.cs" />
     <Compile Include="BassWrapper\Midi\BassMidiSoundFontMode.cs" />
     <Compile Include="Codecs\BassDecoder.cs" />
-    <Compile Include="Codecs\BassMidiDecoder.cs" />
+    <Compile Include="Codecs\MidiDecoder.cs" />
     <Compile Include="Codecs\SoundFont.cs" />
     <Compile Include="Codecs\WavDecoder.cs" />
     <Compile Include="Engine.cs" />

@@ -68,6 +68,12 @@
     <Compile Include="Controls\BitsPerSampleComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\BorderLine.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\BorderLine.Designer.cs">
+      <DependentUpon>BorderLine.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ChannelsComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -87,6 +93,12 @@
     </Compile>
     <Compile Include="Controls\OptionPanels\AudioOptionPanel.Designer.cs">
       <DependentUpon>AudioOptionPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\OptionPanels\DSDPlaybackOptionPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\OptionPanels\DSDPlaybackOptionPanel.Designer.cs">
+      <DependentUpon>DSDPlaybackOptionPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\OptionPanels\MidiOptionPanel.cs">
       <SubType>UserControl</SubType>
@@ -174,11 +186,17 @@
     </Compile>
     <Compile Include="RepeatMode.cs" />
     <Compile Include="WinApi.cs" />
+    <EmbeddedResource Include="Controls\BorderLine.resx">
+      <DependentUpon>BorderLine.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\EqualizerOptionControl.resx">
       <DependentUpon>EqualizerOptionControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\OptionPanels\AudioOptionPanel.resx">
       <DependentUpon>AudioOptionPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\OptionPanels\DSDPlaybackOptionPanel.resx">
+      <DependentUpon>DSDPlaybackOptionPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\OptionPanels\MidiOptionPanel.resx">
       <DependentUpon>MidiOptionPanel.cs</DependentUpon>
