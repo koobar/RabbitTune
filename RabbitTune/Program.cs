@@ -1,6 +1,6 @@
 using RabbitTune.AudioEngine;
 using RabbitTune.AudioEngine.AudioOutputApi;
-using RabbitTune.AudioEngine.Codecs.BassCompat;
+using RabbitTune.AudioEngine.Codecs;
 using RabbitTune.ConfigFile;
 using System;
 using System.Diagnostics;
@@ -17,7 +17,7 @@ namespace RabbitTune
         public static readonly string ApplicationConfigFilePath = $"{ApplicationDataPath}\\config.dat";
         public static readonly string DefaultDefaultPlaylistPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyMusic)}\\RabbitTune\\default.m3u8";
         public static readonly string ApplicationName = "RabbitTune";
-        public static readonly Version ApplicationVersion = new Version(1, 0, 2, 2);
+        public static readonly Version ApplicationVersion = new Version(1, 0, 3);
         public static bool ResetApplicationOptionRequested = false;
 
         // îÒåˆäJïœêî

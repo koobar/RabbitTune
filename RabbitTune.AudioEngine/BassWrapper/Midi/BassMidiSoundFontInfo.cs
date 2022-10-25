@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace RabbitTune.AudioEngine.BassWrapper.Midi
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct SoundFontInfo
+    public struct BassMidiSoundFontInfo
     {
         IntPtr name;
         IntPtr copyright;

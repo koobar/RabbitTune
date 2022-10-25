@@ -4,10 +4,8 @@ using RabbitTune.AudioEngine.BassWrapper.Midi;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using BassSoundFont = RabbitTune.AudioEngine.BassWrapper.Midi.SoundFont;
 
-namespace RabbitTune.AudioEngine.Codecs.BassCompat
+namespace RabbitTune.AudioEngine.Codecs
 {
     public class BassMidiDecoder : WaveStream, IWaveProvider
     {
@@ -84,7 +82,7 @@ namespace RabbitTune.AudioEngine.Codecs.BassCompat
 
                 if (handle != 0)
                 {
-                    var fonts = new List<BassSoundFont>();
+                    var fonts = new List<BassMidiSoundFont>();
 
                     // BASSライブラリのラッパーで使用する形式のサウンドフォント型に変換
                     // この際、音量設定などが自動的に行われる。

@@ -1,4 +1,4 @@
-﻿using RabbitTune.AudioEngine.Codecs.BassCompat;
+﻿using RabbitTune.AudioEngine.BassWrapper;
 
 namespace RabbitTune.AudioEngine
 {
@@ -13,7 +13,7 @@ namespace RabbitTune.AudioEngine
             Win32Api.SetNativeDllDirectory();
 
             // BASS Audio Library の初期化
-            BassLib.Init();
+            InitBassLibrary();
         }
 
         /// <summary>
@@ -21,7 +21,33 @@ namespace RabbitTune.AudioEngine
         /// </summary>
         public static void Free()
         {
-            BassLib.Free();
+            FreeBassLibrary();
+        }
+
+        /// <summary>
+        /// BASSライブラリを初期化
+        /// </summary>
+        private static void InitBassLibrary()
+        {
+            Bass.Init(Bass.BASS_DEVICE_DECODE);
+            Bass.LoadPlugin($"{Win32Api.GetNativeDllDirectory()}\\bassopus.dll");
+            Bass.LoadPlugin($"{Win32Api.GetNativeDllDirectory()}\\bassdsd.dll");
+            Bass.LoadPlugin($"{Win32Api.GetNativeDllDirectory()}\\basswv.dll");
+            Bass.LoadPlugin($"{Win32Api.GetNativeDllDirectory()}\\basscd.dll");
+            Bass.LoadPlugin($"{Win32Api.GetNativeDllDirectory()}\\bassape.dll");
+            Bass.LoadPlugin($"{Win32Api.GetNativeDllDirectory()}\\bass_tta.dll");
+            Bass.LoadPlugin($"{Win32Api.GetNativeDllDirectory()}\\bass_spx.dll");
+            Bass.LoadPlugin($"{Win32Api.GetNativeDllDirectory()}\\bass_ofr.dll");
+            Bass.LoadPlugin($"{Win32Api.GetNativeDllDirectory()}\\bass_mpc.dll");
+            Bass.LoadPlugin($"{Win32Api.GetNativeDllDirectory()}\\bassmidi.dll");
+        }
+
+        /// <summary>
+        /// BASSライブラリを解放する。
+        /// </summary>
+        private static void FreeBassLibrary()
+        {
+            Bass.Free();
         }
     }
 }

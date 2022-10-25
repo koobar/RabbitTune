@@ -1,6 +1,6 @@
 ﻿namespace RabbitTune.AudioEngine.BassWrapper.Midi
 {
-    internal enum SoundFontInitFlags
+    internal enum BassMidiSoundFontMode
     {
         MemoryMap = 0x20000,
         XGDrums = 0x40000,

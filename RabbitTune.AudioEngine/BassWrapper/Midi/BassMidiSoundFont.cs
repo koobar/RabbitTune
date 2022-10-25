@@ -3,7 +3,7 @@
 namespace RabbitTune.AudioEngine.BassWrapper.Midi
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct SoundFont
+    public struct BassMidiSoundFont
     {
         /// <summary>
         /// サウンドフォントのハンドル

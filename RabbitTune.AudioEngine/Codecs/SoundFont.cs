@@ -1,8 +1,8 @@
 ﻿using RabbitTune.AudioEngine.BassWrapper.Midi;
 using System;
-using BassSoundFont = RabbitTune.AudioEngine.BassWrapper.Midi.SoundFont;
+using BassSoundFont = RabbitTune.AudioEngine.BassWrapper.Midi.BassMidiSoundFont;
 
-namespace RabbitTune.AudioEngine.Codecs.BassCompat
+namespace RabbitTune.AudioEngine.Codecs
 {
     public class SoundFont
     {

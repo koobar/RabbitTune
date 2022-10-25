@@ -1,11 +1,10 @@
 ﻿using RabbitTune.AudioEngine;
 using RabbitTune.AudioEngine.AudioOutputApi;
 using RabbitTune.AudioEngine.AudioProcess;
-using RabbitTune.AudioEngine.Codecs.BassCompat;
+using RabbitTune.AudioEngine.Codecs;
 using RabbitTune.MediaLibrary;
 using System;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace RabbitTune

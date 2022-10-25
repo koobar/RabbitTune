@@ -31,7 +31,7 @@ namespace RabbitTune.AudioEngine.BassWrapper.Midi
         /// <param name="Info"></param>
         /// <returns></returns>
         [DllImport(DLLNAME, EntryPoint = "BASS_MIDI_FontGetInfo")]
-        public static extern bool BASS_MIDI_FontGetInfo(int handle, out SoundFontInfo Info);
+        public static extern bool BASS_MIDI_FontGetInfo(int handle, out BassMidiSoundFontInfo Info);
 
         /// <summary>
         /// 指定されたサウンドフォントの指定されたプリセットの名前を取得し、その文字列のポインタを返す。
@@ -102,7 +102,7 @@ namespace RabbitTune.AudioEngine.BassWrapper.Midi
         /// <param name="count"></param>
         /// <returns></returns>
         [DllImport(DLLNAME, EntryPoint = "BASS_MIDI_StreamSetFonts")]
-        public static extern int BASS_MIDI_StreamSetFonts(int handle, SoundFont[] fonts, int count);
+        public static extern int BASS_MIDI_StreamSetFonts(int handle, BassMidiSoundFont[] fonts, int count);
 
         /// <summary>
         /// サウンドフォントを読み込む。
@@ -111,7 +111,7 @@ namespace RabbitTune.AudioEngine.BassWrapper.Midi
         /// <param name="flags"></param>
         /// <returns></returns>
         [DllImport(DLLNAME, CharSet = CharSet.Unicode, EntryPoint = "BASS_MIDI_FontInit")]
-        private static extern int BASS_MIDI_FontInit_Native(string path, SoundFontInitFlags flags);
+        private static extern int BASS_MIDI_FontInit_Native(string path, BassMidiSoundFontMode flags);
 
         /// <summary>
         /// サウンドフォントを読み込んでそのハンドルを返す。
@@ -121,7 +121,7 @@ namespace RabbitTune.AudioEngine.BassWrapper.Midi
         /// <returns></returns>
         public static int BASS_MIDI_FontInit(string path)
         {
-            return BASS_MIDI_FontInit_Native(path, SoundFontInitFlags.Unicode);
+            return BASS_MIDI_FontInit_Native(path, BassMidiSoundFontMode.Unicode);
         }
 
         /// <summary>
@@ -130,9 +130,9 @@ namespace RabbitTune.AudioEngine.BassWrapper.Midi
         /// <param name="path"></param>
         /// <param name="flags"></param>
         /// <returns></returns>
-        public static int BASS_MIDI_FontInit(string path, SoundFontInitFlags flags)
+        public static int BASS_MIDI_FontInit(string path, BassMidiSoundFontMode flags)
         {
-            return BASS_MIDI_FontInit_Native(path, flags | SoundFontInitFlags.Unicode);
+            return BASS_MIDI_FontInit_Native(path, flags | BassMidiSoundFontMode.Unicode);
         }
 
         /// <summary>

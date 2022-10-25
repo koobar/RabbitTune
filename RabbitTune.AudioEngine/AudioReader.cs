@@ -1,11 +1,9 @@
 ﻿using NAudio.Wave;
 using RabbitTune.AudioEngine.Codecs;
-using RabbitTune.AudioEngine.Codecs.BassCompat;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Windows.Forms;
 
 namespace RabbitTune.AudioEngine
 {

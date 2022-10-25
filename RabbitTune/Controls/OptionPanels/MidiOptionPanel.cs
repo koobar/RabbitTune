@@ -1,4 +1,4 @@
-﻿using RabbitTune.AudioEngine.Codecs.BassCompat;
+﻿using RabbitTune.AudioEngine.Codecs;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

@@ -84,7 +84,7 @@
             // 
             // soundFontBindingSource
             // 
-            this.soundFontBindingSource.DataSource = typeof(RabbitTune.AudioEngine.Codecs.BassCompat.SoundFont);
+            this.soundFontBindingSource.DataSource = typeof(RabbitTune.AudioEngine.Codecs.SoundFont);
             // 
             // AddFontButton
             // 

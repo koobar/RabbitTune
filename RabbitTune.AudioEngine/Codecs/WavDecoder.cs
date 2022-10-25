@@ -1,5 +1,4 @@
 ﻿using NAudio.Wave;
-using RabbitTune.AudioEngine.Codecs.BassCompat;
 
 namespace RabbitTune.AudioEngine.Codecs
 {

@@ -31,7 +31,7 @@ namespace RabbitTune.AudioEngine.BassWrapper.Midi
         /// <param name="handle"></param>
         /// <param name="fonts"></param>
         /// <returns></returns>
-        public static int SetStreamSoundFont(int streamHandle, IList<SoundFont> fonts)
+        public static int SetStreamSoundFont(int streamHandle, IList<BassMidiSoundFont> fonts)
         {
             return BassMidiNative.BASS_MIDI_StreamSetFonts(streamHandle, fonts.ToArray(), fonts.Count);
         }
@@ -61,7 +61,7 @@ namespace RabbitTune.AudioEngine.BassWrapper.Midi
 
             if (useXGDrumMode)
             {
-                handle = BassMidiNative.BASS_MIDI_FontInit(path, SoundFontInitFlags.XGDrums);
+                handle = BassMidiNative.BASS_MIDI_FontInit(path, BassMidiSoundFontMode.XGDrums);
             }
             else
             {
@@ -79,13 +79,13 @@ namespace RabbitTune.AudioEngine.BassWrapper.Midi
         /// <param name="bank"></param>
         /// <param name="useXGDrumMode"></param>
         /// <returns></returns>
-        public static SoundFont Load(string path, int preset = -1, int bank = 0, bool useXGDrumMode = false)
+        public static BassMidiSoundFont Load(string path, int preset = -1, int bank = 0, bool useXGDrumMode = false)
         {
             int fontHandle = CreateSoundFontHandle(path, useXGDrumMode);
 
             if (fontHandle != Bass.BASS_HANDLE_ERROR)
             {
-                return new SoundFont()
+                return new BassMidiSoundFont()
                 {
                     Handle = fontHandle,
                     Preset = preset,
@@ -94,7 +94,7 @@ namespace RabbitTune.AudioEngine.BassWrapper.Midi
             }
             else
             {
-                return new SoundFont();
+                return new BassMidiSoundFont();
             }
         }
 
@@ -113,7 +113,7 @@ namespace RabbitTune.AudioEngine.BassWrapper.Midi
         /// </summary>
         /// <param name="font"></param>
         /// <returns></returns>
-        public static bool Free(SoundFont font)
+        public static bool Free(BassMidiSoundFont font)
         {
             return Free(font.Handle);
         }
@@ -133,7 +133,7 @@ namespace RabbitTune.AudioEngine.BassWrapper.Midi
         /// </summary>
         /// <param name="font"></param>
         /// <returns></returns>
-        public static bool Compact(SoundFont font)
+        public static bool Compact(BassMidiSoundFont font)
         {
             return Compact(font.Handle);
         }
@@ -147,7 +147,7 @@ namespace RabbitTune.AudioEngine.BassWrapper.Midi
         /// </summary>
         /// <param name="fontHandle"></param>
         /// <returns></returns>
-        public static SoundFontInfo GetInfo(int fontHandle)
+        public static BassMidiSoundFontInfo GetInfo(int fontHandle)
         {
             BassMidiNative.BASS_MIDI_FontGetInfo(fontHandle, out var info);
 
@@ -159,7 +159,7 @@ namespace RabbitTune.AudioEngine.BassWrapper.Midi
         /// </summary>
         /// <param name="font"></param>
         /// <returns></returns>
-        public static SoundFontInfo GetInfo(SoundFont font)
+        public static BassMidiSoundFontInfo GetInfo(BassMidiSoundFont font)
         {
             return GetInfo(font.Handle);
         }
@@ -169,7 +169,7 @@ namespace RabbitTune.AudioEngine.BassWrapper.Midi
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static SoundFontInfo GetInfo(string path)
+        public static BassMidiSoundFontInfo GetInfo(string path)
         {
             int fontHandle = CreateSoundFontHandle(path, false);
             var info = GetInfo(fontHandle);
@@ -199,7 +199,7 @@ namespace RabbitTune.AudioEngine.BassWrapper.Midi
         /// <param name="preset"></param>
         /// <param name="bank"></param>
         /// <returns></returns>
-        public static string GetPresetName(SoundFont soundFont, int preset, int bank)
+        public static string GetPresetName(BassMidiSoundFont soundFont, int preset, int bank)
         {
             return BassMidiNative.BASS_MIDI_FontGetPreset(soundFont.Handle, preset, bank);
         }
@@ -226,7 +226,7 @@ namespace RabbitTune.AudioEngine.BassWrapper.Midi
         /// </summary>
         /// <param name="soundFont"></param>
         /// <returns></returns>
-        public static int[] GetPresets(SoundFont soundFont)
+        public static int[] GetPresets(BassMidiSoundFont soundFont)
         {
             return GetPresets(soundFont.Handle);
         }
@@ -250,7 +250,7 @@ namespace RabbitTune.AudioEngine.BassWrapper.Midi
         /// </summary>
         /// <param name="handle"></param>
         /// <returns></returns>
-        public static float GetFontVolume(SoundFont font)
+        public static float GetFontVolume(BassMidiSoundFont font)
         {
             return BassMidiNative.BASS_MIDI_FontGetVolume(font.Handle);
         }
@@ -272,7 +272,7 @@ namespace RabbitTune.AudioEngine.BassWrapper.Midi
         /// </summary>
         /// <param name="fontHandle"></param>
         /// <param name="volume"></param>
-        public static void SetFontVolume(SoundFont font, float volume)
+        public static void SetFontVolume(BassMidiSoundFont font, float volume)
         {
             BassMidiNative.BASS_MIDI_FontSetVolume(font.Handle, volume);
         }

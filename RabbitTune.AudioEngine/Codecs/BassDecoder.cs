@@ -4,7 +4,7 @@ using NAudio.Wave;
 using RabbitTune.AudioEngine.BassWrapper;
 using System.Windows.Forms;
 
-namespace RabbitTune.AudioEngine.Codecs.BassCompat
+namespace RabbitTune.AudioEngine.Codecs
 {
     internal class BassDecoder : WaveStream, IWaveProvider
     {
