@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace RabbitTune.Controls
 {
@@ -12,6 +13,11 @@ namespace RabbitTune.Controls
         public static bool IsDesignMode()
         {
             return LicenseManager.UsageMode == LicenseUsageMode.Designtime;
+        }
+
+        public static int GetItemIndex(ComboBox control, object value)
+        {
+            return control.Items.IndexOf(value);
         }
     }
 }

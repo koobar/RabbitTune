@@ -94,14 +94,9 @@ namespace RabbitTune.Controls.OptionPanels
         {
             if (!ControlUtils.IsDesignMode())
             {
-                string deviceName = AudioPlayerManager.AudioOutputDevice;
+                UpdateAudioOutputDeviceList();
+                SelectCurrentOutputDevice();
 
-                if (string.IsNullOrEmpty(deviceName) || !this.AudioOutputAPIComboBox.Items.Contains(deviceName))
-                {
-                    deviceName = GetDefaultDeviceName();
-                }
-
-                this.AudioOutputDevicesComboBox.Text = deviceName;
                 this.WASAPISyncModesComboBox.Text = AudioPlayerManager.UseWasapiEventSync ? WASAPI_SYNCMODE_EVENT : WASAPI_SYNCMODE_PUSH;
                 this.UseWASAPIExclusiveModeCheckBox.Checked = AudioPlayerManager.UseWasapiExclusiveMode;
                 this.UseOutputFmtConvCheckBox.Checked = AudioPlayerManager.UseDeviceOutputWaveFormatConversion;
@@ -114,6 +109,21 @@ namespace RabbitTune.Controls.OptionPanels
                 SetOutputFmtConvPanelEnabled(AudioPlayerManager.UseDeviceOutputWaveFormatConversion);
                 SetSelectedAudioOutputDeviceApiType(AudioPlayerManager.OutputDeviceApiType);
             }
+        }
+
+        /// <summary>
+        /// 現在設定されている出力デバイスを選択する。
+        /// </summary>
+        private void SelectCurrentOutputDevice()
+        {
+            string deviceName = AudioPlayerManager.AudioOutputDevice;
+
+            if (string.IsNullOrEmpty(deviceName) || !this.AudioOutputAPIComboBox.Items.Contains(deviceName))
+            {
+                deviceName = GetDefaultDeviceName();
+            }
+
+            this.AudioOutputDevicesComboBox.Text = deviceName;
         }
 
         /// <summary>
@@ -278,11 +288,7 @@ namespace RabbitTune.Controls.OptionPanels
         private void AudioOutputAPIComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateAudioOutputDeviceList();
-
-            if (this.AudioOutputDevicesComboBox.Items.Count > 0)
-            {
-                this.AudioOutputDevicesComboBox.SelectedIndex = 0;
-            }
+            SelectCurrentOutputDevice();
         }
 
         /// <summary>
