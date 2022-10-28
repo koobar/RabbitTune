@@ -1332,7 +1332,6 @@ namespace RabbitTune
             // 
             // SearchBox
             // 
-            this.SearchBox.Font = new System.Drawing.Font("Yu Gothic UI", 9F);
             this.SearchBox.Name = "SearchBox";
             this.SearchBox.Size = new System.Drawing.Size(120, 25);
             // 
