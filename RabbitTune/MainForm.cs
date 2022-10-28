@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using static RabbitTune.WinApi.DwmApi;
 
 namespace RabbitTune
 {
@@ -140,7 +141,7 @@ namespace RabbitTune
             if (Environment.OSVersion.Version.Major >= 10)
             {
                 var preference = Convert.ToInt32(true);
-                WinApi.DwmSetWindowAttribute(this.Handle, WinApi.DWMWINDOWATTRIBUTE.DWMWA_USE_IMMERSIVE_DARK_MODE, ref preference, sizeof(uint));
+                DwmSetWindowAttribute(this.Handle, DWMWINDOWATTRIBUTE.DWMWA_USE_IMMERSIVE_DARK_MODE, ref preference, sizeof(uint));
             }
         }
 

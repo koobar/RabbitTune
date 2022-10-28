@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Management;
 using System.Runtime.InteropServices;
 
-namespace RabbitTune
+namespace RabbitTune.WinApi
 {
-    internal static class WinApi
+    internal static class DwmApi
     {
         [DllImport("dwmapi.dll", CharSet = CharSet.Unicode, PreserveSig = false)]
         public static extern void DwmSetWindowAttribute(IntPtr hwnd, DWMWINDOWATTRIBUTE attribute, ref int pvAttribute, uint cbAttribute);

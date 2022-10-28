@@ -151,6 +151,7 @@
     <Compile Include="Dialogs\FindDialog.Designer.cs">
       <DependentUpon>FindDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\FolderSelectDialog.cs" />
     <Compile Include="Dialogs\OptionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -185,7 +186,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="RepeatMode.cs" />
-    <Compile Include="WinApi.cs" />
+    <Compile Include="WinApi\DwmApi.cs" />
+    <Compile Include="WinApi\Shell32.cs" />
+    <Compile Include="WinApi\User32.cs" />
     <EmbeddedResource Include="Controls\BorderLine.resx">
       <DependentUpon>BorderLine.cs</DependentUpon>
     </EmbeddedResource>

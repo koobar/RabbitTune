@@ -1,4 +1,5 @@
 ﻿using RabbitTune.AudioEngine;
+using RabbitTune.Dialogs;
 using RabbitTune.MediaLibrary;
 using System;
 using System.Collections.Generic;
@@ -392,6 +393,8 @@ namespace RabbitTune.Controls
                 // イベントの実行
                 this.PlaylistChanged?.Invoke(null, null);
             }
+
+            this.AudioTracksViewer.EndUpdate();
         }
 
         /// <summary>
@@ -792,7 +795,7 @@ namespace RabbitTune.Controls
             if (Directory.Exists(path))
             {
                 var tracks = AudioTrackReader.ReadFolder(path, AudioReader.GetAllSupportedFormatExtensions());
-                AddAudioTracks(tracks, true);
+                AddAudioTracks(tracks);
             }
         }
 
@@ -801,14 +804,15 @@ namespace RabbitTune.Controls
         /// </summary>
         public void ImportFolder()
         {
-            var dialog = new FolderBrowserDialog();
+            var dialog = new FolderSelectDialog();
             dialog.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
 
-            if(dialog.ShowDialog() == DialogResult.OK)
+            if(dialog.ShowDialog(null) == DialogResult.OK)
             {
                 ImportFolder(dialog.SelectedPath);
             }
         }
+
         #endregion
 
         #region 並び替え
