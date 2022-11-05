@@ -1,28 +1,29 @@
-﻿using System.Collections.Generic;
+﻿using RabbitTune.MediaLibrary.PlaylistFormats;
+using System.Collections.Generic;
 
 namespace RabbitTune.MediaLibrary
 {
-    public class PlaylistReader : Playlist
+    public class PlaylistReader
     {
         // コンストラクタ
-        public PlaylistReader(string path, IList<string> importFileExtensions) : base(path, importFileExtensions)
+        public PlaylistReader(string path, IList<string> importFileExtensions)
         {
-            base.playlistProvider.ReadPlaylist(path, out List<string> notFoundFiles);
+            this.PlaylistProvider = PlaylistProviderFactory.CreateProvider(path, importFileExtensions);
 
-            this.NotFoundFiles = notFoundFiles;
+            if (this.PlaylistProvider != null && this.PlaylistProvider.CanRead)
+            {
+                this.Playlist = this.PlaylistProvider.ReadPlaylist(path);
+            }
         }
 
         /// <summary>
-        /// プレイリストに含まれているものの、存在しなかったファイルの一覧
+        /// フォーマットプロバイダ
         /// </summary>
-        public IList<string> NotFoundFiles { private set; get; }
+        public IPlaylistFormatProvider PlaylistProvider { get; }
 
         /// <summary>
-        /// 破棄
+        /// 読み込まれたプレイリストのデータ
         /// </summary>
-        public void Dispose()
-        {
-            base.playlistProvider.Dispose();
-        }
+        public Playlist Playlist { private set; get; }
     }
 }

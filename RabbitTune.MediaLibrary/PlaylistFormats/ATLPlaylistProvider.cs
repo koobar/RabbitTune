@@ -7,7 +7,7 @@ namespace RabbitTune.MediaLibrary.PlaylistFormats
 {
     public class ATLPlaylistProvider : IPlaylistFormatProvider
     {
-        // 非公開変数
+        // 非公開フィールド
         private readonly IList<string> ImportFileExtensions;
 
         // コンストラクタ
@@ -18,29 +18,56 @@ namespace RabbitTune.MediaLibrary.PlaylistFormats
         }
 
         /// <summary>
-        /// トラック一覧
+        /// 読み込み可能かどうか
         /// </summary>
-        public List<AudioTrack> Tracks { set; get; }
+        public bool CanRead { set; get; } = true;
 
         /// <summary>
-        /// 破棄
+        /// 書き込み可能かどうか
         /// </summary>
-        public void Dispose()
+        public bool CanWrite { set; get; } = true;
+
+        /// <summary>
+        /// プレイリストを書き込む。
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="playlist"></param>
+        public void SavePlaylist(string path, Playlist playlist)
         {
-            this.Tracks.Clear();
+            var io = PlaylistIOFactory.GetInstance().GetPlaylistIO(path);
+            
+            if (playlist.Tracks != null)
+            {
+                var atlTracks = new Track[playlist.TrackCount];
+
+                for (int i = 0; i < atlTracks.Length; ++i)
+                {
+                    atlTracks[i] = new Track(playlist.Tracks[i].Location, false);
+                }
+
+                io.Tracks = atlTracks;
+            }
+            else
+            {
+                File.Create(path);
+            }
+
+            // プレイリストデータの場所を更新しておく。
+            playlist.Location = path;
         }
 
         /// <summary>
         /// プレイリストを読み込む。
         /// </summary>
         /// <param name="path"></param>
-        public void ReadPlaylist(string path, out List<string> notFoundFiles)
+        /// <returns></returns>
+        public Playlist ReadPlaylist(string path)
         {
+            var result = new Playlist();
             var io = PlaylistIOFactory.GetInstance().GetPlaylistIO(path);
-            notFoundFiles = new List<string>();
-            this.Tracks = new List<AudioTrack>();
+            result.Location = path;
 
-            foreach(var trackLocation in io.FilePaths)
+            foreach (var trackLocation in io.FilePaths)
             {
                 // ファイルが存在するか？
                 if (File.Exists(trackLocation))
@@ -52,45 +79,22 @@ namespace RabbitTune.MediaLibrary.PlaylistFormats
                         if (this.ImportFileExtensions.IndexOf(ext) != -1)
                         {
                             var track = new AudioTrack(trackLocation);
-                            this.Tracks.Add(track);
+                            result.Tracks.Add(track);
                         }
                     }
                     else
                     {
                         var track = new AudioTrack(trackLocation);
-                        this.Tracks.Add(track);
+                        result.Tracks.Add(track);
                     }
                 }
                 else
                 {
-                    notFoundFiles.Add(trackLocation);
+                    result.NotFoundFiles.Add(trackLocation);
                 }
             }
-        }
 
-        /// <summary>
-        /// プレイリストを保存する。
-        /// </summary>
-        /// <param name="path"></param>
-        public void SavePlaylist(string path)
-        {
-            var io = PlaylistIOFactory.GetInstance().GetPlaylistIO(path);
-
-            if (this.Tracks != null)
-            {
-                var atlTracks = new Track[this.Tracks.Count];
-
-                for (int i = 0; i < atlTracks.Length; ++i)
-                {
-                    atlTracks[i] = new Track(this.Tracks[i].Location, false);
-                }
-
-                io.Tracks = atlTracks;
-            }
-            else
-            {
-                File.Create(path);
-            }
+            return result;
         }
     }
 }

@@ -1,29 +1,27 @@
-﻿using System.Collections.Generic;
-
-namespace RabbitTune.MediaLibrary.PlaylistFormats
+﻿namespace RabbitTune.MediaLibrary.PlaylistFormats
 {
     public interface IPlaylistFormatProvider
     {
         /// <summary>
-        /// プレイリストに含まれているトラックの一覧
+        /// 読み込み可能かどうか
         /// </summary>
-        List<AudioTrack> Tracks { set; get; }
+        bool CanRead { set; get; }
+
+        /// <summary>
+        /// 書き込み可能かどうか
+        /// </summary>
+        bool CanWrite { set; get; }
 
         /// <summary>
         /// 指定されたプレイリストファイルを読み込む。
         /// </summary>
         /// <param name="path"></param>
-        void ReadPlaylist(string path, out List<string> notFoundFiles);
+        Playlist ReadPlaylist(string path);
 
         /// <summary>
         /// 指定されたパスにプレイリストを保存する。
         /// </summary>
         /// <param name="path"></param>
-        void SavePlaylist(string path);
-
-        /// <summary>
-        /// 破棄
-        /// </summary>
-        void Dispose();
+        void SavePlaylist(string path, Playlist playlist);
     }
 }

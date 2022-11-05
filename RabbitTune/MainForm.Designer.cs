@@ -43,6 +43,7 @@ namespace RabbitTune
             this.CreateNewPlaylistMenu = new System.Windows.Forms.MenuItem();
             this.FileMenuSeparator1 = new System.Windows.Forms.MenuItem();
             this.OpenAnyFilesMenu = new System.Windows.Forms.MenuItem();
+            this.OpenFolderMenu = new System.Windows.Forms.MenuItem();
             this.FileMenuSeparator2 = new System.Windows.Forms.MenuItem();
             this.SaveCurrentPlaylistAsMenu = new System.Windows.Forms.MenuItem();
             this.SaveCurrentPlaylistMenu = new System.Windows.Forms.MenuItem();
@@ -283,6 +284,7 @@ namespace RabbitTune
             this.CreateNewPlaylistMenu,
             this.FileMenuSeparator1,
             this.OpenAnyFilesMenu,
+            this.OpenFolderMenu,
             this.FileMenuSeparator2,
             this.SaveCurrentPlaylistAsMenu,
             this.SaveCurrentPlaylistMenu,
@@ -309,53 +311,59 @@ namespace RabbitTune
             // 
             this.OpenAnyFilesMenu.Index = 2;
             this.OpenAnyFilesMenu.Shortcut = System.Windows.Forms.Shortcut.CtrlO;
-            this.OpenAnyFilesMenu.Text = "開く(&O)";
+            this.OpenAnyFilesMenu.Text = "開く(&O)...";
             this.OpenAnyFilesMenu.Click += new System.EventHandler(this.OpenAnyFilesMenu_Click);
+            // 
+            // OpenFolderMenu
+            // 
+            this.OpenFolderMenu.Index = 3;
+            this.OpenFolderMenu.Text = "フォルダを指定して開く...";
+            this.OpenFolderMenu.Click += new System.EventHandler(this.OpenFolderMenu_Click);
             // 
             // FileMenuSeparator2
             // 
-            this.FileMenuSeparator2.Index = 3;
+            this.FileMenuSeparator2.Index = 4;
             this.FileMenuSeparator2.Text = "-";
             // 
             // SaveCurrentPlaylistAsMenu
             // 
-            this.SaveCurrentPlaylistAsMenu.Index = 4;
-            this.SaveCurrentPlaylistAsMenu.Text = "名前を付けて現在のプレイリストを保存";
+            this.SaveCurrentPlaylistAsMenu.Index = 5;
+            this.SaveCurrentPlaylistAsMenu.Text = "名前を付けて現在のプレイリストを保存...";
             this.SaveCurrentPlaylistAsMenu.Click += new System.EventHandler(this.SaveCurrentPlaylistAsMenu_Click);
             // 
             // SaveCurrentPlaylistMenu
             // 
-            this.SaveCurrentPlaylistMenu.Index = 5;
+            this.SaveCurrentPlaylistMenu.Index = 6;
             this.SaveCurrentPlaylistMenu.Shortcut = System.Windows.Forms.Shortcut.CtrlS;
             this.SaveCurrentPlaylistMenu.Text = "現在のプレイリストを保存";
             this.SaveCurrentPlaylistMenu.Click += new System.EventHandler(this.SaveCurrentPlaylistMenu_Click);
             // 
             // SaveAllPlaylistsMenu
             // 
-            this.SaveAllPlaylistsMenu.Index = 6;
+            this.SaveAllPlaylistsMenu.Index = 7;
             this.SaveAllPlaylistsMenu.Shortcut = System.Windows.Forms.Shortcut.CtrlShiftS;
             this.SaveAllPlaylistsMenu.Text = "全てのプレイリストを保存";
             this.SaveAllPlaylistsMenu.Click += new System.EventHandler(this.SaveAllPlaylistsMenu_Click);
             // 
             // FileMenuSeparator3
             // 
-            this.FileMenuSeparator3.Index = 7;
+            this.FileMenuSeparator3.Index = 8;
             this.FileMenuSeparator3.Text = "-";
             // 
             // AddFolderToPlaylistMenu
             // 
-            this.AddFolderToPlaylistMenu.Index = 8;
+            this.AddFolderToPlaylistMenu.Index = 9;
             this.AddFolderToPlaylistMenu.Text = "プレイリストにフォルダを追加";
             this.AddFolderToPlaylistMenu.Click += new System.EventHandler(this.AddFolderToPlaylistMenu_Click);
             // 
             // FileMenuSeparator4
             // 
-            this.FileMenuSeparator4.Index = 9;
+            this.FileMenuSeparator4.Index = 10;
             this.FileMenuSeparator4.Text = "-";
             // 
             // ExitApplicationMenu
             // 
-            this.ExitApplicationMenu.Index = 10;
+            this.ExitApplicationMenu.Index = 11;
             this.ExitApplicationMenu.Text = "閉じる(&X)";
             this.ExitApplicationMenu.Click += new System.EventHandler(this.ExitApplicationMenu_Click);
             // 
@@ -1332,7 +1340,6 @@ namespace RabbitTune
             // 
             // SearchBox
             // 
-            this.SearchBox.Font = new System.Drawing.Font("Yu Gothic UI", 9F);
             this.SearchBox.Name = "SearchBox";
             this.SearchBox.Size = new System.Drawing.Size(120, 25);
             // 
@@ -1565,6 +1572,7 @@ namespace RabbitTune
             this.MainTabControl.SelectedIndex = 0;
             this.MainTabControl.Size = new System.Drawing.Size(550, 372);
             this.MainTabControl.TabIndex = 12;
+            this.MainTabControl.SelectedIndexChanged += new System.EventHandler(this.MainTabControl_SelectedIndexChanged);
             // 
             // LeftSideSplitter
             // 
@@ -1836,5 +1844,6 @@ namespace RabbitTune
         private ToolStripLabel toolStripLabel2;
         private ToolStripSlider PanSlider;
         private ToolStripButton ResetPanButton;
+        private MenuItem OpenFolderMenu;
     }
 }

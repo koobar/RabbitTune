@@ -6,9 +6,6 @@ namespace RabbitTune.Controls
 {
     internal class PlaylistViewerTabPage : TabPage
     {
-        // 非公開変数
-        private PlaylistViewer playlistViewer;
-
         // 公開イベント
         public event EventHandler AudioTrackSelected;
 
@@ -17,32 +14,27 @@ namespace RabbitTune.Controls
         {
             InitComponents();
 
-            this.playlistViewer.PlaylistChanged += delegate
+            this.PlaylistViewer.PlaylistChanged += delegate
             {
                 string text = this.Text;
 
-                if(text != null)
+                if(text != null && text.EndsWith("*") == false)
                 {
-                    if(text.EndsWith("*") == false)
-                    {
-                        text += "*";
-                    }
+                    text += "*";
                 }
 
                 this.Text = text;
+            };
+            this.PlaylistViewer.PlaylistFileChanged += delegate
+            {
+                this.Text = this.PlaylistViewer.PlaylistName;
             };
         }
 
         /// <summary>
         /// プレイリストビューワー
         /// </summary>
-        public PlaylistViewer PlaylistViewer
-        {
-            get
-            {
-                return this.playlistViewer;
-            }
-        }
+        public PlaylistViewer PlaylistViewer { get; private set; }
 
         /// <summary>
         /// このタブを閉じることができるかどうか
@@ -57,16 +49,16 @@ namespace RabbitTune.Controls
             this.Text = "プレイリスト";
 
             // プレイリストビューワー
-            this.playlistViewer = new PlaylistViewer();
-            this.playlistViewer.Dock = DockStyle.Fill;
-            this.playlistViewer.AudioTrackDoubleClicked += PlaylistViewer_AudioTrackDoubleClicked;
-            this.playlistViewer.PlaylistFileChanged += PlaylistViewer_PlaylistFileChanged;
-            base.Controls.Add(this.playlistViewer);
+            this.PlaylistViewer = new PlaylistViewer();
+            this.PlaylistViewer.Dock = DockStyle.Fill;
+            this.PlaylistViewer.AudioTrackDoubleClicked += PlaylistViewer_AudioTrackDoubleClicked;
+            this.PlaylistViewer.PlaylistFileChanged += PlaylistViewer_PlaylistFileChanged;
+            base.Controls.Add(this.PlaylistViewer);
         }
 
         private void PlaylistViewer_PlaylistFileChanged(object sender, EventArgs e)
         {
-            this.Text = Path.GetFileName(this.playlistViewer.GetPlaylistFilePath());
+            this.Text = Path.GetFileName(this.PlaylistViewer.GetPlaylistFilePath());
         }
 
         private void PlaylistViewer_AudioTrackDoubleClicked(object sender, EventArgs e)

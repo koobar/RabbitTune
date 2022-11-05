@@ -509,9 +509,9 @@ namespace RabbitTune
                     formatList.Add(pair);
                 }
 
-                foreach (string fmtName in Playlist.GetSupportedFormatNames())
+                foreach (string fmtName in PlaylistProviderFactory.GetSupportedFormatNames())
                 {
-                    var pair = new KeyValuePair<string, string[]>(fmtName, Playlist.GetFormatExtensions(fmtName));
+                    var pair = new KeyValuePair<string, string[]>(fmtName, PlaylistProviderFactory.GetFormatExtensions(fmtName));
                     formatList.Add(pair);
                 }
 
@@ -547,9 +547,9 @@ namespace RabbitTune
             {
                 var formatList = new List<KeyValuePair<string, string[]>>();
 
-                foreach (string fmtName in Playlist.GetSupportedFormatNames())
+                foreach (string fmtName in PlaylistProviderFactory.GetSupportedFormatNames())
                 {
-                    var pair = new KeyValuePair<string, string[]>(fmtName, Playlist.GetFormatExtensions(fmtName));
+                    var pair = new KeyValuePair<string, string[]>(fmtName, PlaylistProviderFactory.GetFormatExtensions(fmtName));
                     formatList.Add(pair);
                 }
 
@@ -585,7 +585,7 @@ namespace RabbitTune
             {
                 AddFileToPlaylist(path);
             }
-            else if (Playlist.IsSupportedPlaylistFormat(path))
+            else if (PlaylistProviderFactory.IsSupportedPlaylistFormat(path))
             {
                 OpenPlaylist(path);
             }
@@ -625,7 +625,7 @@ namespace RabbitTune
 
             if (path == null)
             {
-                page.Text = "新規プレイリスト.m3u";
+                //page.Text = "新規プレイリスト.m3u";
             }
             else
             {
@@ -675,7 +675,7 @@ namespace RabbitTune
             if (!File.Exists(ApplicationOptions.DefaultPlaylistPath))
             {
                 var writer = new PlaylistWriter(ApplicationOptions.DefaultPlaylistPath);
-                writer.Save();
+                writer.Save(null);
             }
 
             // デフォルトプレイリストを開く。
@@ -1240,6 +1240,21 @@ namespace RabbitTune
         }
 
         /// <summary>
+        /// フォルダを指定して開くメニューがクリックされた時の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OpenFolderMenu_Click(object sender, EventArgs e)
+        {
+            var dialog = new FolderSelectDialog();
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                OpenPlaylist(dialog.SelectedPath);
+            }
+        }
+
+        /// <summary>
         /// 現在のプレイリストに名前を付けて保存するメニューがクリックされた、またはそれと同等の操作が行われた際の処理
         /// </summary>
         /// <param name="sender"></param>
@@ -1675,32 +1690,73 @@ namespace RabbitTune
             SetSoundTouchPitch(pitch);
         }
 
+        /// <summary>
+        /// タスクトレイに格納するメニューがクリックされた時の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ShowInTaskTrayMenu_Click(object sender, EventArgs e)
         {
             this.ShowInTaskTrayMenu.Checked = !this.ShowInTaskTrayMenu.Checked;
             this.ShowInTaskTray = this.ShowInTaskTrayMenu.Checked;
         }
 
+        /// <summary>
+        /// タスクトレイ格納表示から標準表示に戻す操作が行われた際の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ShowAsNormalWindowTaskTrayMenu_Click(object sender, EventArgs e)
         {
             this.ShowInTaskTrayMenu.Checked = false;
             this.ShowInTaskTray = false;
         }
 
+        /// <summary>
+        /// ミニプレーヤーモードで表示するメニューがクリックされた時の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ShowAsMiniplayerModeMenu_Click(object sender, EventArgs e)
         {
             this.ShowAsMiniplayerModeMenu.Checked = !this.ShowAsMiniplayerModeMenu.Checked;
             this.ShowAsMiniplayerMode = this.ShowAsMiniplayerModeMenu.Checked;
         }
 
+        /// <summary>
+        /// 定位スライダの値が変更された時の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PanSlider_ValueChanged(object sender, EventArgs e)
         {
             AudioPlayerManager.Pan = this.PanSlider.Value;
         }
 
+        /// <summary>
+        /// 定位のリセットボタンがクリックされた時の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ResetPanButton_Click(object sender, EventArgs e)
         {
             this.PanSlider.Value = 0;
+        }
+
+        private void MainTabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Playlist.GetPlaylistType(
+                this.CurrentPlaylistViewer.GetPlaylistFilePath(), 
+                out bool isNew,
+                out bool isFile, 
+                out bool isDirectory,
+                out bool isDiscDrive,
+                out var driveInfo);
+
+            // 上書き保存が可能（プレイリストがファイル）である場合に、上書き保存に該当する
+            // コントロールを有効化、そうでなければ無効化する。
+            this.SaveCurrentPlaylistButton.Enabled = isFile || isNew;
+            this.SaveCurrentPlaylistMenu.Enabled = isFile || isNew;
         }
     }
 }

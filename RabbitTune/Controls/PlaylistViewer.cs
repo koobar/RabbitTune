@@ -1,6 +1,7 @@
 ﻿using RabbitTune.AudioEngine;
 using RabbitTune.Dialogs;
 using RabbitTune.MediaLibrary;
+using RabbitTune.MediaLibrary.PlaylistFormats;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -56,8 +57,7 @@ namespace RabbitTune.Controls
         private readonly MenuItem ContextMenuSeparator3 = new MenuItem();
         private readonly MenuItem OpenAudioTrackLocationMenu = new MenuItem();
 
-        // その他の非公開変数
-        private string PlaylistLocation;
+        // 非公開フィールド
         private ListViewColumnSorter AudioTracksViewerSorter;
         private string LatestSearchText;                        // 最後に検索したテキスト
         private int LatestSearchResultIndex;                    // 最後に検索した際の検索結果のインデックス
@@ -74,6 +74,7 @@ namespace RabbitTune.Controls
         {
             InitializeComponent();
 
+            this.CurrentPlaylist = new Playlist();
             this.AudioTracksViewerSorter = new ListViewColumnSorter();
             this.AudioTracksViewer.ListViewItemSorter = this.AudioTracksViewerSorter;
             this.PlaylistChanged += delegate
@@ -88,6 +89,9 @@ namespace RabbitTune.Controls
             UpdateViewer();
         }
 
+        /// <summary>
+        /// 破棄
+        /// </summary>
         public new void Dispose()
         {
             this.AudioTracksViewer.Dispose();
@@ -178,6 +182,11 @@ namespace RabbitTune.Controls
         }
 
         #region プロパティ
+
+        /// <summary>
+        /// プレイリスト
+        /// </summary>
+        public Playlist CurrentPlaylist { set; get; }
 
         /// <summary>
         /// 表示されるトラック数
@@ -307,7 +316,14 @@ namespace RabbitTune.Controls
         /// </summary>
         public bool IsChanged { private set; get; }
 
+        /// <summary>
+        /// プレイリスト名
+        /// </summary>
+        public string PlaylistName { set; get; }
+
         #endregion
+
+        #region スクロール
 
         /// <summary>
         /// 選択されたアイテムの位置までスクロールする。
@@ -329,6 +345,8 @@ namespace RabbitTune.Controls
             }
         }
 
+        #endregion
+
         #region オーディオトラックの操作
 
         /// <summary>
@@ -343,6 +361,7 @@ namespace RabbitTune.Controls
             // アイテムを追加
             var item = AudioTrackToListViewItem(track);
             this.AudioTracksViewer.Items.Add(item);
+            this.CurrentPlaylist.Tracks.Add(track);
 
             // 自動更新が有効か？
             if (autoUpdate)
@@ -380,6 +399,7 @@ namespace RabbitTune.Controls
 
             // アイテムを追加する。
             this.AudioTracksViewer.Items.AddRange(items);
+            this.CurrentPlaylist.Tracks.AddRange(tracks);
 
             // 自動更新が有効か？
             if (autoUpdate)
@@ -407,6 +427,7 @@ namespace RabbitTune.Controls
             {
                 DeleteItemFromList(track, false);
             }
+            this.CurrentPlaylist.Tracks.Clear();
 
             // 表示を更新する。
             UpdateViewer();
@@ -429,6 +450,7 @@ namespace RabbitTune.Controls
                 // 削除
                 var item = GetListViewItem(track, out _);
                 this.AudioTracksViewer.Items.Remove(item);
+                this.CurrentPlaylist.Tracks.Remove(track);
 
                 // 自動更新が有効か？
                 if (autoUpdate)
@@ -457,6 +479,7 @@ namespace RabbitTune.Controls
                 // 削除
                 var item = GetListViewItem(track, out _);
                 this.AudioTracksViewer.Items.Remove(item);
+                this.CurrentPlaylist.Tracks.Remove(track);
 
                 // ファイルを削除
                 if (File.Exists(track.Location))
@@ -665,7 +688,51 @@ namespace RabbitTune.Controls
         /// <returns></returns>
         public string GetPlaylistFilePath()
         {
-            return this.PlaylistLocation;
+            if(this.CurrentPlaylist == null)
+            {
+                return null;
+            }
+
+            return this.CurrentPlaylist.Location;
+        }
+        
+
+        /// <summary>
+        /// プレイリスト名を更新する。
+        /// </summary>
+        /// <param name="isFile"></param>
+        /// <param name="isDirectory"></param>
+        /// <param name="isDiscDrive"></param>
+        /// <param name="path"></param>
+        /// <param name="driveInfo"></param>
+        private void UpdatePlaylistName()
+        {
+            if(this.CurrentPlaylist != null)
+            {
+                if (this.CurrentPlaylist.IsNew)
+                {
+                    this.PlaylistName = "新規プレイリスト";
+                }
+                else if (this.CurrentPlaylist.IsFile || this.CurrentPlaylist.IsDirectory)
+                {
+                    this.PlaylistName = Path.GetFileName(this.CurrentPlaylist.Location);
+                }
+                else if (this.CurrentPlaylist.IsDiscDrive)
+                {
+                    if (string.IsNullOrEmpty(this.CurrentPlaylist.DriveInfo.VolumeLabel))
+                    {
+                        this.PlaylistName = this.CurrentPlaylist.DriveInfo.VolumeLabel;
+                    }
+                    else
+                    {
+                        this.PlaylistName = this.CurrentPlaylist.DriveInfo.Name;
+                    }
+                }
+                else
+                {
+                    this.PlaylistName = string.Empty;
+                }
+            }
         }
 
         /// <summary>
@@ -674,44 +741,43 @@ namespace RabbitTune.Controls
         /// <param name="path"></param>
         public void OpenPlaylist(string path)
         {
-            if (File.Exists(path))
+            var reader = new PlaylistReader(path, AudioReader.GetAllSupportedFormatExtensions());
+
+            if (reader.Playlist != null)
             {
-                var reader = new PlaylistReader(path, AudioReader.GetAllSupportedFormatExtensions());
+                // ファイル名等の設定
+                this.CurrentPlaylist = reader.Playlist;
+                UpdatePlaylistName();
 
                 // 読み込んだトラックの一覧を表示に追加
-                AddAudioTracks(reader.Tracks, true, false);
+                AddAudioTracks(this.CurrentPlaylist.Tracks, true, false);
 
                 // 最近開いたプレイリストの一覧に追加
                 PlaylistsDataBase.AddRecentPlaylist(path);
-
-                // 後始末
-                this.PlaylistLocation = path;
 
                 // イベントの実行
                 this.PlaylistFileChanged?.Invoke(null, null);
 
                 // 読み込まれなかったファイルが存在するか？
-                if(reader.NotFoundFiles.Count > 0)
+                if (this.CurrentPlaylist.NotFoundFiles != null && this.CurrentPlaylist.NotFoundFiles.Count > 0)
                 {
                     var mes = new StringBuilder();
-                    mes.AppendLine($"{reader.NotFoundFiles.Count} 個のファイルが、利用可能な場所に存在しなかったため、読み込まれませんでした。");
+                    mes.AppendLine($"{this.CurrentPlaylist.TrackCount} 個のファイルが、利用可能な場所に存在しなかったため、読み込まれませんでした。");
                     mes.AppendLine("読み込みがスキップされたファイルは、以下の通りです。");
 
-                    foreach(string skipped in reader.NotFoundFiles)
+                    foreach (string skipped in this.CurrentPlaylist.NotFoundFiles)
                     {
                         mes.AppendLine($"　{skipped}");
                     }
 
-                    MessageBox.Show(mes.ToString(), $"{reader.NotFoundFiles.Count} 個のファイルの読み込みに失敗", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(mes.ToString(), $"{this.CurrentPlaylist.NotFoundFiles.Count} 個のファイルの読み込みに失敗", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-
-                // 後始末
-                reader.Dispose();
             }
             else
             {
-                MessageBox.Show($"プレイリストファイル {Path.GetFileName(path)} が見つかりません。",
-                    "ファイルが見つかりません",
+                MessageBox.Show($"プレイリスト '{Path.GetFileName(path)}' の読み込みに失敗しました。\n" +
+                    $"ファイルが存在するか、または、破損していないかご確認ください。",
+                    "プレイリストの読み込み失敗",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
@@ -724,13 +790,12 @@ namespace RabbitTune.Controls
         public void SavePlaylist(string path)
         {
             var writer = new PlaylistWriter(path);
-            writer.Tracks = GetAudioTracks();
 
             // 保存
-            writer.Save();
+            writer.Save(this.CurrentPlaylist);
 
-            // 後始末
-            this.PlaylistLocation = path;
+            // プレイリスト名を更新する
+            UpdatePlaylistName();
 
             // イベントの実行
             this.PlaylistFileChanged?.Invoke(null, null);
@@ -742,14 +807,18 @@ namespace RabbitTune.Controls
         /// </summary>
         public void SavePlaylist()
         {
-            if (string.IsNullOrEmpty(this.PlaylistLocation))
-            {
-                SavePlaylistAs();
-                return;
-            }
+            string path = GetPlaylistFilePath();
 
-            // 上書き保存
-            SavePlaylist(this.PlaylistLocation);
+            if (string.IsNullOrEmpty(path))
+            {
+                // 名前を付けて保存
+                SavePlaylistAs();
+            }
+            else
+            {
+                // 上書き保存
+                SavePlaylist(path);
+            }
         }
 
         /// <summary>
@@ -760,9 +829,9 @@ namespace RabbitTune.Controls
         {
             var formatList = new List<KeyValuePair<string, string[]>>();
 
-            foreach(string fmtName in Playlist.GetSupportedFormatNames())
+            foreach(string fmtName in PlaylistProviderFactory.GetSupportedFormatNames())
             {
-                var pair = new KeyValuePair<string, string[]>(fmtName, Playlist.GetFormatExtensions(fmtName));
+                var pair = new KeyValuePair<string, string[]>(fmtName, PlaylistProviderFactory.GetFormatExtensions(fmtName));
                 formatList.Add(pair);
             }
 

@@ -1,34 +1,47 @@
-﻿using System.IO;
+﻿using RabbitTune.MediaLibrary.PlaylistFormats;
+using System.IO;
 
 namespace RabbitTune.MediaLibrary
 {
-    public class PlaylistWriter : Playlist
+    public class PlaylistWriter
     {
-        // 非公開変数
-        private string Location;
+        // 非公開フィールド
+        private readonly string Location;
 
         // コンストラクタ
-        public PlaylistWriter(string path) : base(path, null)
+        public PlaylistWriter(string path)
         {
             this.Location = path;
+            this.PlaylistProvider = PlaylistProviderFactory.CreateProvider(path, null);
         }
+
+        /// <summary>
+        /// フォーマットプロバイダ
+        /// </summary>
+        public IPlaylistFormatProvider PlaylistProvider { get; }
 
         /// <summary>
         /// プレイリストを保存する。
         /// </summary>
-        public void Save()
+        public void Save(Playlist playlist)
         {
-            var dir = Path.GetDirectoryName(this.Location);
-
-            // 保存先のフォルダが存在しないと、例外が発生する可能性がある為、
-            // 念のため存在確認を行い、存在しない場合は保存前に作成する。
-            if (!Directory.Exists(dir))
+            if (this.PlaylistProvider != null && this.PlaylistProvider.CanWrite)
             {
-                Directory.CreateDirectory(dir);
-            }
+                var dir = Path.GetDirectoryName(this.Location);
 
-            // プレイリストを保存
-            base.playlistProvider.SavePlaylist(this.Location);
+                if (string.IsNullOrEmpty(dir) == false)
+                {
+                    // 保存先のフォルダが存在しないと、例外が発生する可能性がある為、
+                    // 念のため存在確認を行い、存在しない場合は保存前に作成する。
+                    if (!Directory.Exists(dir))
+                    {
+                        Directory.CreateDirectory(dir);
+                    }
+                }
+
+                // プレイリストを保存
+                this.PlaylistProvider.SavePlaylist(this.Location, playlist);
+            }
         }
     }
 }

@@ -50,7 +50,9 @@
     <Compile Include="AudioTrackReader.cs" />
     <Compile Include="Playlist.cs" />
     <Compile Include="PlaylistFormats\ATLPlaylistProvider.cs" />
+    <Compile Include="PlaylistFormats\FolderProvider.cs" />
     <Compile Include="PlaylistFormats\IPlaylistFormatProvider.cs" />
+    <Compile Include="PlaylistProviderFactory.cs" />
     <Compile Include="PlaylistReader.cs" />
     <Compile Include="PlaylistWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
