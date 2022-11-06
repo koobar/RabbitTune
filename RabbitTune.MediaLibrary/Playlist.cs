@@ -18,6 +18,9 @@ namespace RabbitTune.MediaLibrary
         {
             this.Tracks = new List<AudioTrack>();
             this.NotFoundFiles = new List<string>();
+
+            // 後始末
+            UpdatePlaylistTypeProperties();
         }
 
         /// <summary>
@@ -49,7 +52,7 @@ namespace RabbitTune.MediaLibrary
             set
             {
                 this.location = value;
-                GetPlaylistType(value, out this.isNew, out this.isFile, out this.isDirectory, out this.isDiscDrive, out this.driveInfo);
+                UpdatePlaylistTypeProperties();
             }
             get
             {
@@ -57,6 +60,9 @@ namespace RabbitTune.MediaLibrary
             }
         }
 
+        /// <summary>
+        /// 新規作成されたプレイリストかどうか
+        /// </summary>
         public bool IsNew
         {
             get
@@ -65,6 +71,9 @@ namespace RabbitTune.MediaLibrary
             }
         }
 
+        /// <summary>
+        /// ファイルから読み込まれたプレイリストかどうか
+        /// </summary>
         public bool IsFile
         {
             get
@@ -73,6 +82,9 @@ namespace RabbitTune.MediaLibrary
             }
         }
 
+        /// <summary>
+        /// ディレクトリ（フォルダ）から読み込まれたプレイリストかどうか
+        /// </summary>
         public bool IsDirectory
         {
             get
@@ -81,6 +93,9 @@ namespace RabbitTune.MediaLibrary
             }
         }
 
+        /// <summary>
+        /// ディスクドライブから読み込まれたプレイリストかどうか
+        /// </summary>
         public bool IsDiscDrive
         {
             get
@@ -89,6 +104,10 @@ namespace RabbitTune.MediaLibrary
             }
         }
 
+        /// <summary>
+        /// ドライブの情報<br/>
+        /// ディスクドライブから読み込まれたプレイリストでない場合、nullが格納される。
+        /// </summary>
         public DriveInfo DriveInfo
         {
             get
@@ -135,6 +154,14 @@ namespace RabbitTune.MediaLibrary
             {
                 isDirectory = false;
             }
+        }
+
+        /// <summary>
+        /// プレイリストの種類に関連するプロパティを更新する。
+        /// </summary>
+        private void UpdatePlaylistTypeProperties()
+        {
+            GetPlaylistType(this.Location, out this.isNew, out this.isFile, out this.isDirectory, out this.isDiscDrive, out this.driveInfo);
         }
     }
 }

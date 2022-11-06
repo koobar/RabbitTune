@@ -64,7 +64,7 @@ namespace RabbitTune.Controls
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.AudioTracksViewer);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.PlaylistName = "PlaylistViewer";
+            this.Name = "PlaylistViewer";
             this.Size = new System.Drawing.Size(257, 240);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.AudioTracksViewer_DragDrop);
             this.ResumeLayout(false);

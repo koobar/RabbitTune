@@ -16,7 +16,7 @@ namespace RabbitTune.Controls
 
             this.PlaylistViewer.PlaylistChanged += delegate
             {
-                string text = this.Text;
+                string text = this.PlaylistViewer.PlaylistName;
 
                 if(text != null && text.EndsWith("*") == false)
                 {
@@ -46,14 +46,13 @@ namespace RabbitTune.Controls
         /// </summary>
         private void InitComponents()
         {
-            this.Text = "プレイリスト";
-
             // プレイリストビューワー
             this.PlaylistViewer = new PlaylistViewer();
             this.PlaylistViewer.Dock = DockStyle.Fill;
             this.PlaylistViewer.AudioTrackDoubleClicked += PlaylistViewer_AudioTrackDoubleClicked;
             this.PlaylistViewer.PlaylistFileChanged += PlaylistViewer_PlaylistFileChanged;
             base.Controls.Add(this.PlaylistViewer);
+            this.Text = this.PlaylistViewer.PlaylistName;
         }
 
         private void PlaylistViewer_PlaylistFileChanged(object sender, EventArgs e)

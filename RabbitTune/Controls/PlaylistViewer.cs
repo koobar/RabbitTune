@@ -86,6 +86,7 @@ namespace RabbitTune.Controls
             // 後始末
             CreateContextMenu();
             ShowColumns();
+            UpdatePlaylistName();
             UpdateViewer();
         }
 
