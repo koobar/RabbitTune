@@ -1649,7 +1649,7 @@ namespace RabbitTune
         /// <param name="e"></param>
         private void PlaybackSpeedMenu_Click(object sender, EventArgs e)
         {
-            var menuItem = (MenuItem)sender;
+            var menuItem = (ToolStripMenuItem)sender;
             var rate = float.Parse(menuItem.Tag.ToString());
 
             SetPlaybackSpeed(rate);
@@ -1662,7 +1662,7 @@ namespace RabbitTune
         /// <param name="e"></param>
         private void PitchMenu_Click(object sender, EventArgs e)
         {
-            var menuItem = (MenuItem)sender;
+            var menuItem = (ToolStripMenuItem)sender;
             var pitch = int.Parse(menuItem.Tag.ToString());
 
             SetPitch(pitch);
@@ -1685,7 +1685,7 @@ namespace RabbitTune
         /// <param name="e"></param>
         private void SoundTouchPitchMenu_Click(object sender, EventArgs e)
         {
-            var menuItem = (MenuItem)sender;
+            var menuItem = (ToolStripMenuItem)sender;
             var pitch = int.Parse(menuItem.Tag.ToString());
 
             SetSoundTouchPitch(pitch);
@@ -1758,6 +1758,16 @@ namespace RabbitTune
             // コントロールを有効化、そうでなければ無効化する。
             this.SaveCurrentPlaylistButton.Enabled = isFile || isNew;
             this.SaveCurrentPlaylistMenu.Enabled = isFile || isNew;
+        }
+
+        private void FixPitchClipMenu_CheckedChanged(object sender, EventArgs e)
+        {
+            AudioPlayerManager.PitchShifterFixClip = this.FixPitchClipMenu.Checked;
+        }
+
+        private void STPitchFixClipMenu_Click(object sender, EventArgs e)
+        {
+            AudioPlayerManager.SoundTouchPitchShifterFixClip = this.STPitchFixClipMenu.Checked;
         }
     }
 }
