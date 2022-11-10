@@ -662,8 +662,8 @@ namespace RabbitTune
             {
                 var track = new AudioTrack(path);
 
-                this.CurrentPlaylistViewer.AddAudioTrackToView(track);
                 this.CurrentPlaylistViewer.CurrentPlaylist.Tracks.Add(track);
+                this.CurrentPlaylistViewer.UpdateView();
             }
         }
 

@@ -1,7 +1,6 @@
 ﻿using RabbitTune.AudioEngine;
 using RabbitTune.Dialogs;
 using RabbitTune.MediaLibrary;
-using RabbitTune.MediaLibrary.PlaylistFormats;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -87,7 +86,7 @@ namespace RabbitTune.Controls
             CreateContextMenu();
             ShowColumns();
             UpdatePlaylistName();
-            UpdateViewer();
+            UpdateColumnSize();
         }
 
         /// <summary>
@@ -350,74 +349,10 @@ namespace RabbitTune.Controls
 
         #region オーディオトラックの操作
 
-        /// <summary>
-        /// オーディオトラックを一覧に追加する。
-        /// </summary>
-        /// <param name="track"></param>
-        public void AddAudioTrackToView(AudioTrack track, bool autoUpdate = true, bool invokeChangedEvent = true)
-        {
-            // 高速化の為、一時的に描画を停止する。
-            this.AudioTracksViewer.BeginUpdate();
-
-            // アイテムを追加
-            var item = AudioTrackToListViewItem(track);
-            this.AudioTracksViewer.Items.Add(item);
-
-            // 自動更新が有効か？
-            if (autoUpdate)
-            {
-                // 各列のサイズを調整
-                UpdateViewer();
-            }
-
-            // 描画を再開
-            this.AudioTracksViewer.EndUpdate();
-
-            if (invokeChangedEvent)
-            {
-                // イベントの実行
-                this.PlaylistChanged?.Invoke(null, null);
-            }
-        }
+        #region プレイリストに直接変更を加えるメソッド
 
         /// <summary>
-        /// 与えられたトラックをすべてビューに追加する。
-        /// </summary>
-        /// <param name="tracks"></param>
-        /// <param name="autoUpdate"></param>
-        public void AddAudioTracksToView(IList<AudioTrack> tracks, bool autoUpdate = true, bool invokeChangedEvent = true)
-        {
-            // 高速化の為、一時的に描画を停止する。
-            this.AudioTracksViewer.BeginUpdate();
-
-            // AudioTrackをListViewItemに変換する。
-            var items = new ListViewItem[tracks.Count];
-            for(int i = 0; i < tracks.Count; ++i)
-            {
-                items[i] = AudioTrackToListViewItem(tracks[i]);
-            }
-
-            // アイテムを追加する。
-            this.AudioTracksViewer.Items.AddRange(items);
-
-            // 自動更新が有効か？
-            if (autoUpdate)
-            {
-                // 各列のサイズを調整
-                UpdateViewer();
-            }
-
-            if (invokeChangedEvent)
-            {
-                // イベントの実行
-                this.PlaylistChanged?.Invoke(null, null);
-            }
-
-            this.AudioTracksViewer.EndUpdate();
-        }
-
-        /// <summary>
-        /// 全てのトラックを一覧から除外する。
+        /// 全てのトラックをプレイリストと表示から削除する。
         /// </summary>
         public void Clear()
         {
@@ -429,14 +364,14 @@ namespace RabbitTune.Controls
             this.CurrentPlaylist.Tracks.Clear();
 
             // 表示を更新する。
-            UpdateViewer();
+            UpdateColumnSize();
 
             // イベントの実行
             this.PlaylistChanged?.Invoke(null, null);
         }
 
         /// <summary>
-        /// 指定されたトラックを一覧から除外する。
+        /// 指定されたトラックをプレイリストと表示から削除する。
         /// </summary>
         /// <param name="track"></param>
         /// <param name="autoUpdate"></param>
@@ -446,6 +381,8 @@ namespace RabbitTune.Controls
 
             if (track != null)
             {
+                this.CurrentPlaylist.Tracks.Remove(track);
+
                 // 削除
                 var item = GetListViewItem(track, out _);
                 this.AudioTracksViewer.Items.Remove(item);
@@ -454,7 +391,7 @@ namespace RabbitTune.Controls
                 // 自動更新が有効か？
                 if (autoUpdate)
                 {
-                    UpdateViewer();
+                    UpdateColumnSize();
                 }
 
                 // イベントの実行
@@ -465,7 +402,7 @@ namespace RabbitTune.Controls
         }
 
         /// <summary>
-        /// 指定されたトラックを一覧から除外し、さらにファイルも削除する。
+        /// 指定されたトラックをプレイリストと表示から削除し、さらにファイルも削除する。
         /// </summary>
         /// <param name="track"></param>
         /// <param name="autoUpdate"></param>
@@ -489,7 +426,7 @@ namespace RabbitTune.Controls
                 // 自動更新が有効か？
                 if (autoUpdate)
                 {
-                    UpdateViewer();
+                    UpdateColumnSize();
                 }
 
                 // イベントの実行
@@ -499,6 +436,146 @@ namespace RabbitTune.Controls
             // 後始末
             this.AudioTracksViewer.ResumeLayout();
         }
+
+        #endregion
+
+        #region メソッドを呼び出した時点でプレイリストそのものを変更が、保存する際に変更されるメソッド
+
+        /// <summary>
+        /// オーディオトラックを一覧に追加する。
+        /// </summary>
+        /// <param name="track"></param>
+        private void AddAudioTrackToView(AudioTrack track, bool autoUpdate = true, bool invokeChangedEvent = true)
+        {
+            // 高速化の為、一時的に描画を停止する。
+            this.AudioTracksViewer.BeginUpdate();
+
+            // アイテムを追加
+            var item = AudioTrackToListViewItem(track);
+            this.AudioTracksViewer.Items.Add(item);
+
+            // 自動更新が有効か？
+            if (autoUpdate)
+            {
+                // 各列のサイズを調整
+                UpdateColumnSize();
+            }
+
+            // 描画を再開
+            this.AudioTracksViewer.EndUpdate();
+
+            if (invokeChangedEvent)
+            {
+                // イベントの実行
+                this.PlaylistChanged?.Invoke(null, null);
+            }
+        }
+
+        /// <summary>
+        /// 与えられたトラックをすべてビューに追加する。
+        /// </summary>
+        /// <param name="tracks"></param>
+        /// <param name="autoUpdate"></param>
+        private void AddAudioTracksToView(IList<AudioTrack> tracks, bool autoUpdate = true, bool invokeChangedEvent = true)
+        {
+            // 高速化の為、一時的に描画を停止する。
+            this.AudioTracksViewer.BeginUpdate();
+
+            // AudioTrackをListViewItemに変換する。
+            var items = new ListViewItem[tracks.Count];
+            for (int i = 0; i < tracks.Count; ++i)
+            {
+                items[i] = AudioTrackToListViewItem(tracks[i]);
+            }
+
+            // アイテムを追加する。
+            this.AudioTracksViewer.Items.AddRange(items);
+
+            // 自動更新が有効か？
+            if (autoUpdate)
+            {
+                // 各列のサイズを調整
+                UpdateColumnSize();
+            }
+
+            if (invokeChangedEvent)
+            {
+                // イベントの実行
+                this.PlaylistChanged?.Invoke(null, null);
+            }
+
+            this.AudioTracksViewer.EndUpdate();
+        }
+
+        /// <summary>
+        /// すべてのトラックを表示から削除する。<br/>
+        /// プレイリストそのものからは削除せず、表示のみを削除する。
+        /// </summary>
+        public void ClearView()
+        {
+            this.AudioTracksViewer.Items.Clear();
+        }
+
+        /// <summary>
+        /// 指定されたトラックのアイテムを1つ上に移動する。
+        /// </summary>
+        /// <param name="track"></param>
+        public void MoveUp(AudioTrack track)
+        {
+            GetListViewItem(track, out var oldIndex);
+            MoveItem(oldIndex, -1);
+        }
+
+        /// <summary>
+        /// 指定されたトラックのアイテムを1つ下に移動する。
+        /// </summary>
+        /// <param name="track"></param>
+        public void MoveDown(AudioTrack track)
+        {
+            GetListViewItem(track, out var oldIndex);
+            MoveItem(oldIndex, 1);
+        }
+
+        /// <summary>
+        /// 指定されたインデックスのアイテムを指定された方向へ移動する。
+        /// </summary>
+        /// <param name="oldIndex"></param>
+        /// <param name="direction"></param>
+        public void MoveItem(int oldIndex, int direction)
+        {
+            this.AudioTracksViewer.SuspendLayout();
+
+            // 移動先のインデックスを計算
+            int newIndex = oldIndex + direction;
+
+            // 移動先のインデックスが有効な範囲内ではないか？
+            if (newIndex < 0 || newIndex >= this.AudioTrackCount)
+            {
+                return;
+            }
+
+            var item = this.AudioTracksViewer.Items[oldIndex];
+
+            // 移動前のアイテムを削除
+            this.AudioTracksViewer.Items.Remove(item);
+
+            // 移動先インデックスに移動前のアイテムを挿入
+            this.AudioTracksViewer.Items.Insert(newIndex, item);
+
+            if (item.Selected)
+            {
+                // 選択状態を復元
+                this.SelectedIndex = newIndex;
+            }
+
+            // 後始末
+            this.AudioTracksViewer.ResumeLayout();
+            this.PlaylistChanged?.Invoke(null, null);
+        }
+
+        #endregion
+
+        #region プレイリストそのものに影響しないメソッド
 
         /// <summary>
         /// 指定されたインデックスのオーディオトラックを取得する。
@@ -678,6 +755,8 @@ namespace RabbitTune.Controls
 
         #endregion
 
+        #endregion
+
         #region プレイリストファイル出入力やファイルパス取得など、ファイルに関連する処理
 
         /// <summary>
@@ -693,44 +772,6 @@ namespace RabbitTune.Controls
             }
 
             return this.CurrentPlaylist.Location;
-        }
-
-        /// <summary>
-        /// プレイリスト名を更新する。
-        /// </summary>
-        /// <param name="isFile"></param>
-        /// <param name="isDirectory"></param>
-        /// <param name="isDiscDrive"></param>
-        /// <param name="path"></param>
-        /// <param name="driveInfo"></param>
-        private void UpdatePlaylistName()
-        {
-            if(this.CurrentPlaylist != null)
-            {
-                if (this.CurrentPlaylist.IsNew)
-                {
-                    this.PlaylistName = "新規プレイリスト";
-                }
-                else if (this.CurrentPlaylist.IsFile || this.CurrentPlaylist.IsDirectory)
-                {
-                    this.PlaylistName = Path.GetFileName(this.CurrentPlaylist.Location);
-                }
-                else if (this.CurrentPlaylist.IsDiscDrive)
-                {
-                    if (string.IsNullOrEmpty(this.CurrentPlaylist.DriveInfo.VolumeLabel))
-                    {
-                        this.PlaylistName = this.CurrentPlaylist.DriveInfo.VolumeLabel;
-                    }
-                    else
-                    {
-                        this.PlaylistName = this.CurrentPlaylist.DriveInfo.Name;
-                    }
-                }
-                else
-                {
-                    this.PlaylistName = string.Empty;
-                }
-            }
         }
 
         /// <summary>
@@ -820,23 +861,6 @@ namespace RabbitTune.Controls
         }
 
         /// <summary>
-        /// ファイルダイアログのフィルタを作成する。
-        /// </summary>
-        /// <returns></returns>
-        private string GetDialogFilter()
-        {
-            var formatList = new List<KeyValuePair<string, string[]>>();
-
-            foreach(string fmtName in PlaylistProviderFactory.GetSupportedFormatNames())
-            {
-                var pair = new KeyValuePair<string, string[]>(fmtName, PlaylistProviderFactory.GetFormatExtensions(fmtName));
-                formatList.Add(pair);
-            }
-
-            return FileDialogUtils.CreateFilterString(formatList, true, "対応するすべてのプレイリスト", false);
-        }
-
-        /// <summary>
         /// 保存先を選択してプレイリストを保存
         /// </summary>
         public void SavePlaylistAs()
@@ -882,7 +906,26 @@ namespace RabbitTune.Controls
 
         #endregion
 
-        #region 並び替え
+        #region 列のヘッダに関連するメソッド
+
+        /// <summary>
+        /// 列のヘッダをすべて表示する。
+        /// </summary>
+        private void ShowColumns()
+        {
+            // 念のため
+            this.AudioTracksViewer.Columns.Clear();
+
+            // 一覧を追加
+            foreach (var column in this.ColumnHeaders)
+            {
+                var ch = new ColumnHeader();
+                ch.Text = column;
+
+                // 追加
+                this.AudioTracksViewer.Columns.Add(ch);
+            }
+        }
 
         /// <summary>
         /// 列のヘッダを並び替える。
@@ -935,94 +978,18 @@ namespace RabbitTune.Controls
             if (autoUpdate)
             {
                 ShowColumns();
-                UpdateViewer();
+                UpdateColumnSize();
             }
-        }
-
-        /// <summary>
-        /// 指定されたトラックのアイテムを1つ上に移動する。
-        /// </summary>
-        /// <param name="track"></param>
-        public void MoveUp(AudioTrack track)
-        {
-            GetListViewItem(track, out var oldIndex);
-            MoveItem(oldIndex, -1);
-        }
-
-        /// <summary>
-        /// 指定されたトラックのアイテムを1つ下に移動する。
-        /// </summary>
-        /// <param name="track"></param>
-        public void MoveDown(AudioTrack track)
-        {
-            GetListViewItem(track, out var oldIndex);
-            MoveItem(oldIndex, 1);
-        }
-
-        /// <summary>
-        /// 指定されたインデックスのアイテムを指定された方向へ移動する。
-        /// </summary>
-        /// <param name="oldIndex"></param>
-        /// <param name="direction"></param>
-        public void MoveItem(int oldIndex, int direction)
-        {
-            this.AudioTracksViewer.SuspendLayout();
-
-            // 移動先のインデックスを計算
-            int newIndex = oldIndex + direction;
-
-            // 移動先のインデックスが有効な範囲内ではないか？
-            if (newIndex < 0 || newIndex >= this.AudioTrackCount)
-            {
-                return; // Index out of range - nothing to do
-            }
-
-            var item = this.AudioTracksViewer.Items[oldIndex];
-
-            // 移動前のアイテムを削除
-            this.AudioTracksViewer.Items.Remove(item);
-
-            // 移動先インデックスに移動前のアイテムを挿入
-            this.AudioTracksViewer.Items.Insert(newIndex, item);
-
-            if (item.Selected)
-            {
-                // 選択状態を復元
-                this.SelectedIndex = newIndex;
-            }
-
-            // 後始末
-            this.AudioTracksViewer.ResumeLayout();
-            this.PlaylistChanged?.Invoke(null, null);
         }
 
         #endregion
 
-        #region コントロールの描画用
+        #region 更新
 
         /// <summary>
-        /// 列のヘッダをすべて表示する。
+        /// 表示の列のサイズを自動調節する。
         /// </summary>
-        private void ShowColumns()
-        {
-            // 念のため
-            this.AudioTracksViewer.Columns.Clear();
-
-            // 一覧を追加
-            foreach (var column in this.ColumnHeaders)
-            {
-                var ch = new ColumnHeader();
-                ch.Text = column;
-
-                // 追加
-                this.AudioTracksViewer.Columns.Add(ch);
-            }
-        }
-
-        /// <summary>
-        /// 表示を更新する。
-        /// </summary>
-        private void UpdateViewer()
+        private void UpdateColumnSize()
         {
             // すべての列のサイズを自動調節する。
             foreach (ColumnHeader columnHeader in this.AudioTracksViewer.Columns)
@@ -1031,7 +998,58 @@ namespace RabbitTune.Controls
             }
         }
 
+        /// <summary>
+        /// プレイリスト名を更新する。
+        /// </summary>
+        /// <param name="isFile"></param>
+        /// <param name="isDirectory"></param>
+        /// <param name="isDiscDrive"></param>
+        /// <param name="path"></param>
+        /// <param name="driveInfo"></param>
+        private void UpdatePlaylistName()
+        {
+            if (this.CurrentPlaylist != null)
+            {
+                if (this.CurrentPlaylist.IsNew)
+                {
+                    this.PlaylistName = "新規プレイリスト";
+                }
+                else if (this.CurrentPlaylist.IsFile || this.CurrentPlaylist.IsDirectory)
+                {
+                    this.PlaylistName = Path.GetFileName(this.CurrentPlaylist.Location);
+                }
+                else if (this.CurrentPlaylist.IsDiscDrive)
+                {
+                    if (string.IsNullOrEmpty(this.CurrentPlaylist.DriveInfo.VolumeLabel))
+                    {
+                        this.PlaylistName = this.CurrentPlaylist.DriveInfo.VolumeLabel;
+                    }
+                    else
+                    {
+                        this.PlaylistName = this.CurrentPlaylist.DriveInfo.Name;
+                    }
+                }
+                else
+                {
+                    this.PlaylistName = string.Empty;
+                }
+            }
+        }
+
+        /// <summary>
+        /// プレイリスト(Playlistプロパティなど)を介して、直接プレイリストに加えた変更を表示に反映する。
+        /// </summary>
+        public void UpdateView()
+        {
+            ClearView();
+            AddAudioTracksToView(this.CurrentPlaylist.Tracks, false, false);
+
+            UpdateColumnSize();
+        }
+
         #endregion
+
+        #region 裏方メソッド
 
         /// <summary>
         /// AudioTrackをListViewItemに変換して返す。
@@ -1186,6 +1204,25 @@ namespace RabbitTune.Controls
 
             return null;
         }
+
+        /// <summary>
+        /// ファイルダイアログのフィルタを作成する。
+        /// </summary>
+        /// <returns></returns>
+        private string GetDialogFilter()
+        {
+            var formatList = new List<KeyValuePair<string, string[]>>();
+
+            foreach (string fmtName in PlaylistProviderFactory.GetSupportedFormatNames())
+            {
+                var pair = new KeyValuePair<string, string[]>(fmtName, PlaylistProviderFactory.GetFormatExtensions(fmtName));
+                formatList.Add(pair);
+            }
+
+            return FileDialogUtils.CreateFilterString(formatList, true, "対応するすべてのプレイリスト", false);
+        }
+
+        #endregion
 
         /// <summary>
         /// ビューワーの選択されたアイテムのインデックスが変更された時の処理

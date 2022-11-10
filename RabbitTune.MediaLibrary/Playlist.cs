@@ -12,7 +12,7 @@ namespace RabbitTune.MediaLibrary
         private bool isDirectory;
         private bool isDiscDrive;
         private DriveInfo driveInfo;
-
+        
         // コンストラクタ
         public Playlist()
         {
@@ -22,6 +22,8 @@ namespace RabbitTune.MediaLibrary
             // 後始末
             UpdatePlaylistTypeProperties();
         }
+
+        #region プロパティ
 
         /// <summary>
         /// トラック一覧
@@ -115,6 +117,8 @@ namespace RabbitTune.MediaLibrary
                 return this.driveInfo;
             }
         }
+
+        #endregion
 
         /// <summary>
         /// 与えられたパスのドライブがディスクドライブであるか判定する。
