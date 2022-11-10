@@ -34,10 +34,9 @@ namespace RabbitTune.MediaLibrary.PlaylistFormats
         /// <param name="playlist"></param>
         public void SavePlaylist(string path, Playlist playlist)
         {
-            var io = PlaylistIOFactory.GetInstance().GetPlaylistIO(path);
-            
             if (playlist.Tracks != null)
             {
+                var io = PlaylistIOFactory.GetInstance().GetPlaylistIO(path);
                 var atlTracks = new Track[playlist.TrackCount];
 
                 for (int i = 0; i < atlTracks.Length; ++i)

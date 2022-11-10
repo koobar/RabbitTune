@@ -354,7 +354,7 @@ namespace RabbitTune.Controls
         /// オーディオトラックを一覧に追加する。
         /// </summary>
         /// <param name="track"></param>
-        public void AddAudioTrack(AudioTrack track, bool autoUpdate = true, bool invokeChangedEvent = true)
+        public void AddAudioTrackToView(AudioTrack track, bool autoUpdate = true, bool invokeChangedEvent = true)
         {
             // 高速化の為、一時的に描画を停止する。
             this.AudioTracksViewer.BeginUpdate();
@@ -362,7 +362,6 @@ namespace RabbitTune.Controls
             // アイテムを追加
             var item = AudioTrackToListViewItem(track);
             this.AudioTracksViewer.Items.Add(item);
-            this.CurrentPlaylist.Tracks.Add(track);
 
             // 自動更新が有効か？
             if (autoUpdate)
@@ -386,7 +385,7 @@ namespace RabbitTune.Controls
         /// </summary>
         /// <param name="tracks"></param>
         /// <param name="autoUpdate"></param>
-        public void AddAudioTracks(IList<AudioTrack> tracks, bool autoUpdate = true, bool invokeChangedEvent = true)
+        public void AddAudioTracksToView(IList<AudioTrack> tracks, bool autoUpdate = true, bool invokeChangedEvent = true)
         {
             // 高速化の為、一時的に描画を停止する。
             this.AudioTracksViewer.BeginUpdate();
@@ -400,7 +399,6 @@ namespace RabbitTune.Controls
 
             // アイテムを追加する。
             this.AudioTracksViewer.Items.AddRange(items);
-            this.CurrentPlaylist.Tracks.AddRange(tracks);
 
             // 自動更新が有効か？
             if (autoUpdate)
@@ -696,7 +694,6 @@ namespace RabbitTune.Controls
 
             return this.CurrentPlaylist.Location;
         }
-        
 
         /// <summary>
         /// プレイリスト名を更新する。
@@ -751,7 +748,7 @@ namespace RabbitTune.Controls
                 UpdatePlaylistName();
 
                 // 読み込んだトラックの一覧を表示に追加
-                AddAudioTracks(this.CurrentPlaylist.Tracks, true, false);
+                AddAudioTracksToView(this.CurrentPlaylist.Tracks, true, false);
 
                 // 最近開いたプレイリストの一覧に追加
                 PlaylistsDataBase.AddRecentPlaylist(path);
@@ -865,7 +862,7 @@ namespace RabbitTune.Controls
             if (Directory.Exists(path))
             {
                 var tracks = AudioTrackReader.ReadFolder(path, AudioReader.GetAllSupportedFormatExtensions());
-                AddAudioTracks(tracks);
+                AddAudioTracksToView(tracks);
             }
         }
 
@@ -1240,7 +1237,7 @@ namespace RabbitTune.Controls
             {
                 if (File.Exists(path))
                 {
-                    AddAudioTrack(new AudioTrack(path));
+                    AddAudioTrackToView(new AudioTrack(path));
                 }
             }
         }
