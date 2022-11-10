@@ -19,7 +19,8 @@ namespace RabbitTune
         public const int DEFAULT_WINDOW_WIDTH = 750;
         public const int DEFAULT_WINDOW_HEIGHT = 500;
 
-        // 非公開変数
+        // 非公開フィールド
+        private readonly MediaButtonDriver mediaButtonDriver;
         private readonly string[] commandLineArguments;
         private readonly AudioOutputInfoDialog AudioOutputInfoDialog;
         private readonly FindDialog FindAudioTrackDialog;
@@ -121,6 +122,28 @@ namespace RabbitTune
             AudioPlayerManager.OutputFormatChanged += delegate
             {
                 UpdateAudioWaveFormatStatusText();
+            };
+
+            // メディアボタンのドライバのインスタンスを生成
+            this.mediaButtonDriver = new MediaButtonDriver();
+            this.mediaButtonDriver.PlayPauseButtonPush += delegate
+            {
+                if (this.CurrentPlaylistViewer.SelectedAudioTrack == null)
+                {
+                    Play();
+                }
+                else
+                {
+                    PauseOrResume();
+                }
+            };
+            this.mediaButtonDriver.NextButtonPush += delegate
+            {
+                PlayNextTrack();
+            };
+            this.mediaButtonDriver.PreviousButtonPush += delegate
+            {
+                PlayPreviousTrack();
             };
 
             // コマンドライン引数を保持
@@ -1206,6 +1229,9 @@ namespace RabbitTune
                     e.Cancel = true;
                 }
             }
+
+            // メディアボタンのドライバを破棄
+            this.mediaButtonDriver.Dispose();
         }
 
         /// <summary>
