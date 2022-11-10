@@ -2,6 +2,8 @@ using RabbitTune.AudioEngine;
 using RabbitTune.Controls;
 using RabbitTune.Dialogs;
 using RabbitTune.MediaLibrary;
+using RabbitTune.Properties;
+using RabbitTune.Taskbar;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +21,10 @@ namespace RabbitTune
         public const int DEFAULT_WINDOW_WIDTH = 750;
         public const int DEFAULT_WINDOW_HEIGHT = 500;
 
+        // 非公開定数
+        private const int WM_COMMAND = 0x0111;
+        private const int THBN_CLICKED = 0x1800;
+
         // 非公開フィールド
         private readonly MediaButtonDriver mediaButtonDriver;
         private readonly string[] commandLineArguments;
@@ -31,6 +37,9 @@ namespace RabbitTune
         private bool showInTaskTray = false;                    // タスクトレイへ格納中かどうか
         private bool showAsMiniplayerMode = false;              // ミニプレーヤー表示中ならtrue, それ以外ならfalse
         private int defaultViewHeight;                          // 標準表示の際のウィンドウの高さ。ミニプレーヤー表示からの切り替え用。ミニプレーヤー表示を有効化した際に値がバックアップされる。
+        private TaskbarListWrapper TaskbarExt;
+        private ThumbButton[] taskbarThumbButtons;
+        private ImageList TaskbarThumbButtonImages;
 
         // コンストラクタ
         public MainForm(string[] commandLineArgs)
@@ -166,10 +175,41 @@ namespace RabbitTune
                 var preference = Convert.ToInt32(true);
                 DwmSetWindowAttribute(this.Handle, DWMWINDOWATTRIBUTE.DWMWA_USE_IMMERSIVE_DARK_MODE, ref preference, sizeof(uint));
             }
+
+            RegistButtons();
         }
 
         // デフォルトコンストラクタ
         public MainForm() : this(null) { }
+
+        /// <summary>
+        /// ボタンを登録する。
+        /// </summary>
+        /// <param name="buttons"></param>
+        private void RegistButtons()
+        {
+            this.taskbarThumbButtons = new ThumbButton[5];
+            this.TaskbarThumbButtonImages = new ImageList();
+            this.TaskbarThumbButtonImages.ImageSize = new Size(16, 16);
+            this.TaskbarThumbButtonImages.ColorDepth = ColorDepth.Depth32Bit;
+            this.TaskbarThumbButtonImages.Images.AddRange(new Image[]
+            {
+                Resources.control_start_blue,
+                Resources.control_play_blue,
+                Resources.control_pause_blue,
+                Resources.control_stop_blue,
+                Resources.control_end_blue
+            });
+
+            // TaskBarExtensionAPIのインスタンスの生成と同時に、taskbarThumbButtonsのボタンが追加される。
+            this.TaskbarExt = new TaskbarListWrapper(this);
+
+            this.taskbarThumbButtons[0] = new ThumbButton() { iID = 0, szTip = "前のトラック", iBitmap = 0, dwMask = ThumbButtonMask.Flags | ThumbButtonMask.ToolTip | ThumbButtonMask.Bitmap, dwFlags = ThumbButtonFlags.Enabled };
+            this.taskbarThumbButtons[1] = new ThumbButton() { iID = 1, szTip = "再生", iBitmap = 1, dwMask = ThumbButtonMask.Flags | ThumbButtonMask.ToolTip | ThumbButtonMask.Bitmap, dwFlags = ThumbButtonFlags.Enabled };
+            this.taskbarThumbButtons[2] = new ThumbButton() { iID = 2, szTip = "一時停止", iBitmap = 2, dwMask = ThumbButtonMask.Flags | ThumbButtonMask.ToolTip | ThumbButtonMask.Bitmap, dwFlags = ThumbButtonFlags.Enabled };
+            this.taskbarThumbButtons[3] = new ThumbButton() { iID = 3, szTip = "停止", iBitmap = 3, dwMask = ThumbButtonMask.Flags | ThumbButtonMask.ToolTip | ThumbButtonMask.Bitmap, dwFlags = ThumbButtonFlags.Enabled };
+            this.taskbarThumbButtons[4] = new ThumbButton() { iID = 4, szTip = "次のトラック", iBitmap = 4, dwMask = ThumbButtonMask.Flags | ThumbButtonMask.ToolTip | ThumbButtonMask.Bitmap, dwFlags = ThumbButtonFlags.Enabled };
+        }
 
         /// <summary>
         /// 各種設定値を表示に反映する。
@@ -1162,6 +1202,64 @@ namespace RabbitTune
 
             // 元々の処理を実行。
             base.OnLoad(e);
+        }
+
+        /// <summary>
+        /// ウィンドウプロシージャ
+        /// </summary>
+        /// <param name="m"></param>
+        protected override void WndProc(ref Message m)
+        {
+            bool omitBaseProc = false;
+
+            if (this.TaskbarExt != null)
+            {
+                switch (m.Msg)
+                {
+                    case WM_COMMAND:
+                        if (((int)m.WParam & 0xffff0000) >> 16 == THBN_CLICKED)
+                        {
+                            int id = (int)m.WParam & 0xffff;
+
+                            switch (id)
+                            {
+                                case 0:
+                                    PlayPreviousTrack();
+                                    break;
+                                case 1:
+                                    Play();
+                                    break;
+                                case 2:
+                                    PauseOrResume();
+                                    break;
+                                case 3:
+                                    Stop();
+                                    break;
+                                case 4:
+                                    PlayNextTrack();
+                                    break;
+                            }
+
+                            omitBaseProc = true;
+                        }
+                        break;
+                    default:
+                        if (m.Msg == this.TaskbarExt.WM_TBC)
+                        {
+                            this.TaskbarExt.ThumbBarAddButtons(this.taskbarThumbButtons);
+                            this.TaskbarExt.ThumbBarSetImageList(this.TaskbarThumbButtonImages);
+                            m.Result = IntPtr.Zero;
+                            omitBaseProc = true;
+                            break;
+                        }
+                        break;
+                }
+            }
+
+            if (!omitBaseProc)
+            {
+                base.WndProc(ref m);
+            }
         }
 
         #endregion

@@ -1595,49 +1595,49 @@ namespace RabbitTune
             // StopMenu
             // 
             this.StopMenu.Name = "StopMenu";
-            this.StopMenu.Size = new System.Drawing.Size(180, 22);
+            this.StopMenu.Size = new System.Drawing.Size(151, 22);
             this.StopMenu.Text = "停止";
             this.StopMenu.Click += new System.EventHandler(this.StopMenu_Click);
             // 
             // PauseOrResumeMenu
             // 
             this.PauseOrResumeMenu.Name = "PauseOrResumeMenu";
-            this.PauseOrResumeMenu.Size = new System.Drawing.Size(180, 22);
+            this.PauseOrResumeMenu.Size = new System.Drawing.Size(151, 22);
             this.PauseOrResumeMenu.Text = "一時停止/再開";
             this.PauseOrResumeMenu.Click += new System.EventHandler(this.PauseOrResumeMenu_Click);
             // 
             // PlaybackMenu
             // 
             this.PlaybackMenu.Name = "PlaybackMenu";
-            this.PlaybackMenu.Size = new System.Drawing.Size(180, 22);
+            this.PlaybackMenu.Size = new System.Drawing.Size(151, 22);
             this.PlaybackMenu.Text = "再生";
             this.PlaybackMenu.Click += new System.EventHandler(this.PlayMenu_Clicked);
             // 
             // PreviousMenu
             // 
             this.PreviousMenu.Name = "PreviousMenu";
-            this.PreviousMenu.Size = new System.Drawing.Size(180, 22);
+            this.PreviousMenu.Size = new System.Drawing.Size(151, 22);
             this.PreviousMenu.Text = "前のトラック";
             this.PreviousMenu.Click += new System.EventHandler(this.PreviousMenu_Click);
             // 
             // NextMenu
             // 
             this.NextMenu.Name = "NextMenu";
-            this.NextMenu.Size = new System.Drawing.Size(180, 22);
+            this.NextMenu.Size = new System.Drawing.Size(151, 22);
             this.NextMenu.Text = "次のトラック";
             this.NextMenu.Click += new System.EventHandler(this.NextMenu_Click);
             // 
             // RandomMenu
             // 
             this.RandomMenu.Name = "RandomMenu";
-            this.RandomMenu.Size = new System.Drawing.Size(180, 22);
+            this.RandomMenu.Size = new System.Drawing.Size(151, 22);
             this.RandomMenu.Text = "ランダム";
             this.RandomMenu.Click += new System.EventHandler(this.RandomMenu_Click);
             // 
             // PlayMenuSeparator1
             // 
             this.PlayMenuSeparator1.Name = "PlayMenuSeparator1";
-            this.PlayMenuSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.PlayMenuSeparator1.Size = new System.Drawing.Size(148, 6);
             // 
             // PlaybackOrdersMenu
             // 
@@ -1648,7 +1648,7 @@ namespace RabbitTune
             this.RepeatAllTracksMenu,
             this.RandomRepeatMenu});
             this.PlaybackOrdersMenu.Name = "PlaybackOrdersMenu";
-            this.PlaybackOrdersMenu.Size = new System.Drawing.Size(180, 22);
+            this.PlaybackOrdersMenu.Size = new System.Drawing.Size(151, 22);
             this.PlaybackOrdersMenu.Text = "再生順";
             // 
             // NoRepeatMenu
@@ -1699,19 +1699,19 @@ namespace RabbitTune
             // DetailOptionsMenu
             // 
             this.DetailOptionsMenu.Name = "DetailOptionsMenu";
-            this.DetailOptionsMenu.Size = new System.Drawing.Size(180, 22);
+            this.DetailOptionsMenu.Size = new System.Drawing.Size(142, 22);
             this.DetailOptionsMenu.Text = "詳細設定";
             this.DetailOptionsMenu.Click += new System.EventHandler(this.DetailOptionsMenu_Click);
             // 
             // OptionsMenuSeparator1
             // 
             this.OptionsMenuSeparator1.Name = "OptionsMenuSeparator1";
-            this.OptionsMenuSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.OptionsMenuSeparator1.Size = new System.Drawing.Size(139, 6);
             // 
             // ResetAllOptionsMenu
             // 
             this.ResetAllOptionsMenu.Name = "ResetAllOptionsMenu";
-            this.ResetAllOptionsMenu.Size = new System.Drawing.Size(180, 22);
+            this.ResetAllOptionsMenu.Size = new System.Drawing.Size(142, 22);
             this.ResetAllOptionsMenu.Text = "設定のリセット";
             this.ResetAllOptionsMenu.Click += new System.EventHandler(this.ResetAllOptionsMenu_Click);
             // 

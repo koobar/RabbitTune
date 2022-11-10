@@ -188,7 +188,17 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="RepeatMode.cs" />
+    <Compile Include="Taskbar\ITaskbarList.cs" />
+    <Compile Include="Taskbar\STPFLAG.cs" />
+    <Compile Include="Taskbar\tagRECT.cs" />
+    <Compile Include="Taskbar\TaskbarListWrapper.cs" />
+    <Compile Include="Taskbar\TaskbarList.cs" />
+    <Compile Include="Taskbar\TbpFlag.cs" />
+    <Compile Include="Taskbar\ThumbButton.cs" />
+    <Compile Include="Taskbar\ThumbButtonFlags.cs" />
+    <Compile Include="Taskbar\ThumbButtonMask.cs" />
     <Compile Include="WinApi\DwmApi.cs" />
+    <Compile Include="WinApi\Ole32.cs" />
     <Compile Include="WinApi\Shell32.cs" />
     <Compile Include="WinApi\User32.cs" />
     <EmbeddedResource Include="Controls\BorderLine.resx">
