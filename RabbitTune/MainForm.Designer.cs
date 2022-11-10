@@ -1116,7 +1116,7 @@ namespace RabbitTune
             // PitchM12SemitonesMenu
             // 
             this.PitchM12SemitonesMenu.Name = "PitchM12SemitonesMenu";
-            this.PitchM12SemitonesMenu.Size = new System.Drawing.Size(180, 22);
+            this.PitchM12SemitonesMenu.Size = new System.Drawing.Size(133, 22);
             this.PitchM12SemitonesMenu.Tag = "-12";
             this.PitchM12SemitonesMenu.Text = "-12半音";
             this.PitchM12SemitonesMenu.Click += new System.EventHandler(this.PitchMenu_Click);
@@ -1124,7 +1124,7 @@ namespace RabbitTune
             // PitchM11SemitonesMenu
             // 
             this.PitchM11SemitonesMenu.Name = "PitchM11SemitonesMenu";
-            this.PitchM11SemitonesMenu.Size = new System.Drawing.Size(180, 22);
+            this.PitchM11SemitonesMenu.Size = new System.Drawing.Size(133, 22);
             this.PitchM11SemitonesMenu.Tag = "-11";
             this.PitchM11SemitonesMenu.Text = "-11半音";
             this.PitchM11SemitonesMenu.Click += new System.EventHandler(this.PitchMenu_Click);
@@ -1132,7 +1132,7 @@ namespace RabbitTune
             // PitchM10SemitonesMenu
             // 
             this.PitchM10SemitonesMenu.Name = "PitchM10SemitonesMenu";
-            this.PitchM10SemitonesMenu.Size = new System.Drawing.Size(180, 22);
+            this.PitchM10SemitonesMenu.Size = new System.Drawing.Size(133, 22);
             this.PitchM10SemitonesMenu.Tag = "-10";
             this.PitchM10SemitonesMenu.Text = "-10半音";
             this.PitchM10SemitonesMenu.Click += new System.EventHandler(this.PitchMenu_Click);
@@ -1140,7 +1140,7 @@ namespace RabbitTune
             // PitchM9SemitonesMenu
             // 
             this.PitchM9SemitonesMenu.Name = "PitchM9SemitonesMenu";
-            this.PitchM9SemitonesMenu.Size = new System.Drawing.Size(180, 22);
+            this.PitchM9SemitonesMenu.Size = new System.Drawing.Size(133, 22);
             this.PitchM9SemitonesMenu.Tag = "-9";
             this.PitchM9SemitonesMenu.Text = "-9半音";
             this.PitchM9SemitonesMenu.Click += new System.EventHandler(this.PitchMenu_Click);
@@ -1148,7 +1148,7 @@ namespace RabbitTune
             // PitchM8SemitonesMenu
             // 
             this.PitchM8SemitonesMenu.Name = "PitchM8SemitonesMenu";
-            this.PitchM8SemitonesMenu.Size = new System.Drawing.Size(180, 22);
+            this.PitchM8SemitonesMenu.Size = new System.Drawing.Size(133, 22);
             this.PitchM8SemitonesMenu.Tag = "-8";
             this.PitchM8SemitonesMenu.Text = "-8半音";
             this.PitchM8SemitonesMenu.Click += new System.EventHandler(this.PitchMenu_Click);
@@ -1156,7 +1156,7 @@ namespace RabbitTune
             // PitchM7SemitonesMenu
             // 
             this.PitchM7SemitonesMenu.Name = "PitchM7SemitonesMenu";
-            this.PitchM7SemitonesMenu.Size = new System.Drawing.Size(180, 22);
+            this.PitchM7SemitonesMenu.Size = new System.Drawing.Size(133, 22);
             this.PitchM7SemitonesMenu.Tag = "-7";
             this.PitchM7SemitonesMenu.Text = "-7半音";
             this.PitchM7SemitonesMenu.Click += new System.EventHandler(this.PitchMenu_Click);
@@ -1164,7 +1164,7 @@ namespace RabbitTune
             // PitchM6SemitonesMenu
             // 
             this.PitchM6SemitonesMenu.Name = "PitchM6SemitonesMenu";
-            this.PitchM6SemitonesMenu.Size = new System.Drawing.Size(180, 22);
+            this.PitchM6SemitonesMenu.Size = new System.Drawing.Size(133, 22);
             this.PitchM6SemitonesMenu.Tag = "-6";
             this.PitchM6SemitonesMenu.Text = "-6半音";
             this.PitchM6SemitonesMenu.Click += new System.EventHandler(this.PitchMenu_Click);
@@ -1172,7 +1172,7 @@ namespace RabbitTune
             // PitchM5SemitonesMenu
             // 
             this.PitchM5SemitonesMenu.Name = "PitchM5SemitonesMenu";
-            this.PitchM5SemitonesMenu.Size = new System.Drawing.Size(180, 22);
+            this.PitchM5SemitonesMenu.Size = new System.Drawing.Size(133, 22);
             this.PitchM5SemitonesMenu.Tag = "-5";
             this.PitchM5SemitonesMenu.Text = "-5半音";
             this.PitchM5SemitonesMenu.Click += new System.EventHandler(this.PitchMenu_Click);
@@ -1180,7 +1180,7 @@ namespace RabbitTune
             // PitchM4SemitonesMenu
             // 
             this.PitchM4SemitonesMenu.Name = "PitchM4SemitonesMenu";
-            this.PitchM4SemitonesMenu.Size = new System.Drawing.Size(180, 22);
+            this.PitchM4SemitonesMenu.Size = new System.Drawing.Size(133, 22);
             this.PitchM4SemitonesMenu.Tag = "-4";
             this.PitchM4SemitonesMenu.Text = "-4半音";
             this.PitchM4SemitonesMenu.Click += new System.EventHandler(this.PitchMenu_Click);
@@ -1188,7 +1188,7 @@ namespace RabbitTune
             // PitchM3SemitonesMenu
             // 
             this.PitchM3SemitonesMenu.Name = "PitchM3SemitonesMenu";
-            this.PitchM3SemitonesMenu.Size = new System.Drawing.Size(180, 22);
+            this.PitchM3SemitonesMenu.Size = new System.Drawing.Size(133, 22);
             this.PitchM3SemitonesMenu.Tag = "-3";
             this.PitchM3SemitonesMenu.Text = "-3半音";
             this.PitchM3SemitonesMenu.Click += new System.EventHandler(this.PitchMenu_Click);
@@ -1196,7 +1196,7 @@ namespace RabbitTune
             // PitchM2SemitonesMenu
             // 
             this.PitchM2SemitonesMenu.Name = "PitchM2SemitonesMenu";
-            this.PitchM2SemitonesMenu.Size = new System.Drawing.Size(180, 22);
+            this.PitchM2SemitonesMenu.Size = new System.Drawing.Size(133, 22);
             this.PitchM2SemitonesMenu.Tag = "-2";
             this.PitchM2SemitonesMenu.Text = "-2半音";
             this.PitchM2SemitonesMenu.Click += new System.EventHandler(this.PitchMenu_Click);
@@ -1204,7 +1204,7 @@ namespace RabbitTune
             // PitchM1SemitonesMenu
             // 
             this.PitchM1SemitonesMenu.Name = "PitchM1SemitonesMenu";
-            this.PitchM1SemitonesMenu.Size = new System.Drawing.Size(180, 22);
+            this.PitchM1SemitonesMenu.Size = new System.Drawing.Size(133, 22);
             this.PitchM1SemitonesMenu.Tag = "-1";
             this.PitchM1SemitonesMenu.Text = "-1半音";
             this.PitchM1SemitonesMenu.Click += new System.EventHandler(this.PitchMenu_Click);
@@ -1212,7 +1212,7 @@ namespace RabbitTune
             // PitchPM0SemitonesMenu
             // 
             this.PitchPM0SemitonesMenu.Name = "PitchPM0SemitonesMenu";
-            this.PitchPM0SemitonesMenu.Size = new System.Drawing.Size(180, 22);
+            this.PitchPM0SemitonesMenu.Size = new System.Drawing.Size(133, 22);
             this.PitchPM0SemitonesMenu.Tag = "0";
             this.PitchPM0SemitonesMenu.Text = "±0";
             this.PitchPM0SemitonesMenu.Click += new System.EventHandler(this.PitchMenu_Click);
@@ -1220,7 +1220,7 @@ namespace RabbitTune
             // PitchP1SemitonesMenu
             // 
             this.PitchP1SemitonesMenu.Name = "PitchP1SemitonesMenu";
-            this.PitchP1SemitonesMenu.Size = new System.Drawing.Size(180, 22);
+            this.PitchP1SemitonesMenu.Size = new System.Drawing.Size(133, 22);
             this.PitchP1SemitonesMenu.Tag = "1";
             this.PitchP1SemitonesMenu.Text = "+1半音";
             this.PitchP1SemitonesMenu.Click += new System.EventHandler(this.PitchMenu_Click);
@@ -1228,7 +1228,7 @@ namespace RabbitTune
             // PitchP2SemitonesMenu
             // 
             this.PitchP2SemitonesMenu.Name = "PitchP2SemitonesMenu";
-            this.PitchP2SemitonesMenu.Size = new System.Drawing.Size(180, 22);
+            this.PitchP2SemitonesMenu.Size = new System.Drawing.Size(133, 22);
             this.PitchP2SemitonesMenu.Tag = "2";
             this.PitchP2SemitonesMenu.Text = "+2半音";
             this.PitchP2SemitonesMenu.Click += new System.EventHandler(this.PitchMenu_Click);
@@ -1236,7 +1236,7 @@ namespace RabbitTune
             // PitchP3SemitonesMenu
             // 
             this.PitchP3SemitonesMenu.Name = "PitchP3SemitonesMenu";
-            this.PitchP3SemitonesMenu.Size = new System.Drawing.Size(180, 22);
+            this.PitchP3SemitonesMenu.Size = new System.Drawing.Size(133, 22);
             this.PitchP3SemitonesMenu.Tag = "3";
             this.PitchP3SemitonesMenu.Text = "+3半音";
             this.PitchP3SemitonesMenu.Click += new System.EventHandler(this.PitchMenu_Click);
@@ -1244,7 +1244,7 @@ namespace RabbitTune
             // PitchP4SemitonesMenu
             // 
             this.PitchP4SemitonesMenu.Name = "PitchP4SemitonesMenu";
-            this.PitchP4SemitonesMenu.Size = new System.Drawing.Size(180, 22);
+            this.PitchP4SemitonesMenu.Size = new System.Drawing.Size(133, 22);
             this.PitchP4SemitonesMenu.Tag = "4";
             this.PitchP4SemitonesMenu.Text = "+4半音";
             this.PitchP4SemitonesMenu.Click += new System.EventHandler(this.PitchMenu_Click);
@@ -1252,7 +1252,7 @@ namespace RabbitTune
             // PitchP5SemitonesMenu
             // 
             this.PitchP5SemitonesMenu.Name = "PitchP5SemitonesMenu";
-            this.PitchP5SemitonesMenu.Size = new System.Drawing.Size(180, 22);
+            this.PitchP5SemitonesMenu.Size = new System.Drawing.Size(133, 22);
             this.PitchP5SemitonesMenu.Tag = "5";
             this.PitchP5SemitonesMenu.Text = "+5半音";
             this.PitchP5SemitonesMenu.Click += new System.EventHandler(this.PitchMenu_Click);
@@ -1260,7 +1260,7 @@ namespace RabbitTune
             // PitchP6SemitonesMenu
             // 
             this.PitchP6SemitonesMenu.Name = "PitchP6SemitonesMenu";
-            this.PitchP6SemitonesMenu.Size = new System.Drawing.Size(180, 22);
+            this.PitchP6SemitonesMenu.Size = new System.Drawing.Size(133, 22);
             this.PitchP6SemitonesMenu.Tag = "6";
             this.PitchP6SemitonesMenu.Text = "+6半音";
             this.PitchP6SemitonesMenu.Click += new System.EventHandler(this.PitchMenu_Click);
@@ -1268,7 +1268,7 @@ namespace RabbitTune
             // PitchP7SemitonesMenu
             // 
             this.PitchP7SemitonesMenu.Name = "PitchP7SemitonesMenu";
-            this.PitchP7SemitonesMenu.Size = new System.Drawing.Size(180, 22);
+            this.PitchP7SemitonesMenu.Size = new System.Drawing.Size(133, 22);
             this.PitchP7SemitonesMenu.Tag = "7";
             this.PitchP7SemitonesMenu.Text = "+7半音";
             this.PitchP7SemitonesMenu.Click += new System.EventHandler(this.PitchMenu_Click);
@@ -1276,7 +1276,7 @@ namespace RabbitTune
             // PitchP8SemitonesMenu
             // 
             this.PitchP8SemitonesMenu.Name = "PitchP8SemitonesMenu";
-            this.PitchP8SemitonesMenu.Size = new System.Drawing.Size(180, 22);
+            this.PitchP8SemitonesMenu.Size = new System.Drawing.Size(133, 22);
             this.PitchP8SemitonesMenu.Tag = "8";
             this.PitchP8SemitonesMenu.Text = "+8半音";
             this.PitchP8SemitonesMenu.Click += new System.EventHandler(this.PitchMenu_Click);
@@ -1284,7 +1284,7 @@ namespace RabbitTune
             // PitchP9SemitonesMenu
             // 
             this.PitchP9SemitonesMenu.Name = "PitchP9SemitonesMenu";
-            this.PitchP9SemitonesMenu.Size = new System.Drawing.Size(180, 22);
+            this.PitchP9SemitonesMenu.Size = new System.Drawing.Size(133, 22);
             this.PitchP9SemitonesMenu.Tag = "9";
             this.PitchP9SemitonesMenu.Text = "+9半音";
             this.PitchP9SemitonesMenu.Click += new System.EventHandler(this.PitchMenu_Click);
@@ -1292,7 +1292,7 @@ namespace RabbitTune
             // PitchP10emitonesMenu
             // 
             this.PitchP10emitonesMenu.Name = "PitchP10emitonesMenu";
-            this.PitchP10emitonesMenu.Size = new System.Drawing.Size(180, 22);
+            this.PitchP10emitonesMenu.Size = new System.Drawing.Size(133, 22);
             this.PitchP10emitonesMenu.Tag = "10";
             this.PitchP10emitonesMenu.Text = "+10半音";
             this.PitchP10emitonesMenu.Click += new System.EventHandler(this.PitchMenu_Click);
@@ -1300,7 +1300,7 @@ namespace RabbitTune
             // PitchP11SemitonesMenu
             // 
             this.PitchP11SemitonesMenu.Name = "PitchP11SemitonesMenu";
-            this.PitchP11SemitonesMenu.Size = new System.Drawing.Size(180, 22);
+            this.PitchP11SemitonesMenu.Size = new System.Drawing.Size(133, 22);
             this.PitchP11SemitonesMenu.Tag = "11";
             this.PitchP11SemitonesMenu.Text = "+11半音";
             this.PitchP11SemitonesMenu.Click += new System.EventHandler(this.PitchMenu_Click);
@@ -1308,7 +1308,7 @@ namespace RabbitTune
             // PitchP12SemitonesMenu
             // 
             this.PitchP12SemitonesMenu.Name = "PitchP12SemitonesMenu";
-            this.PitchP12SemitonesMenu.Size = new System.Drawing.Size(180, 22);
+            this.PitchP12SemitonesMenu.Size = new System.Drawing.Size(133, 22);
             this.PitchP12SemitonesMenu.Tag = "12";
             this.PitchP12SemitonesMenu.Text = "+12半音";
             this.PitchP12SemitonesMenu.Click += new System.EventHandler(this.PitchMenu_Click);
@@ -1316,7 +1316,7 @@ namespace RabbitTune
             // PitchMenuSeparator1
             // 
             this.PitchMenuSeparator1.Name = "PitchMenuSeparator1";
-            this.PitchMenuSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.PitchMenuSeparator1.Size = new System.Drawing.Size(130, 6);
             // 
             // FixPitchClipMenu
             // 
@@ -1324,7 +1324,7 @@ namespace RabbitTune
             this.FixPitchClipMenu.CheckOnClick = true;
             this.FixPitchClipMenu.CheckState = System.Windows.Forms.CheckState.Checked;
             this.FixPitchClipMenu.Name = "FixPitchClipMenu";
-            this.FixPitchClipMenu.Size = new System.Drawing.Size(180, 22);
+            this.FixPitchClipMenu.Size = new System.Drawing.Size(133, 22);
             this.FixPitchClipMenu.Text = "音割れ防止";
             this.FixPitchClipMenu.CheckedChanged += new System.EventHandler(this.FixPitchClipMenu_CheckedChanged);
             // 
@@ -1573,7 +1573,7 @@ namespace RabbitTune
             this.STPitchFixClipMenu.CheckOnClick = true;
             this.STPitchFixClipMenu.CheckState = System.Windows.Forms.CheckState.Checked;
             this.STPitchFixClipMenu.Name = "STPitchFixClipMenu";
-            this.STPitchFixClipMenu.Size = new System.Drawing.Size(180, 22);
+            this.STPitchFixClipMenu.Size = new System.Drawing.Size(133, 22);
             this.STPitchFixClipMenu.Text = "音割れ防止";
             this.STPitchFixClipMenu.Click += new System.EventHandler(this.STPitchFixClipMenu_Click);
             // 

@@ -45,16 +45,16 @@ namespace RabbitTune.Controls
         };
 
         // コンテキストメニュー
-        private readonly ContextMenu AudioTracksViewerContextMenu = new ContextMenu();
-        private readonly MenuItem PlayContextMenu = new MenuItem();
-        private readonly MenuItem ContextMenuSeparator1 = new MenuItem();
-        private readonly MenuItem MoveUpContextMenu = new MenuItem();
-        private readonly MenuItem MoveDownContextMenu = new MenuItem();
-        private readonly MenuItem ContextMenuSeparator2 = new MenuItem();
-        private readonly MenuItem DeleteItemFromListMenu = new MenuItem();
-        private readonly MenuItem DeleteItemFromListWithFileMenu = new MenuItem();
-        private readonly MenuItem ContextMenuSeparator3 = new MenuItem();
-        private readonly MenuItem OpenAudioTrackLocationMenu = new MenuItem();
+        private readonly ContextMenuStrip AudioTracksViewerContextMenu = new ContextMenuStrip();
+        private readonly ToolStripMenuItem PlayContextMenu = new ToolStripMenuItem();
+        private readonly ToolStripSeparator ContextMenuSeparator1 = new ToolStripSeparator();
+        private readonly ToolStripMenuItem MoveUpContextMenu = new ToolStripMenuItem();
+        private readonly ToolStripMenuItem MoveDownContextMenu = new ToolStripMenuItem();
+        private readonly ToolStripSeparator ContextMenuSeparator2 = new ToolStripSeparator();
+        private readonly ToolStripMenuItem DeleteItemFromListMenu = new ToolStripMenuItem();
+        private readonly ToolStripMenuItem DeleteItemFromListWithFileMenu = new ToolStripMenuItem();
+        private readonly ToolStripSeparator ContextMenuSeparator3 = new ToolStripSeparator();
+        private readonly ToolStripMenuItem OpenAudioTrackLocationMenu = new ToolStripMenuItem();
 
         // 非公開フィールド
         private ListViewColumnSorter AudioTracksViewerSorter;
@@ -104,7 +104,7 @@ namespace RabbitTune.Controls
         private void CreateContextMenu()
         {
             // メニュー表示時のイベントを作成
-            this.AudioTracksViewerContextMenu.Popup += delegate
+            this.AudioTracksViewerContextMenu.Opening += delegate
             {
                 bool anyItemSelected = this.SelectedAudioTrack != null;
 
@@ -122,7 +122,6 @@ namespace RabbitTune.Controls
             {
                 this.PlayCommandInvoked?.Invoke(null, null);
             };
-            this.ContextMenuSeparator1.Text = "-";
             this.MoveUpContextMenu.Text = "1つ上に移動";
             this.MoveUpContextMenu.Click += delegate
             {
@@ -139,7 +138,6 @@ namespace RabbitTune.Controls
                     MoveDown(this.SelectedAudioTrack);
                 }
             };
-            this.ContextMenuSeparator2.Text = "-";
             this.DeleteItemFromListMenu.Text = "アイテムを一覧から削除";
             this.DeleteItemFromListMenu.Click += delegate
             {
@@ -156,7 +154,6 @@ namespace RabbitTune.Controls
                     DeleteItemFromListWithFile(this.SelectedAudioTrack);
                 }
             };
-            this.ContextMenuSeparator3.Text = "-";
             this.OpenAudioTrackLocationMenu.Text = "エクスプローラーで開く";
             this.OpenAudioTrackLocationMenu.Click += delegate
             {
@@ -167,18 +164,18 @@ namespace RabbitTune.Controls
             };
             
             // メニュー項目の追加
-            this.AudioTracksViewerContextMenu.MenuItems.Add(this.PlayContextMenu);
-            this.AudioTracksViewerContextMenu.MenuItems.Add(this.ContextMenuSeparator1);
-            this.AudioTracksViewerContextMenu.MenuItems.Add(this.MoveUpContextMenu);
-            this.AudioTracksViewerContextMenu.MenuItems.Add(this.MoveDownContextMenu);
-            this.AudioTracksViewerContextMenu.MenuItems.Add(this.ContextMenuSeparator2);
-            this.AudioTracksViewerContextMenu.MenuItems.Add(this.DeleteItemFromListMenu);
-            this.AudioTracksViewerContextMenu.MenuItems.Add(this.DeleteItemFromListWithFileMenu);
-            this.AudioTracksViewerContextMenu.MenuItems.Add(this.ContextMenuSeparator3);
-            this.AudioTracksViewerContextMenu.MenuItems.Add(this.OpenAudioTrackLocationMenu);
+            this.AudioTracksViewerContextMenu.Items.Add(this.PlayContextMenu);
+            this.AudioTracksViewerContextMenu.Items.Add(this.ContextMenuSeparator1);
+            this.AudioTracksViewerContextMenu.Items.Add(this.MoveUpContextMenu);
+            this.AudioTracksViewerContextMenu.Items.Add(this.MoveDownContextMenu);
+            this.AudioTracksViewerContextMenu.Items.Add(this.ContextMenuSeparator2);
+            this.AudioTracksViewerContextMenu.Items.Add(this.DeleteItemFromListMenu);
+            this.AudioTracksViewerContextMenu.Items.Add(this.DeleteItemFromListWithFileMenu);
+            this.AudioTracksViewerContextMenu.Items.Add(this.ContextMenuSeparator3);
+            this.AudioTracksViewerContextMenu.Items.Add(this.OpenAudioTrackLocationMenu);
 
             // コンテキストメニューを設定
-            this.AudioTracksViewer.ContextMenu = this.AudioTracksViewerContextMenu;
+            this.AudioTracksViewer.ContextMenuStrip = this.AudioTracksViewerContextMenu;
         }
 
         #region プロパティ

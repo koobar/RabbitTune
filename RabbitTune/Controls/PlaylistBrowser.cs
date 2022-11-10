@@ -43,7 +43,6 @@ namespace RabbitTune.Controls
             {
                 this.PlaylistOpenRequested?.Invoke(null, null);
             };
-            this.ContextMenu = this.PlaylistBrowserContextMenu;
 
             // フォント設定
             this.Font = SystemFonts.CaptionFont;

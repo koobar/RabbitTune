@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace RabbitTune.Controls
@@ -7,16 +6,16 @@ namespace RabbitTune.Controls
     public class PlaylistsTabControl : TabControl
     {
         // 非公開変数
-        private readonly ContextMenu TabHeaderContextMenu;
-        private readonly MenuItem AddToFavoritePlaylistsMenu;
-        private readonly MenuItem ContextMenuSeparator1;
-        private readonly MenuItem TabCloseMenu;
+        private readonly ContextMenuStrip TabHeaderContextMenu;
+        private readonly ToolStripMenuItem AddToFavoritePlaylistsMenu;
+        private readonly ToolStripSeparator ContextMenuSeparator1;
+        private readonly ToolStripMenuItem TabCloseMenu;
         
         // コンストラクタ
         public PlaylistsTabControl()
         {
-            this.TabHeaderContextMenu = new ContextMenu();
-            this.AddToFavoritePlaylistsMenu = new MenuItem();
+            this.TabHeaderContextMenu = new ContextMenuStrip();
+            this.AddToFavoritePlaylistsMenu = new ToolStripMenuItem();
             this.AddToFavoritePlaylistsMenu.Text = "お気に入りに登録";
             this.AddToFavoritePlaylistsMenu.Click += delegate
             {
@@ -27,9 +26,8 @@ namespace RabbitTune.Controls
                     PlaylistsDataBase.AddFavoritePlaylist(page.PlaylistViewer.GetPlaylistFilePath());
                 }
             };
-            this.ContextMenuSeparator1 = new MenuItem();
-            this.ContextMenuSeparator1.Text = "-";
-            this.TabCloseMenu = new MenuItem();
+            this.ContextMenuSeparator1 = new ToolStripSeparator();
+            this.TabCloseMenu = new ToolStripMenuItem();
             this.TabCloseMenu.Text = "閉じる(&C)";
             this.TabCloseMenu.Click += delegate
             {
@@ -37,9 +35,9 @@ namespace RabbitTune.Controls
             };
 
             // 後始末
-            this.TabHeaderContextMenu.MenuItems.Add(this.AddToFavoritePlaylistsMenu);
-            this.TabHeaderContextMenu.MenuItems.Add(this.ContextMenuSeparator1);
-            this.TabHeaderContextMenu.MenuItems.Add(this.TabCloseMenu);
+            this.TabHeaderContextMenu.Items.Add(this.AddToFavoritePlaylistsMenu);
+            this.TabHeaderContextMenu.Items.Add(this.ContextMenuSeparator1);
+            this.TabHeaderContextMenu.Items.Add(this.TabCloseMenu);
         }
 
         /// <summary>
