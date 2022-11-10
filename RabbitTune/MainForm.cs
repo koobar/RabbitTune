@@ -881,7 +881,7 @@ namespace RabbitTune
             speed = (float)Math.Round(speed, 2, MidpointRounding.AwayFromZero);
             AudioPlayerManager.PlaybackSpeed = speed;
 
-            MenuItem checkItem;
+            ToolStripMenuItem checkItem;
 
             if(speed <= 0.25)
             {
@@ -924,10 +924,11 @@ namespace RabbitTune
                 checkItem = this.PlaybackSpeed200Menu;
             }
 
-            foreach(MenuItem menuItem in this.PlaybackSpeedsMenu.MenuItems)
+            foreach(ToolStripMenuItem menuItem in this.PlaybackSpeedsMenu.DropDownItems)
             {
                 menuItem.Checked = false;
             }
+
             checkItem.Checked = true;
         }
 
@@ -940,8 +941,8 @@ namespace RabbitTune
             AudioPlayerManager.Pitch = semitones;
 
             // チェックすべきメニュー項目を取得する。
-            MenuItem checkItem = null;
-            foreach (MenuItem menuItem in this.PitchMenu.MenuItems)
+            ToolStripMenuItem checkItem = null;
+            foreach (ToolStripItem menuItem in this.PitchMenu.DropDownItems)
             {
                 if(menuItem.Tag != null)
                 {
@@ -949,7 +950,7 @@ namespace RabbitTune
 
                     if(menuItem.Tag.ToString() == text)
                     {
-                        checkItem = menuItem;
+                        checkItem = (ToolStripMenuItem)menuItem;
                         break;
                     }
                 }
@@ -957,11 +958,11 @@ namespace RabbitTune
 
             if(checkItem != null)
             {
-                foreach(MenuItem menuItem in this.PitchMenu.MenuItems)
+                foreach(object menuItem in this.PitchMenu.DropDownItems)
                 {
                     if(menuItem != this.PitchMenuSeparator1 && menuItem != this.FixPitchClipMenu)
                     {
-                        menuItem.Checked = false;
+                        ((ToolStripMenuItem)menuItem).Checked = false;
                     }
                 }
 
@@ -978,8 +979,8 @@ namespace RabbitTune
             AudioPlayerManager.SoundTouchPitchSemitones = semitones;
 
             // チェックすべきメニュー項目を取得する。
-            MenuItem checkItem = null;
-            foreach (MenuItem menuItem in this.SoundTouchPitchMenu.MenuItems)
+            ToolStripMenuItem checkItem = null;
+            foreach (ToolStripItem menuItem in this.SoundTouchPitchMenu.DropDownItems)
             {
                 if (menuItem.Tag != null)
                 {
@@ -987,7 +988,7 @@ namespace RabbitTune
 
                     if (menuItem.Tag.ToString() == text)
                     {
-                        checkItem = menuItem;
+                        checkItem = (ToolStripMenuItem)menuItem;
                         break;
                     }
                 }
@@ -995,11 +996,11 @@ namespace RabbitTune
 
             if (checkItem != null)
             {
-                foreach (MenuItem menuItem in this.SoundTouchPitchMenu.MenuItems)
+                foreach (object menuItem in this.SoundTouchPitchMenu.DropDownItems)
                 {
                     if (menuItem != this.STPitchMenuSeparator1 && menuItem != this.STPitchFixClipMenu)
                     {
-                        menuItem.Checked = false;
+                        ((ToolStripMenuItem)menuItem).Checked = false;
                     }
                 }
 
@@ -1133,7 +1134,7 @@ namespace RabbitTune
             // ウィンドウサイズをコンフィグファイルに保存する際に不都合が生じる。
             // そこで、MainForm.Designer.csでメインメニューを設定するのではなく、
             // 敢えてフォームの読み込み時に設定するようにすることで、この問題を回避できる。
-            base.Menu = this.MainMenu;
+            //base.Menu = this.MainMenu;
 
             // 元々の処理を実行。
             base.OnLoad(e);
