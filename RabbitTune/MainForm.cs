@@ -1,3 +1,4 @@
+using Microsoft.Win32;
 using RabbitTune.AudioEngine;
 using RabbitTune.Controls;
 using RabbitTune.Dialogs;
@@ -170,13 +171,23 @@ namespace RabbitTune
             this.ApplicationVersionDialog = new VersionDialog();
 
             // OSがWindows 10以降か？
-            if (Environment.OSVersion.Version.Major >= 10)
+            if (IsWindows11())
             {
                 var preference = Convert.ToInt32(true);
                 DwmSetWindowAttribute(this.Handle, DWMWINDOWATTRIBUTE.DWMWA_USE_IMMERSIVE_DARK_MODE, ref preference, sizeof(uint));
             }
 
             RegistButtons();
+        }
+
+        public static bool IsWindows11()
+        {
+            var reg = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");
+
+            var currentBuildStr = (string)reg.GetValue("CurrentBuild");
+            var currentBuild = int.Parse(currentBuildStr);
+
+            return currentBuild >= 22000;
         }
 
         // デフォルトコンストラクタ
