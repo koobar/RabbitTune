@@ -33,6 +33,10 @@ namespace RabbitTune.AudioEngine
             new AudioFormatInfo("MP3", MediaFoundationDecoderType, false, ".mp3"),
             new AudioFormatInfo("WMA", MediaFoundationDecoderType, false, ".wma"),
             new AudioFormatInfo("E-AC-3", MediaFoundationDecoderType, false, ".eac3"),
+            new AudioFormatInfo("Matroska Video", MediaFoundationDecoderType, true, ".mkv"),
+            new AudioFormatInfo("Matroska Audio", MediaFoundationDecoderType, true, ".mka"),
+            new AudioFormatInfo("WebM", MediaFoundationDecoderType, true, ".webm"),
+            new AudioFormatInfo("WebA", MediaFoundationDecoderType, true, ".weba"),
         };
         private static readonly List<AudioFormatInfo> AdditionalAudioFormatInfoCollection = new List<AudioFormatInfo>()
         {

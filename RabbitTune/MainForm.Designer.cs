@@ -738,6 +738,7 @@ namespace RabbitTune
             // 
             // CreateNewPlaylistMenu
             // 
+            this.CreateNewPlaylistMenu.Image = global::RabbitTune.Properties.Resources.page_white_star;
             this.CreateNewPlaylistMenu.Name = "CreateNewPlaylistMenu";
             this.CreateNewPlaylistMenu.Size = new System.Drawing.Size(256, 22);
             this.CreateNewPlaylistMenu.Text = "新規プレイリスト(&N)";
@@ -750,6 +751,7 @@ namespace RabbitTune
             // 
             // OpenAnyFilesMenu
             // 
+            this.OpenAnyFilesMenu.Image = global::RabbitTune.Properties.Resources.folder_page;
             this.OpenAnyFilesMenu.Name = "OpenAnyFilesMenu";
             this.OpenAnyFilesMenu.Size = new System.Drawing.Size(256, 22);
             this.OpenAnyFilesMenu.Text = "開く(&O)...";
@@ -776,6 +778,7 @@ namespace RabbitTune
             // 
             // SaveCurrentPlaylistMenu
             // 
+            this.SaveCurrentPlaylistMenu.Image = global::RabbitTune.Properties.Resources.disk;
             this.SaveCurrentPlaylistMenu.Name = "SaveCurrentPlaylistMenu";
             this.SaveCurrentPlaylistMenu.Size = new System.Drawing.Size(256, 22);
             this.SaveCurrentPlaylistMenu.Text = "現在のプレイリストを上書き保存";
@@ -783,6 +786,7 @@ namespace RabbitTune
             // 
             // SaveAllPlaylistsMenu
             // 
+            this.SaveAllPlaylistsMenu.Image = global::RabbitTune.Properties.Resources.disk_multiple;
             this.SaveAllPlaylistsMenu.Name = "SaveAllPlaylistsMenu";
             this.SaveAllPlaylistsMenu.Size = new System.Drawing.Size(256, 22);
             this.SaveAllPlaylistsMenu.Text = "すべてのプレイリストを保存";
@@ -838,6 +842,7 @@ namespace RabbitTune
             // 
             // FindTrackMenu
             // 
+            this.FindTrackMenu.Image = global::RabbitTune.Properties.Resources.find;
             this.FindTrackMenu.Name = "FindTrackMenu";
             this.FindTrackMenu.Size = new System.Drawing.Size(155, 22);
             this.FindTrackMenu.Text = "トラックの検索(&F)";
@@ -1698,6 +1703,7 @@ namespace RabbitTune
             // 
             // DetailOptionsMenu
             // 
+            this.DetailOptionsMenu.Image = global::RabbitTune.Properties.Resources.cog;
             this.DetailOptionsMenu.Name = "DetailOptionsMenu";
             this.DetailOptionsMenu.Size = new System.Drawing.Size(142, 22);
             this.DetailOptionsMenu.Text = "詳細設定";

@@ -1271,7 +1271,10 @@ namespace RabbitTune.Controls
             {
                 if (File.Exists(path))
                 {
-                    AddAudioTrackToView(new AudioTrack(path));
+                    var track = new AudioTrack(path);
+
+                    AddAudioTrackToView(track);
+                    this.CurrentPlaylist.Tracks.Add(track);
                 }
             }
         }
