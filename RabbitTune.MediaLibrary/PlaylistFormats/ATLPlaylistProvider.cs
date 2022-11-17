@@ -2,7 +2,6 @@
 using ATL.Playlist;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows.Forms;
 
 namespace RabbitTune.MediaLibrary.PlaylistFormats
 {
@@ -47,7 +46,6 @@ namespace RabbitTune.MediaLibrary.PlaylistFormats
 
                 for (int i = 0; i < atlTracks.Length; ++i)
                 {
-                    MessageBox.Show(playlist.Tracks[i].ToString());
                     atlTracks[i] = new Track(playlist.Tracks[i].Location, false);
                 }
 
