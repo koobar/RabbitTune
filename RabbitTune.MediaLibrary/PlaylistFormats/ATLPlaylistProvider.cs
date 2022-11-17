@@ -34,6 +34,11 @@ namespace RabbitTune.MediaLibrary.PlaylistFormats
         /// <param name="playlist"></param>
         public void SavePlaylist(string path, Playlist playlist)
         {
+            if(playlist == null)
+            {
+                playlist = new Playlist();
+            }
+
             if (playlist.Tracks != null)
             {
                 var io = PlaylistIOFactory.GetInstance().GetPlaylistIO(path);
