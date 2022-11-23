@@ -143,7 +143,14 @@ namespace RabbitTune
                 }
                 else
                 {
-                    PauseOrResume();
+                    if (AudioPlayerManager.IsTrackLoaded)
+                    {
+                        PauseOrResume();
+                    }
+                    else
+                    {
+                        Play();
+                    }
                 }
             };
             this.mediaButtonDriver.NextButtonPush += delegate

@@ -6,6 +6,7 @@ using RabbitTune.AudioEngine.Codecs;
 using RabbitTune.MediaLibrary;
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace RabbitTune
@@ -61,9 +62,14 @@ namespace RabbitTune
         #region 標準プロパティ
 
         /// <summary>
+        /// トラックが読み込み済みであるかどうか
+        /// </summary>
+        public static bool IsTrackLoaded { private set; get; } = false;
+
+        /// <summary>
         /// 一時停止中であるかどうか
         /// </summary>
-        public static bool IsPausing { private set;  get; } = false;
+        public static bool IsPausing { private set; get; } = false;
 
         /// <summary>
         /// 再生中であるかどうか
@@ -687,6 +693,7 @@ namespace RabbitTune
                 AudioPlayer.Dispose();
 
                 // 後始末
+                IsTrackLoaded = false;
                 IsPausing = false;
                 IsPlaying = false;
                 AudioPlayer = null;
@@ -757,6 +764,9 @@ namespace RabbitTune
 
             // 再生前に設定された定位を反映
             AudioPlayer.Pan = Pan;
+
+            // 後始末
+            IsTrackLoaded = true;
         }
 
         /// <summary>

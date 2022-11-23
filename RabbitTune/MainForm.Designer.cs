@@ -494,7 +494,7 @@ namespace RabbitTune
             this.ResetPanButton.Image = ((System.Drawing.Image)(resources.GetObject("ResetPanButton.Image")));
             this.ResetPanButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ResetPanButton.Name = "ResetPanButton";
-            this.ResetPanButton.Size = new System.Drawing.Size(45, 22);
+            this.ResetPanButton.Size = new System.Drawing.Size(45, 19);
             this.ResetPanButton.Text = "リセット";
             this.ResetPanButton.Click += new System.EventHandler(this.ResetPanButton_Click);
             // 
