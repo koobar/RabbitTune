@@ -1,6 +1,5 @@
 ﻿using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
-using System;
 
 namespace RabbitTune.AudioEngine.AudioProcess
 {

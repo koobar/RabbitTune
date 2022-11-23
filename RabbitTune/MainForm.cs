@@ -130,6 +130,9 @@ namespace RabbitTune
             };
             AudioPlayerManager.OutputFormatChanged += delegate
             {
+                AudioPlayerManager.GetOutputWaveFormat(out _, out _, out int channels);
+                this.PanSlider.Enabled = channels == 2;
+
                 UpdateAudioWaveFormatStatusText();
             };
 
@@ -232,7 +235,7 @@ namespace RabbitTune
             this.ShowLeftSideToolPanel = ApplicationOptions.ShowMainFormLeftSideToolPanel;
             this.ShowAsMiniplayerMode = ApplicationOptions.ShowMainFormAsMiniplayerMode;
             this.VolumeSlider.Value = AudioPlayerManager.Volume;
-            this.PanSlider.Value = AudioPlayerManager.Pan;
+            this.PanSlider.Value = AudioPlayerManager.Balance;
             SetRepeatModeView(ApplicationOptions.RepeatMode);
             SetPlaybackSpeed(AudioPlayerManager.PlaybackSpeed);
             SetPitch(AudioPlayerManager.Pitch);
@@ -1863,7 +1866,7 @@ namespace RabbitTune
         /// <param name="e"></param>
         private void PanSlider_ValueChanged(object sender, EventArgs e)
         {
-            AudioPlayerManager.Pan = this.PanSlider.Value;
+            AudioPlayerManager.Balance = this.PanSlider.Value;
         }
 
         /// <summary>

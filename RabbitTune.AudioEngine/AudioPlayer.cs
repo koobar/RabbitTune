@@ -3,7 +3,6 @@ using NAudio.Wave;
 using RabbitTune.AudioEngine.AudioOutputApi;
 using RabbitTune.AudioEngine.AudioProcess;
 using System;
-using System.Windows.Forms;
 
 namespace RabbitTune.AudioEngine
 {
@@ -694,35 +693,24 @@ namespace RabbitTune.AudioEngine
 
         #endregion
 
-        #region 定位（パン）
+        #region 左右の音量バランス
 
-        // 定位設定に関連する非公開変数
-        private PanSetter panSetter;
-        private int _pan;
-        private float _pan_f;
+        // 定位設定に関連する非公開フィールド
+        private VolumeBalanceSetter volumeBalanceSetter;
 
         /// <summary>
-        /// 定位<br/>
-        /// -100から100の範囲内の整数で指定。-100に近いほど左、100に近いほど右から音が聞こえる。<br/>
-        /// 0を指定することで、左右均等（デフォルト）になる。
+        /// 左右バランス
         /// </summary>
-        public int Pan
+        public int Balance
         {
             set
             {
-                float pan = value / 100.0f;
-                
-                if(this.panSetter != null)
-                {
-                    this.panSetter.Pan = pan;
-                }
+                float a = value / 100.0f;
+                float l = 1 - a;
+                float r = 1 + a;
 
-                this._pan = value;
-                this._pan_f = pan;
-            }
-            get
-            {
-                return this._pan;
+                this.volumeBalanceSetter.LeftVolume = l;
+                this.volumeBalanceSetter.RightVolume = r;
             }
         }
 
@@ -731,9 +719,8 @@ namespace RabbitTune.AudioEngine
         /// </summary>
         private void CreatePanSetter()
         {
-            this.panSetter = new PanSetter(this.audioProcessSampleProvider);
-            this.panSetter.Pan = this._pan_f;
-            this.audioProcessSampleProvider = this.panSetter;
+            this.volumeBalanceSetter = new VolumeBalanceSetter(this.audioProcessSampleProvider);
+            this.audioProcessSampleProvider = this.volumeBalanceSetter;
         }
 
         #endregion

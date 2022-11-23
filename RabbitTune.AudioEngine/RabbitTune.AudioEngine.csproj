@@ -75,12 +75,12 @@
     <Compile Include="AudioOutputApi\WaveOut.cs" />
     <Compile Include="AudioPlayer.cs" />
     <Compile Include="AudioProcess\Equalizer.cs" />
-    <Compile Include="AudioProcess\PanSetter.cs" />
-    <Compile Include="AudioProcess\NEquaizer.cs" />
+    <Compile Include="AudioProcess\Dsp\NEquaizer.cs" />
     <Compile Include="AudioProcess\PitchShifter.cs" />
     <Compile Include="AudioProcess\PlaybackSpeedSetter.cs" />
     <Compile Include="AudioProcess\SampleToPcm.cs" />
     <Compile Include="AudioProcess\SoundTouchPitchShifter.cs" />
+    <Compile Include="AudioProcess\VolumeBalanceSetter.cs" />
     <Compile Include="AudioProcess\VolumeChanger.cs" />
     <Compile Include="AudioProcess\WaveFormatConversion.cs" />
     <Compile Include="AudioReader.cs" />
@@ -105,7 +105,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoundTouch\SoundTouch.cs" />
     <Compile Include="SoundTouch\SoundTouchInterop.cs" />
-    <Compile Include="AudioProcess\SampleProviders\SoundTouchSampleProvider.cs" />
+    <Compile Include="AudioProcess\SoundTouchSampleProvider.cs" />
     <Compile Include="Timer.cs" />
     <Compile Include="Win32Api.cs" />
   </ItemGroup>

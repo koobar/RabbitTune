@@ -127,7 +127,7 @@ namespace RabbitTune
                 writer.WriteProperty(AudioPlayerManager.KEY_RESAMPLER_BITSPERSAMPLE, AudioPlayerManager.ReSamplerBitsPerSample);
                 writer.WriteProperty(AudioPlayerManager.KEY_RESAMPLER_CHANNELS, AudioPlayerManager.ReSamplerChannels);
                 writer.WriteProperty(AudioPlayerManager.KEY_AUDIO_OUTPUT_VOLUME, AudioPlayerManager.Volume);
-                writer.WriteProperty(AudioPlayerManager.KEY_AUDIO_OUTPUT_PANNING, AudioPlayerManager.Pan);
+                writer.WriteProperty(AudioPlayerManager.KEY_AUDIO_OUTPUT_PANNING, AudioPlayerManager.Balance);
                 writer.WriteProperty(AudioPlayerManager.KEY_USE_EQUALIZER, AudioPlayerManager.UseEqualizer);
                 writer.WriteProperty(AudioPlayerManager.KEY_EQUALIZER_DOWNSAMPLE_TO_32K, AudioPlayerManager.DownSampleTo32KBeforeEqualizerProcess);
                 writer.WriteDoubleArrayProperty(AudioPlayerManager.KEY_EQUALIZER_GAINDECIBELS, AudioPlayerManager.EqualizerAverageGainDecibels);
@@ -203,7 +203,7 @@ namespace RabbitTune
             AudioPlayerManager.DeviceOutputWaveFormatSampleRate = reader.GetValueAsInt(AudioPlayerManager.KEY_OUTFMTCONV_SAMPLERATE, AudioPlayer.WAVEFORMAT_NOCONV);
             AudioPlayerManager.DeviceOutputWaveFormatBitsPerSample = reader.GetValueAsInt(AudioPlayerManager.KEY_OUTFMT_BITSPERSAMPLE, AudioPlayer.WAVEFORMAT_NOCONV);
             AudioPlayerManager.Volume = reader.GetValueAsInt(AudioPlayerManager.KEY_AUDIO_OUTPUT_VOLUME, 80);
-            AudioPlayerManager.Pan = reader.GetValueAsInt(AudioPlayerManager.KEY_AUDIO_OUTPUT_PANNING, 0);
+            AudioPlayerManager.Balance = reader.GetValueAsInt(AudioPlayerManager.KEY_AUDIO_OUTPUT_PANNING, 0);
             AudioPlayerManager.SetReSamplerOptions(
                  reader.GetValueAsBoolean(AudioPlayerManager.KEY_USE_RESAMPLER, false),
                  reader.GetValueAsInt(AudioPlayerManager.KEY_RESAMPLER_SAMPLERATE, 44100),

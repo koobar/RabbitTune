@@ -1,7 +1,6 @@
 ﻿using NAudio.Extras;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
-using System.Windows.Forms;
 
 namespace RabbitTune.AudioEngine.AudioProcess
 {

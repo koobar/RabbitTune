@@ -2,7 +2,7 @@
 using RabbitTune.AudioEngine.SoundTouchWrapper;
 using System;
 
-namespace RabbitTune.AudioEngine.AudioProcess.SampleProviders
+namespace RabbitTune.AudioEngine.AudioProcess
 {
     internal class SoundTouchSampleProvider : ISampleProvider
     {

@@ -11,8 +11,6 @@
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using System;
-using System.Diagnostics;
-using System.Windows.Forms;
 
 namespace RabbitTune.AudioEngine.AudioProcess
 {

@@ -6,7 +6,6 @@ using RabbitTune.AudioEngine.Codecs;
 using RabbitTune.MediaLibrary;
 using System;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace RabbitTune
@@ -461,31 +460,31 @@ namespace RabbitTune
 
         #endregion
 
-        #region 定位関連
+        #region 左右音量バランス関連
 
-        // 定位関連の非公開変数
-        private static int _pan = 0;
+        // 音量バランス関連の非公開フィールド
+        private static int _balance = 0;
 
         /// <summary>
-        /// 定位<br/>
+        /// 左右バランス<br/>
         /// -100から100の範囲内の整数で指定。-100に近いほど左、100に近いほど右から音が聞こえる。<br/>
         /// 0を指定することで、左右均等（デフォルト）になる。
         /// </summary>
-        public static int Pan
+        public static int Balance
         {
             set
             {
                 if(AudioPlayer != null)
                 {
-                    AudioPlayer.Pan = value;
+                    AudioPlayer.Balance = value;
                 }
 
                 // 後始末
-                _pan = value;
+                _balance = value;
             }
             get
             {
-                return _pan;
+                return _balance;
             }
         }
 
@@ -763,7 +762,7 @@ namespace RabbitTune
             AudioPlayer.Volume = Volume;
 
             // 再生前に設定された定位を反映
-            AudioPlayer.Pan = Pan;
+            AudioPlayer.Balance = Balance;
 
             // 後始末
             IsTrackLoaded = true;
