@@ -38,11 +38,14 @@
             this.MIDIOptionPanel = new RabbitTune.Controls.OptionPanels.MidiOptionPanel();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.DSDPlaybackOptionPanel = new RabbitTune.Controls.OptionPanels.DSDPlaybackOptionPanel();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.OtherOptionsPanel = new RabbitTune.Controls.OptionPanels.OtherOptions();
             this.panel1.SuspendLayout();
             this.OptionsTabControl.SuspendLayout();
             this.AudioPlaybackOption.SuspendLayout();
             this.MIDIPlaybackOption.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -82,6 +85,7 @@
             this.OptionsTabControl.Controls.Add(this.AudioPlaybackOption);
             this.OptionsTabControl.Controls.Add(this.MIDIPlaybackOption);
             this.OptionsTabControl.Controls.Add(this.tabPage1);
+            this.OptionsTabControl.Controls.Add(this.tabPage2);
             this.OptionsTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.OptionsTabControl.Location = new System.Drawing.Point(0, 0);
             this.OptionsTabControl.Name = "OptionsTabControl";
@@ -152,6 +156,26 @@
             this.DSDPlaybackOptionPanel.Size = new System.Drawing.Size(386, 267);
             this.DSDPlaybackOptionPanel.TabIndex = 0;
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.OtherOptionsPanel);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Size = new System.Drawing.Size(386, 267);
+            this.tabPage2.TabIndex = 4;
+            this.tabPage2.Text = "その他";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // OtherOptionsPanel
+            // 
+            this.OtherOptionsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.OtherOptionsPanel.Font = new System.Drawing.Font("Yu Gothic UI", 9F);
+            this.OtherOptionsPanel.Location = new System.Drawing.Point(0, 0);
+            this.OtherOptionsPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.OtherOptionsPanel.Name = "OtherOptionsPanel";
+            this.OtherOptionsPanel.Size = new System.Drawing.Size(386, 267);
+            this.OtherOptionsPanel.TabIndex = 0;
+            // 
             // OptionDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -173,6 +197,7 @@
             this.AudioPlaybackOption.ResumeLayout(false);
             this.MIDIPlaybackOption.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -189,5 +214,7 @@
         private Controls.OptionPanels.MidiOptionPanel MIDIOptionPanel;
         private System.Windows.Forms.TabPage tabPage1;
         private Controls.OptionPanels.DSDPlaybackOptionPanel DSDPlaybackOptionPanel;
+        private System.Windows.Forms.TabPage tabPage2;
+        private Controls.OptionPanels.OtherOptions OtherOptionsPanel;
     }
 }

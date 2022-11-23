@@ -106,6 +106,12 @@
     <Compile Include="Controls\OptionPanels\MidiOptionPanel.Designer.cs">
       <DependentUpon>MidiOptionPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\OptionPanels\OtherOptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\OptionPanels\OtherOptions.Designer.cs">
+      <DependentUpon>OtherOptions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PlaylistBrowser.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -215,6 +221,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\OptionPanels\MidiOptionPanel.resx">
       <DependentUpon>MidiOptionPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\OptionPanels\OtherOptions.resx">
+      <DependentUpon>OtherOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\PlaylistBrowser.resx">
       <DependentUpon>PlaylistBrowser.cs</DependentUpon>

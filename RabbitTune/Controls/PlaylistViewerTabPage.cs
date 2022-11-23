@@ -25,7 +25,7 @@ namespace RabbitTune.Controls
 
                 this.Text = text;
             };
-            this.PlaylistViewer.PlaylistFileChanged += delegate
+            this.PlaylistViewer.CurrentPlaylistChanged += delegate
             {
                 this.Text = this.PlaylistViewer.PlaylistName;
             };
@@ -50,7 +50,7 @@ namespace RabbitTune.Controls
             this.PlaylistViewer = new PlaylistViewer();
             this.PlaylistViewer.Dock = DockStyle.Fill;
             this.PlaylistViewer.AudioTrackDoubleClicked += PlaylistViewer_AudioTrackDoubleClicked;
-            this.PlaylistViewer.PlaylistFileChanged += PlaylistViewer_PlaylistFileChanged;
+            this.PlaylistViewer.CurrentPlaylistChanged += PlaylistViewer_PlaylistFileChanged;
             base.Controls.Add(this.PlaylistViewer);
             this.Text = this.PlaylistViewer.PlaylistName;
         }

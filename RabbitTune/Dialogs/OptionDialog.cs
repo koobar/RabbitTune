@@ -24,6 +24,8 @@ namespace RabbitTune.Dialogs
             this.AudioOptionPanel.SaveOptions();
             this.MIDIOptionPanel.SaveOptions();
             this.DSDPlaybackOptionPanel.SaveOptions();
+            this.OtherOptionsPanel.SaveOptions();
+
             Close();
         }
     }

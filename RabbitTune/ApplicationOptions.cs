@@ -14,6 +14,8 @@ namespace RabbitTune
         public const string KEY_SHOW_LEFTTOOLPANEL = @"ShowLeftSideToolPanel";
         public const string KEY_ALWAYS_ON_TOP = @"AlwaysOnTop";
         public const string KEY_SHOW_AS_MINIPLAYER_MODE = @"ShowAsMiniplayerMode";
+        public const string KEY_DONOT_ADD_ASSOCIATED_FILE_TO_DEFAULT_PLAYLIST = @"DoNotAddAssociatedFileToDefaultPlaylist";
+        public const string KEY_AUTOPLAY_WHEN_GIVEN_FILE_PATH_AS_COMMAND_LINE_ARGS = @"AutoPlayWhenGivenFilePathAsCommandLineArguments";
 
         // 設定値
         public static string DefaultPlaylistPath;
@@ -23,5 +25,7 @@ namespace RabbitTune
         public static Size MainFormSize;
         public static bool ShowMainFormLeftSideToolPanel;
         public static bool ShowMainFormAsMiniplayerMode;
+        public static bool DoNotAddAssociatedFileToDefaultPlaylist;
+        public static bool AutoPlayWhenGivenFilePathAsCommandLineArguments;
     }
 }

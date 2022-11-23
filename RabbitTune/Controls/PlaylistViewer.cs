@@ -64,7 +64,7 @@ namespace RabbitTune.Controls
         // イベント
         public event EventHandler AudioTrackDoubleClicked;
         public event EventHandler SelectedAudioTrackChanged;
-        public event EventHandler PlaylistFileChanged;
+        public event EventHandler CurrentPlaylistChanged;
         public event EventHandler PlaylistChanged;
         public event EventHandler PlayCommandInvoked;
 
@@ -349,6 +349,19 @@ namespace RabbitTune.Controls
         #region プレイリストに直接変更を加えるメソッド
 
         /// <summary>
+        /// 現在のプレイリストにトラックを追加する
+        /// </summary>
+        /// <param name="track"></param>
+        public void AddTrackToPlaylist(AudioTrack track)
+        {
+            this.CurrentPlaylist.Tracks.Add(track);
+
+            // 更新処理
+            UpdateView();
+            this.PlaylistChanged?.Invoke(null, null);
+        }
+
+        /// <summary>
         /// 全てのトラックをプレイリストと表示から削除する。
         /// </summary>
         public void Clear()
@@ -590,6 +603,26 @@ namespace RabbitTune.Controls
         }
 
         /// <summary>
+        /// 指定されたパスのオーディオトラックを取得する。
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public AudioTrack GetAudioTrack(string path)
+        {
+            foreach(ListViewItem item in this.AudioTracksViewer.Items)
+            {
+                var trk = (AudioTrack)item.Tag;
+
+                if(trk.Location.ToLower() == path.ToLower())
+                {
+                    return trk;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// 現在のプレイリストに含まれるすべてのオーディオトラックを取得する。<br/>
         /// （保存されていない変更点も含むすべてのオーディオトラックを取得する。）
         /// </summary>
@@ -792,7 +825,7 @@ namespace RabbitTune.Controls
                 PlaylistsDataBase.AddRecentPlaylist(path);
 
                 // イベントの実行
-                this.PlaylistFileChanged?.Invoke(null, null);
+                this.CurrentPlaylistChanged?.Invoke(null, null);
 
                 // 読み込まれなかったファイルが存在するか？
                 if (this.CurrentPlaylist.NotFoundFiles != null && this.CurrentPlaylist.NotFoundFiles.Count > 0)
@@ -834,7 +867,7 @@ namespace RabbitTune.Controls
             UpdatePlaylistName();
 
             // イベントの実行
-            this.PlaylistFileChanged?.Invoke(null, null);
+            this.CurrentPlaylistChanged?.Invoke(null, null);
             this.IsChanged = false;
         }
 

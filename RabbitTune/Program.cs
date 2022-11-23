@@ -100,6 +100,8 @@ namespace RabbitTune
                 writer.WriteEmptyLine();
                 writer.WriteComment("Application Options");
                 writer.WriteProperty(ApplicationOptions.KEY_REPEAT_MODE, ApplicationOptions.RepeatMode);
+                writer.WriteProperty(ApplicationOptions.KEY_DONOT_ADD_ASSOCIATED_FILE_TO_DEFAULT_PLAYLIST, ApplicationOptions.DoNotAddAssociatedFileToDefaultPlaylist);
+                writer.WriteProperty(ApplicationOptions.KEY_AUTOPLAY_WHEN_GIVEN_FILE_PATH_AS_COMMAND_LINE_ARGS, ApplicationOptions.AutoPlayWhenGivenFilePathAsCommandLineArguments);
 
                 // プレイリスト
                 writer.WriteEmptyLine();
@@ -179,6 +181,8 @@ namespace RabbitTune
                 reader.GetValueAsInt(ApplicationOptions.KEY_MAINWND_HEIGHT, MainForm.DEFAULT_WINDOW_HEIGHT));
             ApplicationOptions.ShowMainFormLeftSideToolPanel = reader.GetValueAsBoolean(ApplicationOptions.KEY_SHOW_LEFTTOOLPANEL, true);
             ApplicationOptions.ShowMainFormAsMiniplayerMode = reader.GetValueAsBoolean(ApplicationOptions.KEY_SHOW_AS_MINIPLAYER_MODE, false);
+            ApplicationOptions.DoNotAddAssociatedFileToDefaultPlaylist = reader.GetValueAsBoolean(ApplicationOptions.KEY_DONOT_ADD_ASSOCIATED_FILE_TO_DEFAULT_PLAYLIST, false);
+            ApplicationOptions.AutoPlayWhenGivenFilePathAsCommandLineArguments = reader.GetValueAsBoolean(ApplicationOptions.KEY_AUTOPLAY_WHEN_GIVEN_FILE_PATH_AS_COMMAND_LINE_ARGS, true);
 
             // プレイリストなど
             PlaylistsDataBase.AutoInvokeAnyEvents = false;

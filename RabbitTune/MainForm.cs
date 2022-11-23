@@ -735,7 +735,7 @@ namespace RabbitTune
             {
                 var track = new AudioTrack(path);
 
-                this.CurrentPlaylistViewer.CurrentPlaylist.Tracks.Add(track);
+                this.CurrentPlaylistViewer.AddTrackToPlaylist(track);
                 this.CurrentPlaylistViewer.UpdateView();
             }
         }
@@ -1289,6 +1289,12 @@ namespace RabbitTune
 
             if (this.commandLineArguments != null && this.commandLineArguments.Length > 0)
             {
+                // コマンドライン引数から渡されたファイルをデフォルトプレイリストに追加しないオプションが有効か？
+                if (ApplicationOptions.DoNotAddAssociatedFileToDefaultPlaylist)
+                {
+                    CreateNewPlaylist();
+                }
+
                 // コマンドライン引数で渡されたファイルを読み込む。
                 foreach (string arg in this.commandLineArguments)
                 {
@@ -1296,6 +1302,17 @@ namespace RabbitTune
                     {
                         OpenAnyFile(arg);
                     }
+                }
+
+                // コマンドライン引数から渡されたファイルを自動再生するオプションが有効か？
+                if (ApplicationOptions.AutoPlayWhenGivenFilePathAsCommandLineArguments)
+                {
+                    // 追加されたファイルを選択
+                    var path = this.commandLineArguments[this.commandLineArguments.Length - 1];
+                    this.CurrentPlaylistViewer.SelectedAudioTrack = this.CurrentPlaylistViewer.GetAudioTrack(path);
+
+                    // 再生
+                    Play();
                 }
             }
 
