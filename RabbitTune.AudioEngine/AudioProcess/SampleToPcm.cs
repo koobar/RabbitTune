@@ -20,7 +20,7 @@ namespace RabbitTune.AudioEngine.AudioProcess
                 case 24:
                     this.dst = new SampleToWaveProvider24(src);
                     break;
-                case 32:
+                default:
                     this.dst = new SampleToWaveProvider(src);
                     break;
             }

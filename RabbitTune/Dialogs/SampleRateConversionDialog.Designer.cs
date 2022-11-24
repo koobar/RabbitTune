@@ -33,9 +33,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.UseSampleRateConversionCheckBox = new System.Windows.Forms.CheckBox();
             this.OKButton = new System.Windows.Forms.Button();
+            this.ChannelsComboBox = new RabbitTune.Controls.ChannelsComboBox();
             this.BitsPerSampleComboBox = new RabbitTune.Controls.BitsPerSampleComboBox();
             this.SampleRateComboBox = new RabbitTune.Controls.SampleRateComboBox();
-            this.ChannelsComboBox = new RabbitTune.Controls.ChannelsComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -75,6 +75,7 @@
             this.UseSampleRateConversionCheckBox.TabIndex = 7;
             this.UseSampleRateConversionCheckBox.Text = "サンプリング周波数変換を使用する";
             this.UseSampleRateConversionCheckBox.UseVisualStyleBackColor = true;
+            this.UseSampleRateConversionCheckBox.CheckedChanged += new System.EventHandler(this.UseSampleRateConversionCheckBox_CheckedChanged);
             // 
             // OKButton
             // 
@@ -86,6 +87,18 @@
             this.OKButton.Text = "OK";
             this.OKButton.UseVisualStyleBackColor = true;
             this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
+            // 
+            // ChannelsComboBox
+            // 
+            this.ChannelsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ChannelsComboBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.ChannelsComboBox.Font = new System.Drawing.Font("Yu Gothic UI", 9F);
+            this.ChannelsComboBox.FormattingEnabled = true;
+            this.ChannelsComboBox.Location = new System.Drawing.Point(257, 27);
+            this.ChannelsComboBox.Name = "ChannelsComboBox";
+            this.ChannelsComboBox.SelectedChannels = -1;
+            this.ChannelsComboBox.Size = new System.Drawing.Size(75, 23);
+            this.ChannelsComboBox.TabIndex = 12;
             // 
             // BitsPerSampleComboBox
             // 
@@ -110,18 +123,6 @@
             this.SampleRateComboBox.SelectedSampleRate = -1;
             this.SampleRateComboBox.Size = new System.Drawing.Size(130, 23);
             this.SampleRateComboBox.TabIndex = 10;
-            // 
-            // ChannelsComboBox
-            // 
-            this.ChannelsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ChannelsComboBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.ChannelsComboBox.Font = new System.Drawing.Font("Yu Gothic UI", 9F);
-            this.ChannelsComboBox.FormattingEnabled = true;
-            this.ChannelsComboBox.Location = new System.Drawing.Point(257, 27);
-            this.ChannelsComboBox.Name = "ChannelsComboBox";
-            this.ChannelsComboBox.SelectedChannels = -1;
-            this.ChannelsComboBox.Size = new System.Drawing.Size(75, 23);
-            this.ChannelsComboBox.TabIndex = 12;
             // 
             // SampleRateConversionDialog
             // 

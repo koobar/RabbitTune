@@ -28,6 +28,11 @@ namespace RabbitTune.AudioEngine.AudioProcess
         /// </summary>
         public void SetWaveFormat(WaveFormat format, int quality)
         {
+            if(format.BitsPerSample > 32)
+            {
+                format = new WaveFormat(format.SampleRate, 32, format.Channels);
+            }
+
             this.converted = new MediaFoundationResampler(new SampleToPcm(this.source, 32), format) { ResamplerQuality = quality }.ToSampleProvider();
         }
 

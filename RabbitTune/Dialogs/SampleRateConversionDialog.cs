@@ -78,6 +78,11 @@ namespace RabbitTune.Dialogs
             }
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+        }
+
         /// <summary>
         /// OKボタンがクリックされた時の処理
         /// </summary>
@@ -87,6 +92,28 @@ namespace RabbitTune.Dialogs
         {
             this.DialogResult = DialogResult.OK;
             Close();
+        }
+
+        private void UseSampleRateConversionCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if(this.UseSampleRateConversionCheckBox.Checked && AudioPlayerManager.IsTrackLoaded)
+            {
+                AudioPlayerManager.GetInputWaveFormat(out int _, out int bits, out int _);
+
+                if (bits > 32)
+                {
+                    var selectedBtn = MessageBox.Show("現在のトラックに対してサンプルレート変換を有効化すると、量子化ビット数が低下する場合があります。\n" +
+                        "サンプルレート変換を有効化しますか？",
+                        "音質低下の可能性があります",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning);
+
+                    if (selectedBtn == DialogResult.No)
+                    {
+                        this.UseSampleRateConversionCheckBox.Checked = false;
+                    }
+                }
+            }
         }
     }
 }
