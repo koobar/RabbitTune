@@ -78,6 +78,14 @@ namespace RabbitTune.MediaLibrary
             }
         }
 
+        public bool IsAudioCDTrack
+        {
+            get
+            {
+                return this.Location.ToLower().EndsWith(".cda");
+            }
+        }
+
         /// <summary>
         /// タイトル
         /// </summary>

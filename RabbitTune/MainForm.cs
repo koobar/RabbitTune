@@ -1,4 +1,5 @@
 using RabbitTune.AudioEngine;
+using RabbitTune.AudioEngine.BassWrapper.Cd;
 using RabbitTune.Controls;
 using RabbitTune.Dialogs;
 using RabbitTune.MediaLibrary;
@@ -10,6 +11,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 using static RabbitTune.WinApi.DwmApi;
 
@@ -1195,8 +1197,69 @@ namespace RabbitTune
 
         #endregion
 
+        #region オーディオの変換と保存
+
+        /// <summary>
+        /// 指定されたトラックを指定されたパスのファイルに出力する。
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="outputPath"></param>
+        private void SaveAudioTrackAs(AudioTrack source, string outputPath)
+        {
+            var worker = CreateEncodingWorker(source, outputPath);
+
+            worker.RunWorkerAsync();
+        }
+
+        /// <summary>
+        /// 指定されたトラックを指定されたパスのファイルに出力するバックグラウンドタスクを生成し、そのインスタンスを返す。
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="outputPath"></param>
+        /// <returns></returns>
+        private BackgroundWorker CreateEncodingWorker(AudioTrack source, string outputPath)
+        {
+            var worker = new BackgroundWorker();
+            int diskDriveDefaultSpeed = -1;
+
+            worker.DoWork += delegate
+            {
+                var src = new AudioReader(source.Location);
+                var encoder = new AudioWriter(src);
+
+                // オーディオCDのトラックか？
+                if (source.IsAudioCDTrack)
+                {
+                    char drive = source.Location[0];
+
+                    // ドライブの動作速度を取得する。
+                    diskDriveDefaultSpeed = BassCd.GetDriveSpeed(drive);
+
+                    // ドライブの動作速度を、サポートされる最高速度に設定する。
+                    BassCd.SetDriveSpeed(drive, BassCd.GetMaximumSpeed(drive));
+                }
+
+                // エンコード開始
+                encoder.WriteTo(outputPath);
+            };
+            worker.RunWorkerCompleted += delegate
+            {
+                if (source.IsAudioCDTrack && diskDriveDefaultSpeed != -1)
+                {
+                    // ドライブの動作速度を元の速度に戻す。
+                    BassCd.SetDriveSpeed(source.Location[0], diskDriveDefaultSpeed);
+                }
+
+                MessageBox.Show("オーディオファイルの変換が正常に終了しました。", "変換終了", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            };
+
+            return worker;
+        }
+
+        #endregion
+
         #region ウィンドウのメソッドのオーバーライド
-        
+
         /// <summary>
         /// 読み込み時の処理
         /// </summary>
@@ -1896,15 +1959,20 @@ namespace RabbitTune
             this.PanSlider.Value = 0;
         }
 
+        /// <summary>
+        /// メインタブの選択されたアイテムが変更された時の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainTabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
             Playlist.GetPlaylistType(
                 this.CurrentPlaylistViewer.GetPlaylistFilePath(), 
                 out bool isNew,
                 out bool isFile, 
-                out bool isDirectory,
-                out bool isDiscDrive,
-                out var driveInfo);
+                out _,
+                out _,
+                out _);
 
             // 上書き保存が可能（プレイリストがファイル）である場合に、上書き保存に該当する
             // コントロールを有効化、そうでなければ無効化する。
@@ -1912,14 +1980,50 @@ namespace RabbitTune
             this.SaveCurrentPlaylistMenu.Enabled = isFile || isNew;
         }
 
+        /// <summary>
+        /// ピッチ調整時のクリッピング防止メニューがクリックされた時の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FixPitchClipMenu_CheckedChanged(object sender, EventArgs e)
         {
             AudioPlayerManager.PitchShifterFixClip = this.FixPitchClipMenu.Checked;
         }
 
+        /// <summary>
+        /// SoundTouchによるピッチ調整時のクリッピング防止オプションメニューがクリックされた時の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void STPitchFixClipMenu_Click(object sender, EventArgs e)
         {
             AudioPlayerManager.SoundTouchPitchShifterFixClip = this.STPitchFixClipMenu.Checked;
+        }
+
+        /// <summary>
+        /// 変換 / 保存メニューがクリックされた時の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void WriteToFileMenu_Click(object sender, EventArgs e)
+        {
+            if(this.CurrentPlaylistViewer != null && this.CurrentPlaylistViewer.SelectedAudioTrack != null)
+            {
+                var dialog = new SaveFileDialog();
+                dialog.Filter = "WAV形式(*.wav)|*.wav|AAC形式(*.aac)|*.aac|MP3形式(*.mp3)|*.mp3|WMA形式(*.wma)|*.wma";
+
+                if(dialog.ShowDialog() == DialogResult.OK)
+                {
+                    SaveAudioTrackAs(this.CurrentPlaylistViewer.SelectedAudioTrack, dialog.FileName);
+                }
+
+                // 後始末
+                dialog.Dispose();
+            }
+            else
+            {
+                MessageBox.Show("変換するトラックを選択してから再度実行してください。", "トラックが未選択です", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

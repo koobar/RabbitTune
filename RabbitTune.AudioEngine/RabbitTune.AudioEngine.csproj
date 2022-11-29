@@ -84,10 +84,14 @@
     <Compile Include="AudioProcess\VolumeChanger.cs" />
     <Compile Include="AudioProcess\WaveFormatConversion.cs" />
     <Compile Include="AudioReader.cs" />
+    <Compile Include="AudioWriter.cs" />
     <Compile Include="BassWrapper\Bass.cs" />
     <Compile Include="BassWrapper\BassErrors.cs" />
     <Compile Include="BassWrapper\BassFlags.cs" />
     <Compile Include="BassWrapper\BassNative.cs" />
+    <Compile Include="BassWrapper\Cd\BassCd.cs" />
+    <Compile Include="BassWrapper\Cd\BassCdNative.cs" />
+    <Compile Include="BassWrapper\Cd\CDInfo.cs" />
     <Compile Include="BassWrapper\ChannelInfo.cs" />
     <Compile Include="BassWrapper\ChannelType.cs" />
     <Compile Include="BassWrapper\DeviceInitFlags.cs" />

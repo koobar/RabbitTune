@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RabbitTune.AudioEngine.BassWrapper.Cd;
+using System;
 using System.Runtime.InteropServices;
 
 namespace RabbitTune.AudioEngine.BassWrapper
@@ -17,7 +18,7 @@ namespace RabbitTune.AudioEngine.BassWrapper
         /// <param name="Win"></param>
         /// <param name="ClsID"></param>
         /// <returns></returns>
-        [DllImport(DLLNAME, EntryPoint = "BASS_Init")]
+        [DllImport(DLLNAME)]
         public static extern bool BASS_Init(int device = -1, int sampleRate = 44100, DeviceInitFlags flags = DeviceInitFlags.Default, IntPtr window = default(IntPtr), IntPtr clsID= default(IntPtr));
 
         /// <summary>
@@ -54,7 +55,7 @@ namespace RabbitTune.AudioEngine.BassWrapper
         /// <param name="handle"></param>
         /// <param name="info"></param>
         /// <returns></returns>
-        [DllImport(DLLNAME, EntryPoint = "BASS_ChannelGetInfo")]
+        [DllImport(DLLNAME)]
         public static extern bool BASS_ChannelGetInfo(int handle, out ChannelInfo info);
 
         /// <summary>
@@ -63,7 +64,7 @@ namespace RabbitTune.AudioEngine.BassWrapper
         /// <param name="handle"></param>
         /// <param name="mode"></param>
         /// <returns></returns>
-        [DllImport(DLLNAME, EntryPoint = "BASS_ChannelGetPosition")]
+        [DllImport(DLLNAME)]
         public static extern long BASS_ChannelGetPosition(int handle, int mode = 0);
 
         /// <summary>
@@ -73,7 +74,7 @@ namespace RabbitTune.AudioEngine.BassWrapper
         /// <param name="Position"></param>
         /// <param name="mode"></param>
         /// <returns></returns>
-        [DllImport(DLLNAME, EntryPoint = "BASS_ChannelSetPosition")]
+        [DllImport(DLLNAME)]
         public static extern bool BASS_ChannelSetPosition(int handle, long position, int mode = 0);
 
         /// <summary>
@@ -82,7 +83,7 @@ namespace RabbitTune.AudioEngine.BassWrapper
         /// <param name="Handle"></param>
         /// <param name="mode"></param>
         /// <returns></returns>
-        [DllImport(DLLNAME, EntryPoint = "BASS_ChannelGetLength")]
+        [DllImport(DLLNAME)]
         public static extern long BASS_ChannelGetLength(int handle, int mode = 0);
 
         /// <summary>
@@ -92,7 +93,7 @@ namespace RabbitTune.AudioEngine.BassWrapper
         /// <param name="buffer"></param>
         /// <param name="length"></param>
         /// <returns></returns>
-        [DllImport(DLLNAME, EntryPoint = "BASS_ChannelGetData")]
+        [DllImport(DLLNAME)]
         public static extern int BASS_ChannelGetData(int handle, /*[In, Out]*/byte[] buffer, int length);
 
         /// <summary>
@@ -100,14 +101,14 @@ namespace RabbitTune.AudioEngine.BassWrapper
         /// </summary>
         /// <param name="handle"></param>
         /// <returns></returns>
-        [DllImport(DLLNAME, EntryPoint = "BASS_StreamFree")]
+        [DllImport(DLLNAME)]
         public static extern bool BASS_StreamFree(int handle);
 
         /// <summary>
         /// BASSライブラリを解放する。
         /// </summary>
         /// <returns></returns>
-        [DllImport(DLLNAME, EntryPoint = "BASS_Free")]
+        [DllImport(DLLNAME)]
         public static extern bool BASS_Free();
 
         /// <summary>
@@ -115,7 +116,7 @@ namespace RabbitTune.AudioEngine.BassWrapper
         /// </summary>
         /// <param name="option"></param>
         /// <returns></returns>
-        [DllImport(DLLNAME, EntryPoint = "BASS_GetConfig")]
+        [DllImport(DLLNAME)]
         public static extern int BASS_GetConfig(int option);
 
         /// <summary>
@@ -123,10 +124,10 @@ namespace RabbitTune.AudioEngine.BassWrapper
         /// </summary>
         /// <param name="option"></param>
         /// <returns></returns>
-        [DllImport(DLLNAME, EntryPoint = "BASS_SetConfig")]
+        [DllImport(DLLNAME)]
         public static extern int BASS_SetConfig(int option, int mode);
 
-        [DllImport(DLLNAME, EntryPoint = "BASS_StreamGetFilePosition")]
+        [DllImport(DLLNAME)]
         public static extern long BASS_StreamGetFilePosition(int Handle, int Mode = 0);
     }
 }

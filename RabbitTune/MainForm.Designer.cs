@@ -214,6 +214,8 @@ namespace RabbitTune
             this.ShowHistoryMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.VersionMenuSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ShowVersionInfoMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.WriteToFileMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.MainContentsPanel.SuspendLayout();
@@ -731,6 +733,8 @@ namespace RabbitTune
             this.toolStripMenuItem3,
             this.AddFolderToPlaylistMenu,
             this.FileMenuSeparator4,
+            this.WriteToFileMenu,
+            this.toolStripSeparator6,
             this.ExitApplicationMenu});
             this.FileMenuSeparator3.Name = "FileMenuSeparator3";
             this.FileMenuSeparator3.Size = new System.Drawing.Size(67, 20);
@@ -1758,6 +1762,18 @@ namespace RabbitTune
             this.ShowVersionInfoMenu.Text = "バージョン情報";
             this.ShowVersionInfoMenu.Click += new System.EventHandler(this.ShowVersionInfoMenu_Click);
             // 
+            // WriteToFileMenu
+            // 
+            this.WriteToFileMenu.Name = "WriteToFileMenu";
+            this.WriteToFileMenu.Size = new System.Drawing.Size(256, 22);
+            this.WriteToFileMenu.Text = "変換 / 保存(&R)...";
+            this.WriteToFileMenu.Click += new System.EventHandler(this.WriteToFileMenu_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(253, 6);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -1809,7 +1825,6 @@ namespace RabbitTune
         private ToolStripButton NextButton;
         private ToolStripSeparator toolStripSeparator4;
         private ToolStripTextBox SearchBox;
-        private ToolStripButton SearchButton;
         private ToolStripButton PreviousButton;
         private ToolStripButton QuickSearchbutton;
         private ToolStripSeparator toolStripSeparator3;
@@ -1975,5 +1990,8 @@ namespace RabbitTune
         private ToolStripMenuItem ShowHistoryMenu;
         private ToolStripSeparator VersionMenuSeparator1;
         private ToolStripMenuItem ShowVersionInfoMenu;
+        private ToolStripButton SearchButton;
+        private ToolStripMenuItem WriteToFileMenu;
+        private ToolStripSeparator toolStripSeparator6;
     }
 }
