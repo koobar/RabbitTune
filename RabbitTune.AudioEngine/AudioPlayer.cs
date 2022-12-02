@@ -3,6 +3,7 @@ using NAudio.Wave;
 using RabbitTune.AudioEngine.AudioOutputApi;
 using RabbitTune.AudioEngine.AudioProcess;
 using System;
+using System.Windows.Forms;
 
 namespace RabbitTune.AudioEngine
 {
@@ -155,23 +156,37 @@ namespace RabbitTune.AudioEngine
         /// </summary>
         private void CreateDeviceOutput()
         {
-            switch (this.audioOutputDeviceApi)
+            if (string.IsNullOrEmpty(this.deviceName) == false)
             {
-                case AudioOutputDeviceApiType.WaveOut:
-                    this.AudioOutputDevice = CreateWaveOut(deviceName, latency);
-                    break;
-                case AudioOutputDeviceApiType.WaveOutEvent:
-                    this.AudioOutputDevice = CreateWaveOutEvent(deviceName, latency);
-                    break;
-                case AudioOutputDeviceApiType.DirectSound:
-                    this.AudioOutputDevice = CreateDirectSoundOutput(deviceName, latency);
-                    break;
-                case AudioOutputDeviceApiType.Wasapi:
-                    this.AudioOutputDevice = CreateWasapiOutput(deviceName, latency, useWasapiEventSync, useWasapiExclusiveMode);
-                    break;
-                case AudioOutputDeviceApiType.Asio:
-                    this.AudioOutputDevice = CreateAsioOutput(deviceName);
-                    break;
+                try
+                {
+                    switch (this.audioOutputDeviceApi)
+                    {
+                        case AudioOutputDeviceApiType.WaveOut:
+                            this.AudioOutputDevice = CreateWaveOut(deviceName, latency);
+                            break;
+                        case AudioOutputDeviceApiType.WaveOutEvent:
+                            this.AudioOutputDevice = CreateWaveOutEvent(deviceName, latency);
+                            break;
+                        case AudioOutputDeviceApiType.DirectSound:
+                            this.AudioOutputDevice = CreateDirectSoundOutput(deviceName, latency);
+                            break;
+                        case AudioOutputDeviceApiType.Wasapi:
+                            this.AudioOutputDevice = CreateWasapiOutput(deviceName, latency, useWasapiEventSync, useWasapiExclusiveMode);
+                            break;
+                        case AudioOutputDeviceApiType.Asio:
+                            this.AudioOutputDevice = CreateAsioOutput(deviceName);
+                            break;
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("オーディオ出力デバイスの初期化に失敗しました。", "デバイスの初期化失敗", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("オーディオ出力デバイスが設定されていません。設定画面から出力デバイスの設定を行ってください。", "デバイス設定が未完了", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -39,7 +39,14 @@ namespace RabbitTune.AudioEngine.AudioOutputApi
         /// <returns></returns>
         public static string GetDefaultDeviceName()
         {
-            return NWaveOut.GetCapabilities(GetDefaultDevice()).ProductName;
+            if (NWaveOut.DeviceCount > 0)
+            {
+                var cap = NWaveOut.GetCapabilities(GetDefaultDevice());
+
+                return cap.ProductName;
+            }
+
+            return string.Empty;
         }
 
         /// <summary>

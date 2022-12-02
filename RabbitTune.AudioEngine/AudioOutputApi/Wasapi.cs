@@ -31,7 +31,14 @@ namespace RabbitTune.AudioEngine.AudioOutputApi
         /// <returns></returns>
         private static MMDevice GetDefaultDevice()
         {
-            return new MMDeviceEnumerator().GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+            var enumerator = new MMDeviceEnumerator();
+
+            if (enumerator.HasDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia))
+            {
+                return enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -40,7 +47,14 @@ namespace RabbitTune.AudioEngine.AudioOutputApi
         /// <returns></returns>
         public static string GetDefaultDeviceName()
         {
-            return GetDefaultDevice().FriendlyName;
+            var dev = GetDefaultDevice();
+
+            if (dev != null)
+            {
+                return dev.FriendlyName;
+            }
+
+            return string.Empty;
         }
 
         /// <summary>
