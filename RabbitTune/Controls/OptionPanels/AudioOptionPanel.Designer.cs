@@ -31,8 +31,6 @@
             this.CurrentLatencyLabel = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.WaveFormatConvertionBitsPerSampleComboBox = new RabbitTune.Controls.BitsPerSampleComboBox();
-            this.WaveFormatConversionSampleRateComboBox = new RabbitTune.Controls.SampleRateComboBox();
             this.UseOutputFmtConvCheckBox = new System.Windows.Forms.CheckBox();
             this.WaveFormatDescriptionLinkLabel = new System.Windows.Forms.LinkLabel();
             this.label5 = new System.Windows.Forms.Label();
@@ -47,8 +45,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ShowAsioControlPanelButton = new System.Windows.Forms.Button();
-            this.AudioOutputLatencyScroll = new RabbitTune.Controls.Slider();
             this.EnableMMCSSCheckBox = new System.Windows.Forms.CheckBox();
+            this.AudioOutputLatencyScroll = new RabbitTune.Controls.Slider();
+            this.WaveFormatConvertionBitsPerSampleComboBox = new RabbitTune.Controls.BitsPerSampleComboBox();
+            this.WaveFormatConversionSampleRateComboBox = new RabbitTune.Controls.SampleRateComboBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AudioOutputLatencyScroll)).BeginInit();
@@ -57,7 +57,7 @@
             // CurrentLatencyLabel
             // 
             this.CurrentLatencyLabel.AutoSize = true;
-            this.CurrentLatencyLabel.Location = new System.Drawing.Point(134, 145);
+            this.CurrentLatencyLabel.Location = new System.Drawing.Point(134, 151);
             this.CurrentLatencyLabel.Name = "CurrentLatencyLabel";
             this.CurrentLatencyLabel.Size = new System.Drawing.Size(74, 15);
             this.CurrentLatencyLabel.TabIndex = 11;
@@ -66,7 +66,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 127);
+            this.label6.Location = new System.Drawing.Point(3, 133);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(129, 15);
             this.label6.TabIndex = 9;
@@ -82,40 +82,12 @@
             this.groupBox2.Controls.Add(this.WaveFormatDescriptionLinkLabel);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Location = new System.Drawing.Point(220, 9);
+            this.groupBox2.Location = new System.Drawing.Point(220, 6);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(147, 161);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "出力フォーマット";
-            // 
-            // WaveFormatConvertionBitsPerSampleComboBox
-            // 
-            this.WaveFormatConvertionBitsPerSampleComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.WaveFormatConvertionBitsPerSampleComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.WaveFormatConvertionBitsPerSampleComboBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.WaveFormatConvertionBitsPerSampleComboBox.Font = new System.Drawing.Font("Yu Gothic UI", 9F);
-            this.WaveFormatConvertionBitsPerSampleComboBox.FormattingEnabled = true;
-            this.WaveFormatConvertionBitsPerSampleComboBox.Location = new System.Drawing.Point(6, 106);
-            this.WaveFormatConvertionBitsPerSampleComboBox.Name = "WaveFormatConvertionBitsPerSampleComboBox";
-            this.WaveFormatConvertionBitsPerSampleComboBox.SelectedBitsPerSample = -1;
-            this.WaveFormatConvertionBitsPerSampleComboBox.Size = new System.Drawing.Size(135, 23);
-            this.WaveFormatConvertionBitsPerSampleComboBox.TabIndex = 12;
-            // 
-            // WaveFormatConversionSampleRateComboBox
-            // 
-            this.WaveFormatConversionSampleRateComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.WaveFormatConversionSampleRateComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.WaveFormatConversionSampleRateComboBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.WaveFormatConversionSampleRateComboBox.Font = new System.Drawing.Font("Yu Gothic UI", 9F);
-            this.WaveFormatConversionSampleRateComboBox.FormattingEnabled = true;
-            this.WaveFormatConversionSampleRateComboBox.Location = new System.Drawing.Point(6, 63);
-            this.WaveFormatConversionSampleRateComboBox.Name = "WaveFormatConversionSampleRateComboBox";
-            this.WaveFormatConversionSampleRateComboBox.SelectedSampleRate = -1;
-            this.WaveFormatConversionSampleRateComboBox.Size = new System.Drawing.Size(135, 23);
-            this.WaveFormatConversionSampleRateComboBox.TabIndex = 11;
             // 
             // UseOutputFmtConvCheckBox
             // 
@@ -172,7 +144,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 9);
+            this.label3.Location = new System.Drawing.Point(3, 6);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(183, 15);
             this.label3.TabIndex = 6;
@@ -210,7 +182,7 @@
             // UpdateAudioOutputDevicesButton
             // 
             this.UpdateAudioOutputDevicesButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.UpdateAudioOutputDevicesButton.Location = new System.Drawing.Point(174, 71);
+            this.UpdateAudioOutputDevicesButton.Location = new System.Drawing.Point(174, 77);
             this.UpdateAudioOutputDevicesButton.Name = "UpdateAudioOutputDevicesButton";
             this.UpdateAudioOutputDevicesButton.Size = new System.Drawing.Size(40, 23);
             this.UpdateAudioOutputDevicesButton.TabIndex = 2;
@@ -223,7 +195,7 @@
             this.AudioOutputDevicesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.AudioOutputDevicesComboBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.AudioOutputDevicesComboBox.FormattingEnabled = true;
-            this.AudioOutputDevicesComboBox.Location = new System.Drawing.Point(6, 71);
+            this.AudioOutputDevicesComboBox.Location = new System.Drawing.Point(6, 77);
             this.AudioOutputDevicesComboBox.Name = "AudioOutputDevicesComboBox";
             this.AudioOutputDevicesComboBox.Size = new System.Drawing.Size(162, 23);
             this.AudioOutputDevicesComboBox.TabIndex = 1;
@@ -232,7 +204,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 53);
+            this.label1.Location = new System.Drawing.Point(3, 56);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(202, 15);
             this.label1.TabIndex = 0;
@@ -243,7 +215,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.WASAPISyncModesComboBox);
             this.groupBox1.Controls.Add(this.UseWASAPIExclusiveModeCheckBox);
-            this.groupBox1.Location = new System.Drawing.Point(6, 173);
+            this.groupBox1.Location = new System.Drawing.Point(6, 179);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(208, 73);
             this.groupBox1.TabIndex = 14;
@@ -254,7 +226,7 @@
             // 
             this.ShowAsioControlPanelButton.Enabled = false;
             this.ShowAsioControlPanelButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.ShowAsioControlPanelButton.Location = new System.Drawing.Point(6, 101);
+            this.ShowAsioControlPanelButton.Location = new System.Drawing.Point(6, 107);
             this.ShowAsioControlPanelButton.Name = "ShowAsioControlPanelButton";
             this.ShowAsioControlPanelButton.Size = new System.Drawing.Size(208, 23);
             this.ShowAsioControlPanelButton.TabIndex = 16;
@@ -262,11 +234,21 @@
             this.ShowAsioControlPanelButton.UseVisualStyleBackColor = true;
             this.ShowAsioControlPanelButton.Click += new System.EventHandler(this.ShowAsioControlPanelButton_Click);
             // 
+            // EnableMMCSSCheckBox
+            // 
+            this.EnableMMCSSCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.EnableMMCSSCheckBox.Location = new System.Drawing.Point(220, 173);
+            this.EnableMMCSSCheckBox.Name = "EnableMMCSSCheckBox";
+            this.EnableMMCSSCheckBox.Size = new System.Drawing.Size(103, 20);
+            this.EnableMMCSSCheckBox.TabIndex = 17;
+            this.EnableMMCSSCheckBox.Text = "MMCSSを有効化";
+            this.EnableMMCSSCheckBox.UseVisualStyleBackColor = true;
+            // 
             // AudioOutputLatencyScroll
             // 
             this.AudioOutputLatencyScroll.AutoSize = false;
             this.AudioOutputLatencyScroll.LargeChange = 1;
-            this.AudioOutputLatencyScroll.Location = new System.Drawing.Point(6, 145);
+            this.AudioOutputLatencyScroll.Location = new System.Drawing.Point(6, 151);
             this.AudioOutputLatencyScroll.Maximum = 1000;
             this.AudioOutputLatencyScroll.MaximumSize = new System.Drawing.Size(32767, 22);
             this.AudioOutputLatencyScroll.Minimum = 10;
@@ -279,15 +261,33 @@
             this.AudioOutputLatencyScroll.Value = 128;
             this.AudioOutputLatencyScroll.ValueChanged += new System.EventHandler(this.AudioOutputLatencyTrackBar_ValueChanged);
             // 
-            // EnableMMCSSCheckBox
+            // WaveFormatConvertionBitsPerSampleComboBox
             // 
-            this.EnableMMCSSCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.EnableMMCSSCheckBox.Location = new System.Drawing.Point(220, 176);
-            this.EnableMMCSSCheckBox.Name = "EnableMMCSSCheckBox";
-            this.EnableMMCSSCheckBox.Size = new System.Drawing.Size(103, 20);
-            this.EnableMMCSSCheckBox.TabIndex = 17;
-            this.EnableMMCSSCheckBox.Text = "MMCSSを有効化";
-            this.EnableMMCSSCheckBox.UseVisualStyleBackColor = true;
+            this.WaveFormatConvertionBitsPerSampleComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.WaveFormatConvertionBitsPerSampleComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.WaveFormatConvertionBitsPerSampleComboBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.WaveFormatConvertionBitsPerSampleComboBox.Font = new System.Drawing.Font("Yu Gothic UI", 9F);
+            this.WaveFormatConvertionBitsPerSampleComboBox.FormattingEnabled = true;
+            this.WaveFormatConvertionBitsPerSampleComboBox.Location = new System.Drawing.Point(6, 106);
+            this.WaveFormatConvertionBitsPerSampleComboBox.Name = "WaveFormatConvertionBitsPerSampleComboBox";
+            this.WaveFormatConvertionBitsPerSampleComboBox.SelectedBitsPerSample = -1;
+            this.WaveFormatConvertionBitsPerSampleComboBox.Size = new System.Drawing.Size(135, 23);
+            this.WaveFormatConvertionBitsPerSampleComboBox.TabIndex = 12;
+            // 
+            // WaveFormatConversionSampleRateComboBox
+            // 
+            this.WaveFormatConversionSampleRateComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.WaveFormatConversionSampleRateComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.WaveFormatConversionSampleRateComboBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.WaveFormatConversionSampleRateComboBox.Font = new System.Drawing.Font("Yu Gothic UI", 9F);
+            this.WaveFormatConversionSampleRateComboBox.FormattingEnabled = true;
+            this.WaveFormatConversionSampleRateComboBox.Location = new System.Drawing.Point(6, 63);
+            this.WaveFormatConversionSampleRateComboBox.Name = "WaveFormatConversionSampleRateComboBox";
+            this.WaveFormatConversionSampleRateComboBox.SelectedSampleRate = -1;
+            this.WaveFormatConversionSampleRateComboBox.Size = new System.Drawing.Size(135, 23);
+            this.WaveFormatConversionSampleRateComboBox.TabIndex = 11;
             // 
             // AudioOptionPanel
             // 

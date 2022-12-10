@@ -16,10 +16,11 @@ namespace RabbitTune
         public const string KEY_SHOW_AS_MINIPLAYER_MODE = @"ShowAsMiniplayerMode";
         public const string KEY_DONOT_ADD_ASSOCIATED_FILE_TO_DEFAULT_PLAYLIST = @"DoNotAddAssociatedFileToDefaultPlaylist";
         public const string KEY_AUTOPLAY_WHEN_GIVEN_FILE_PATH_AS_COMMAND_LINE_ARGS = @"AutoPlayWhenGivenFilePathAsCommandLineArguments";
+        public const string KEY_ALLOW_MULTI_INSTANCE = @"AllowMultiInstance";
 
         // 設定値
         public static string DefaultPlaylistPath;
-        public static bool AlwaysOnTop = false;
+        public static bool AlwaysOnTop;
         public static RepeatMode RepeatMode;
         public static FormWindowState MainFormWindowState;
         public static Size MainFormSize;
@@ -27,5 +28,6 @@ namespace RabbitTune
         public static bool ShowMainFormAsMiniplayerMode;
         public static bool DoNotAddAssociatedFileToDefaultPlaylist;
         public static bool AutoPlayWhenGivenFilePathAsCommandLineArguments;
+        public static bool AllowMultiInstance;
     }
 }

@@ -55,7 +55,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(5, 60);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(152, 15);
+            this.label2.Size = new System.Drawing.Size(153, 15);
             this.label2.TabIndex = 2;
             this.label2.Text = "PCM変換時のサンプルレート：";
             // 
@@ -96,6 +96,7 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label4.Location = new System.Drawing.Point(5, 136);
             this.label4.Name = "label4";

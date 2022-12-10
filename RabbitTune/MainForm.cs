@@ -11,7 +11,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Threading;
 using System.Windows.Forms;
 using static RabbitTune.WinApi.DwmApi;
 
@@ -28,8 +27,8 @@ namespace RabbitTune
         private const int THBN_CLICKED = 0x1800;
 
         // 非公開フィールド
+        private string[] commandLineArgs;
         private readonly MediaButtonDriver mediaButtonDriver;
-        private readonly string[] commandLineArguments;
         private readonly AudioOutputInfoDialog AudioOutputInfoDialog;
         private readonly FindDialog FindAudioTrackDialog;
         private readonly SampleRateConversionDialog SampleRateConversionDialog;
@@ -44,7 +43,7 @@ namespace RabbitTune
         private ImageList TaskbarThumbButtonImages;
 
         // コンストラクタ
-        public MainForm(string[] commandLineArgs)
+        public MainForm()
         {
             InitializeComponent();
 
@@ -167,9 +166,6 @@ namespace RabbitTune
                 PlayPreviousTrack();
             };
 
-            // コマンドライン引数を保持
-            this.commandLineArguments = commandLineArgs;
-
             // フォントを設定
             this.Font = SystemFonts.CaptionFont;
 
@@ -181,18 +177,16 @@ namespace RabbitTune
             this.DetailOptionDialog = new OptionDialog();
             this.ApplicationVersionDialog = new VersionDialog();
 
-            // OSがWindows 10以降か？
-            if (Environment.OSVersion.Version.Major >= 10)
+            // OSがWindows 11以降か？
+            if (Environment.OSVersion.Version.Build >= 22000)
             {
                 var preference = Convert.ToInt32(true);
                 DwmSetWindowAttribute(this.Handle, DWMWINDOWATTRIBUTE.DWMWA_USE_IMMERSIVE_DARK_MODE, ref preference, sizeof(uint));
             }
 
+            // タスクバーのサムネイルに表示するボタン類を登録する。
             RegistButtons();
         }
-
-        // デフォルトコンストラクタ
-        public MainForm() : this(null) { }
 
         /// <summary>
         /// ボタンを登録する。
@@ -263,6 +257,57 @@ namespace RabbitTune
 
             return new Size(width, height);
         }
+
+        #region コマンドライン引数
+
+        /// <summary>
+        /// コマンドライン引数を与える。
+        /// </summary>
+        /// <param name="args"></param>
+        public void SetCommandLineArguments(params string[] args)
+        {
+            this.commandLineArgs = args;
+        }
+
+        /// <summary>
+        /// 未処理のコマンドライン引数を処理する。
+        /// </summary>
+        public void ProcessCommandLineArguments()
+        {
+            if (this.commandLineArgs != null && this.commandLineArgs.Length > 0)
+            {
+                // コマンドライン引数から渡されたファイルをデフォルトプレイリストに追加しないオプションが有効か？
+                if (ApplicationOptions.DoNotAddAssociatedFileToDefaultPlaylist)
+                {
+                    CreateNewPlaylist();
+                }
+
+                // コマンドライン引数で渡されたファイルを読み込む。
+                foreach (string arg in this.commandLineArgs)
+                {
+                    if (File.Exists(arg))
+                    {
+                        OpenAnyFile(arg);
+                    }
+                }
+
+                // コマンドライン引数から渡されたファイルを自動再生するオプションが有効か？
+                if (ApplicationOptions.AutoPlayWhenGivenFilePathAsCommandLineArguments)
+                {
+                    // 追加されたファイルを選択
+                    var path = this.commandLineArgs[this.commandLineArgs.Length - 1];
+                    this.CurrentPlaylistViewer.SelectedAudioTrack = this.CurrentPlaylistViewer.GetAudioTrack(path);
+
+                    // 再生
+                    Play();
+                }
+
+                // 後始末（処理済みのコマンドライン引数を削除する。）
+                this.commandLineArgs = null;
+            }
+        }
+
+        #endregion
 
         #region フォームの表示・描画・更新
 
@@ -450,11 +495,11 @@ namespace RabbitTune
         {
             if(AudioPlayerManager.IsPlaying || AudioPlayerManager.IsPausing)
             {
-                this.Text = $"{Program.ApplicationName} - {AudioPlayerManager.GetCurrentTrack().Title}";
+                this.Text = $"{Program.APPLICATION_NAME} - {AudioPlayerManager.GetCurrentTrack().Title}";
             }
             else
             {
-                this.Text = Program.ApplicationName;
+                this.Text = Program.APPLICATION_NAME;
             }
         }
 
@@ -1350,34 +1395,8 @@ namespace RabbitTune
             // デフォルトプレイリストを開く
             OpenDefaultPlaylist();
 
-            if (this.commandLineArguments != null && this.commandLineArguments.Length > 0)
-            {
-                // コマンドライン引数から渡されたファイルをデフォルトプレイリストに追加しないオプションが有効か？
-                if (ApplicationOptions.DoNotAddAssociatedFileToDefaultPlaylist)
-                {
-                    CreateNewPlaylist();
-                }
-
-                // コマンドライン引数で渡されたファイルを読み込む。
-                foreach (string arg in this.commandLineArguments)
-                {
-                    if (File.Exists(arg))
-                    {
-                        OpenAnyFile(arg);
-                    }
-                }
-
-                // コマンドライン引数から渡されたファイルを自動再生するオプションが有効か？
-                if (ApplicationOptions.AutoPlayWhenGivenFilePathAsCommandLineArguments)
-                {
-                    // 追加されたファイルを選択
-                    var path = this.commandLineArguments[this.commandLineArguments.Length - 1];
-                    this.CurrentPlaylistViewer.SelectedAudioTrack = this.CurrentPlaylistViewer.GetAudioTrack(path);
-
-                    // 再生
-                    Play();
-                }
-            }
+            // コマンドライン引数を処理する。
+            ProcessCommandLineArguments();
 
             // プレイリストブラウザを更新
             this.PlaylistBrowser.Update();

@@ -55,9 +55,9 @@
             this.label1.Location = new System.Drawing.Point(4, 6);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(361, 30);
+            this.label1.Size = new System.Drawing.Size(331, 30);
             this.label1.TabIndex = 0;
-            this.label1.Text = "MIDIファイルの再生に使用するサウンドフォントを設定します。\r\n※MIDIファイルを再生するには、最低1つ以上のサウンドフォントが必要です。";
+            this.label1.Text = "MIDIファイルの再生に使用するサウンドフォントを設定します。\r\nMIDIファイルの再生には、最低1つ以上のサウンドフォントが必要です。";
             // 
             // label2
             // 
@@ -76,6 +76,7 @@
             this.SoundFontsListBox.DataSource = this.soundFontBindingSource;
             this.SoundFontsListBox.DisplayMember = "Path";
             this.SoundFontsListBox.FormattingEnabled = true;
+            this.SoundFontsListBox.ItemHeight = 15;
             this.SoundFontsListBox.Location = new System.Drawing.Point(7, 57);
             this.SoundFontsListBox.Name = "SoundFontsListBox";
             this.SoundFontsListBox.Size = new System.Drawing.Size(250, 184);
@@ -92,7 +93,7 @@
             this.AddFontButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.AddFontButton.Location = new System.Drawing.Point(263, 57);
             this.AddFontButton.Name = "AddFontButton";
-            this.AddFontButton.Size = new System.Drawing.Size(104, 23);
+            this.AddFontButton.Size = new System.Drawing.Size(95, 23);
             this.AddFontButton.TabIndex = 3;
             this.AddFontButton.Text = "フォントを追加";
             this.AddFontButton.UseVisualStyleBackColor = true;
@@ -104,7 +105,7 @@
             this.RemoveFontButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.RemoveFontButton.Location = new System.Drawing.Point(263, 86);
             this.RemoveFontButton.Name = "RemoveFontButton";
-            this.RemoveFontButton.Size = new System.Drawing.Size(104, 23);
+            this.RemoveFontButton.Size = new System.Drawing.Size(95, 23);
             this.RemoveFontButton.TabIndex = 4;
             this.RemoveFontButton.Text = "フォントを削除";
             this.RemoveFontButton.UseVisualStyleBackColor = true;
@@ -116,7 +117,7 @@
             this.label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label3.Location = new System.Drawing.Point(263, 112);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(104, 2);
+            this.label3.Size = new System.Drawing.Size(95, 2);
             this.label3.TabIndex = 5;
             // 
             // MoveUpButton
@@ -125,7 +126,7 @@
             this.MoveUpButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.MoveUpButton.Location = new System.Drawing.Point(263, 117);
             this.MoveUpButton.Name = "MoveUpButton";
-            this.MoveUpButton.Size = new System.Drawing.Size(104, 23);
+            this.MoveUpButton.Size = new System.Drawing.Size(95, 23);
             this.MoveUpButton.TabIndex = 6;
             this.MoveUpButton.Text = "上に移動";
             this.MoveUpButton.UseVisualStyleBackColor = true;
@@ -137,7 +138,7 @@
             this.MoveDownButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.MoveDownButton.Location = new System.Drawing.Point(263, 146);
             this.MoveDownButton.Name = "MoveDownButton";
-            this.MoveDownButton.Size = new System.Drawing.Size(104, 23);
+            this.MoveDownButton.Size = new System.Drawing.Size(95, 23);
             this.MoveDownButton.TabIndex = 7;
             this.MoveDownButton.Text = "下に移動";
             this.MoveDownButton.UseVisualStyleBackColor = true;
@@ -149,7 +150,7 @@
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label4.Location = new System.Drawing.Point(263, 172);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(104, 2);
+            this.label4.Size = new System.Drawing.Size(95, 2);
             this.label4.TabIndex = 8;
             // 
             // label5
@@ -207,9 +208,9 @@
             this.UseSincInterpolationCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.UseSincInterpolationCheckBox.AutoSize = true;
             this.UseSincInterpolationCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.UseSincInterpolationCheckBox.Location = new System.Drawing.Point(7, 273);
+            this.UseSincInterpolationCheckBox.Location = new System.Drawing.Point(6, 273);
             this.UseSincInterpolationCheckBox.Name = "UseSincInterpolationCheckBox";
-            this.UseSincInterpolationCheckBox.Size = new System.Drawing.Size(338, 20);
+            this.UseSincInterpolationCheckBox.Size = new System.Drawing.Size(339, 20);
             this.UseSincInterpolationCheckBox.TabIndex = 13;
             this.UseSincInterpolationCheckBox.Text = "Sinc補完を使用してサンプルをミックスする。（高音質、高負荷）";
             this.UseSincInterpolationCheckBox.UseVisualStyleBackColor = true;

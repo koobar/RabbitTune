@@ -30,6 +30,7 @@
         {
             this.DoNotAddAssociatedFileToDefaultPlaylistCheckBox = new System.Windows.Forms.CheckBox();
             this.AutoPlayWhenGivenFilePathAsCommandLineArgumentsCheckBox = new System.Windows.Forms.CheckBox();
+            this.AllowMultiInstanceCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // DoNotAddAssociatedFileToDefaultPlaylistCheckBox
@@ -37,7 +38,7 @@
             this.DoNotAddAssociatedFileToDefaultPlaylistCheckBox.AutoSize = true;
             this.DoNotAddAssociatedFileToDefaultPlaylistCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.DoNotAddAssociatedFileToDefaultPlaylistCheckBox.Location = new System.Drawing.Point(4, 4);
-            this.DoNotAddAssociatedFileToDefaultPlaylistCheckBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.DoNotAddAssociatedFileToDefaultPlaylistCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.DoNotAddAssociatedFileToDefaultPlaylistCheckBox.Name = "DoNotAddAssociatedFileToDefaultPlaylistCheckBox";
             this.DoNotAddAssociatedFileToDefaultPlaylistCheckBox.Size = new System.Drawing.Size(306, 20);
             this.DoNotAddAssociatedFileToDefaultPlaylistCheckBox.TabIndex = 0;
@@ -56,14 +57,27 @@
             this.AutoPlayWhenGivenFilePathAsCommandLineArgumentsCheckBox.Text = "起動時にファイルを指定された場合に自動再生を行う";
             this.AutoPlayWhenGivenFilePathAsCommandLineArgumentsCheckBox.UseVisualStyleBackColor = true;
             // 
+            // AllowMultiInstanceCheckBox
+            // 
+            this.AllowMultiInstanceCheckBox.AutoSize = true;
+            this.AllowMultiInstanceCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.AllowMultiInstanceCheckBox.Location = new System.Drawing.Point(4, 60);
+            this.AllowMultiInstanceCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.AllowMultiInstanceCheckBox.Name = "AllowMultiInstanceCheckBox";
+            this.AllowMultiInstanceCheckBox.Size = new System.Drawing.Size(201, 20);
+            this.AllowMultiInstanceCheckBox.TabIndex = 2;
+            this.AllowMultiInstanceCheckBox.Text = "RabbitTuneの多重起動を許可する";
+            this.AllowMultiInstanceCheckBox.UseVisualStyleBackColor = true;
+            // 
             // OtherOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.Controls.Add(this.AllowMultiInstanceCheckBox);
             this.Controls.Add(this.AutoPlayWhenGivenFilePathAsCommandLineArgumentsCheckBox);
             this.Controls.Add(this.DoNotAddAssociatedFileToDefaultPlaylistCheckBox);
             this.Font = new System.Drawing.Font("Yu Gothic UI", 9F);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "OtherOptions";
             this.Size = new System.Drawing.Size(370, 303);
             this.ResumeLayout(false);
@@ -75,5 +89,6 @@
 
         private System.Windows.Forms.CheckBox DoNotAddAssociatedFileToDefaultPlaylistCheckBox;
         private System.Windows.Forms.CheckBox AutoPlayWhenGivenFilePathAsCommandLineArgumentsCheckBox;
+        private System.Windows.Forms.CheckBox AllowMultiInstanceCheckBox;
     }
 }

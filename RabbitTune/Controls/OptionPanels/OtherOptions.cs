@@ -20,6 +20,7 @@ namespace RabbitTune.Controls.OptionPanels
             {
                 this.DoNotAddAssociatedFileToDefaultPlaylistCheckBox.Checked = ApplicationOptions.DoNotAddAssociatedFileToDefaultPlaylist;
                 this.AutoPlayWhenGivenFilePathAsCommandLineArgumentsCheckBox.Checked = ApplicationOptions.AutoPlayWhenGivenFilePathAsCommandLineArguments;
+                this.AllowMultiInstanceCheckBox.Checked = ApplicationOptions.AllowMultiInstance;
             }
         }
 
@@ -30,6 +31,7 @@ namespace RabbitTune.Controls.OptionPanels
         {
             ApplicationOptions.DoNotAddAssociatedFileToDefaultPlaylist = this.DoNotAddAssociatedFileToDefaultPlaylistCheckBox.Checked;
             ApplicationOptions.AutoPlayWhenGivenFilePathAsCommandLineArguments = this.AutoPlayWhenGivenFilePathAsCommandLineArgumentsCheckBox.Checked;
+            ApplicationOptions.AllowMultiInstance = this.AllowMultiInstanceCheckBox.Checked;
         }
     }
 }
