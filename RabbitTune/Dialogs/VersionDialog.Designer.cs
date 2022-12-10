@@ -32,11 +32,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.AppIconViewer = new System.Windows.Forms.PictureBox();
             this.GitHubLinkLabel = new System.Windows.Forms.LinkLabel();
-            this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.borderLine1 = new RabbitTune.Controls.BorderLine();
             ((System.ComponentModel.ISupportInitialize)(this.AppIconViewer)).BeginInit();
             this.SuspendLayout();
@@ -81,17 +81,6 @@
             this.GitHubLinkLabel.Text = "GitHub";
             this.GitHubLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.GitHubLinkLabel_LinkClicked);
             // 
-            // label3
-            // 
-            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label3.Location = new System.Drawing.Point(12, 75);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(260, 98);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "このソフトウェアは、数多くのオープンソースソフトウェアや\r\nアイコン素材などを使用して作成されました。これらの\r\nライセンスについて、詳しくは、doc\\third" +
-    "partylicense\r\nフォルダ内のテキストファイルをご参照ください。なお、\r\n上記のフォルダは下記の「オープンソースソフトウェア」\r\nから直接開くことがで" +
-    "きます。";
-            // 
             // button1
             // 
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -106,7 +95,7 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(12, 178);
+            this.linkLabel1.Location = new System.Drawing.Point(12, 188);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(124, 15);
             this.linkLabel1.TabIndex = 7;
@@ -117,7 +106,7 @@
             // linkLabel2
             // 
             this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(12, 198);
+            this.linkLabel2.Location = new System.Drawing.Point(12, 208);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(118, 15);
             this.linkLabel2.TabIndex = 8;
@@ -136,10 +125,25 @@
             this.linkLabel3.Text = "RabbitTuneのHP";
             this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel3_LinkClicked);
             // 
+            // textBox1
+            // 
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Location = new System.Drawing.Point(12, 78);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox1.Size = new System.Drawing.Size(259, 107);
+            this.textBox1.TabIndex = 11;
+            this.textBox1.Text = "このソフトウェアは、数多くのオープンソース\r\nソフトウェアやアイコン素材などを使用して\r\n作成されました。これらのライセンスについて、\r\n詳しくは、doc\\thi" +
+    "rdpartylicenseフォルダ内の\r\nテキストファイルをご参照ください。なお、上記の\r\nフォルダは下記の「オープンソースソフトウェア」から\r\n直接開くこと" +
+    "ができます。";
+            this.textBox1.WordWrap = false;
+            // 
             // borderLine1
             // 
             this.borderLine1.Location = new System.Drawing.Point(12, 60);
-            this.borderLine1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.borderLine1.Margin = new System.Windows.Forms.Padding(4);
             this.borderLine1.Name = "borderLine1";
             this.borderLine1.Size = new System.Drawing.Size(259, 11);
             this.borderLine1.TabIndex = 10;
@@ -149,12 +153,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.borderLine1);
             this.Controls.Add(this.linkLabel3);
             this.Controls.Add(this.linkLabel2);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.GitHubLinkLabel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.ApplicationNameWithVersionLabel);
@@ -181,11 +185,11 @@
         private System.Windows.Forms.Label ApplicationNameWithVersionLabel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.LinkLabel GitHubLinkLabel;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.LinkLabel linkLabel3;
         private Controls.BorderLine borderLine1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
