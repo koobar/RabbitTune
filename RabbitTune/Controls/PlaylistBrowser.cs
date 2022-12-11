@@ -177,10 +177,27 @@ namespace RabbitTune.Controls
         /// <returns></returns>
         private ListViewItem CreateItem(string path)
         {
-            var item = new ListViewItem(new string[] { Path.GetFileName(path) });
-            item.Tag = path;
+            if (File.Exists(path))
+            {
+                var item = new ListViewItem(new string[] { Path.GetFileName(path) });
+                item.Tag = path;
 
-            return item;
+                return item;
+            }
+            else
+            {
+                string dirName = Path.GetDirectoryName(path);
+
+                if (string.IsNullOrEmpty(dirName))
+                {
+                    dirName = $"{path[0]}:\\";
+                }
+
+                var item = new ListViewItem(new string[] { dirName } );
+                item.Tag = path;
+
+                return item;
+            }
         }
 
         /// <summary>
