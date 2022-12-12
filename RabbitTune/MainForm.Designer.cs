@@ -101,6 +101,8 @@ namespace RabbitTune
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.AddFolderToPlaylistMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.FileMenuSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.WriteToFileMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.ExitApplicationMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.EditMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.FindMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -214,8 +216,6 @@ namespace RabbitTune
             this.ShowHistoryMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.VersionMenuSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ShowVersionInfoMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.WriteToFileMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.MainContentsPanel.SuspendLayout();
@@ -812,6 +812,18 @@ namespace RabbitTune
             // 
             this.FileMenuSeparator4.Name = "FileMenuSeparator4";
             this.FileMenuSeparator4.Size = new System.Drawing.Size(253, 6);
+            // 
+            // WriteToFileMenu
+            // 
+            this.WriteToFileMenu.Name = "WriteToFileMenu";
+            this.WriteToFileMenu.Size = new System.Drawing.Size(256, 22);
+            this.WriteToFileMenu.Text = "変換 / 保存(&R)...";
+            this.WriteToFileMenu.Click += new System.EventHandler(this.WriteToFileMenu_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(253, 6);
             // 
             // ExitApplicationMenu
             // 
@@ -1761,18 +1773,6 @@ namespace RabbitTune
             this.ShowVersionInfoMenu.Size = new System.Drawing.Size(155, 22);
             this.ShowVersionInfoMenu.Text = "バージョン情報";
             this.ShowVersionInfoMenu.Click += new System.EventHandler(this.ShowVersionInfoMenu_Click);
-            // 
-            // WriteToFileMenu
-            // 
-            this.WriteToFileMenu.Name = "WriteToFileMenu";
-            this.WriteToFileMenu.Size = new System.Drawing.Size(256, 22);
-            this.WriteToFileMenu.Text = "変換 / 保存(&R)...";
-            this.WriteToFileMenu.Click += new System.EventHandler(this.WriteToFileMenu_Click);
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(253, 6);
             // 
             // MainForm
             // 

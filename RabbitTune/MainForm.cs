@@ -743,11 +743,7 @@ namespace RabbitTune
         {
             var page = new PlaylistViewerTabPage();
 
-            if (path == null)
-            {
-                //page.Text = "新規プレイリスト.m3u";
-            }
-            else
+            if (!string.IsNullOrEmpty(path))
             {
                 page.CanClose = path != ApplicationOptions.DefaultPlaylistPath;
 
