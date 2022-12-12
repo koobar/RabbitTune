@@ -912,19 +912,9 @@ namespace RabbitTune
             }
         }
 
-        /// <summary>
-        /// オーディオトラックの検索を行う。
-        /// </summary>
-        private void SearchAudioTrack()
-        {
-            if (this.CurrentPlaylistViewer != null && this.FindAudioTrackDialog != null)
-            {
-                if (this.FindAudioTrackDialog.ShowDialog() == DialogResult.OK)
-                {
-                    SearchAudioTrack(this.FindAudioTrackDialog.SearchText);
-                }
-            }
-        }
+        #endregion
+
+        #region オーディオトラック検索
 
         /// <summary>
         /// オーディオトラックの検索を行う。
@@ -954,33 +944,26 @@ namespace RabbitTune
         /// <summary>
         /// 直前の検索時の位置を開始位置としてオーディオトラックの検索を行う。
         /// </summary>
-        private void SearchAudioTrackNext()
+        private void SearchAudioTrackNext(string searchText)
         {
             if (this.CurrentPlaylistViewer != null && this.FindAudioTrackDialog != null)
             {
-                if (string.IsNullOrEmpty(this.FindAudioTrackDialog.SearchText))
-                {
-                    SearchAudioTrack();
-                }
-                else
-                {
-                    var track = this.CurrentPlaylistViewer.SearchNext(
-                        this.FindAudioTrackDialog.SearchText,
+                var track = this.CurrentPlaylistViewer.SearchNext(
+                        searchText,
                         this.FindAudioTrackDialog.JudgeBiggerOrLower,
                         this.FindAudioTrackDialog.SearchAllMatchOnly);
 
-                    if (track != null)
-                    {
-                        this.CurrentPlaylistViewer.SelectedAudioTrack = track;
-                    }
-                    else
-                    {
-                        MessageBox.Show(
-                            "指定された検索語句とオプションに一致するトラックは見つかりませんでした。",
-                            "トラックが見つかりませんでした",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
-                    }
+                if (track != null)
+                {
+                    this.CurrentPlaylistViewer.SelectedAudioTrack = track;
+                }
+                else
+                {
+                    MessageBox.Show(
+                        "指定された検索語句とオプションに一致するトラックは見つかりませんでした。",
+                        "トラックが見つかりませんでした",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
                 }
             }
         }
@@ -1660,7 +1643,17 @@ namespace RabbitTune
         /// <param name="e"></param>
         private void FindAudioTrackMenu_Click(object sender, EventArgs e)
         {
-            SearchAudioTrack();
+            if (this.CurrentPlaylistViewer != null && this.FindAudioTrackDialog != null)
+            {
+                if (this.FindAudioTrackDialog.ShowDialog() == DialogResult.OK)
+                {
+                    SearchAudioTrack(this.FindAudioTrackDialog.SearchText);
+                }
+            }
+            else
+            {
+                MessageBox.Show("プレイリストを開いてから操作を実行してください。", "プレイリストが開かれていません", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         /// <summary>
@@ -1670,7 +1663,40 @@ namespace RabbitTune
         /// <param name="e"></param>
         private void FindAudioTrackNextMenu_Click(object sender, EventArgs e)
         {
-            SearchAudioTrackNext();
+            if(this.CurrentPlaylistViewer != null && this.FindAudioTrackDialog != null)
+            {
+                SearchAudioTrackNext(this.FindAudioTrackDialog.Text);
+            }
+            else
+            {
+                MessageBox.Show("プレイリストを開いてから操作を実行してください。", "プレイリストが開かれていません", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        /// <summary>
+        /// クイック検索ボタンがクリックされた時の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void QuickSearchbutton_Click(object sender, EventArgs e)
+        {
+            string prevString = null;
+
+            if (this.SearchBox.Tag != null)
+            {
+                prevString = this.SearchBox.Tag.ToString();
+            }
+
+            if (prevString != this.SearchBox.Text)
+            {
+                SearchAudioTrack(this.SearchBox.Text);
+            }
+            else
+            {
+                SearchAudioTrackNext(this.SearchBox.Text);
+            }
+
+            this.SearchBox.Tag = this.SearchBox.Text;
         }
 
         /// <summary>
@@ -1820,16 +1846,6 @@ namespace RabbitTune
                     this.SampleRateConversionDialog.BitsPerSample,
                     this.SampleRateConversionDialog.Channels);
             }
-        }
-
-        /// <summary>
-        /// クイック検索ボタンがクリックされた時の処理
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void QuickSearchbutton_Click(object sender, EventArgs e)
-        {
-            SearchAudioTrack(this.SearchBox.Text);
         }
 
         /// <summary>
