@@ -1285,20 +1285,19 @@ namespace RabbitTune
         #region ウィンドウのメソッドのオーバーライド
 
         /// <summary>
-        /// 読み込み時の処理
+        /// フォームが作成された時の処理
         /// </summary>
-        /// <param name="e"></param>
-        protected override void OnLoad(EventArgs e)
+        protected override void OnCreateControl()
         {
-            // MainForm.Designer.csでメインメニューを設定すると、
-            // メニューの高さだけフォーものサイズが増えてしまい、
-            // ウィンドウサイズをコンフィグファイルに保存する際に不都合が生じる。
-            // そこで、MainForm.Designer.csでメインメニューを設定するのではなく、
-            // 敢えてフォームの読み込み時に設定するようにすることで、この問題を回避できる。
-            //base.Menu = this.MainMenu;
+            // 起動時の画面のちらつきを防止するため、
+            // このフォームのあらゆる描画処理が終了するまで
+            // フォームを非表示状態にする。
+            this.Visible = false;
 
-            // 元々の処理を実行。
-            base.OnLoad(e);
+            base.OnCreateControl();
+
+            // これがなくても表示はされるが、念のため。
+            this.Visible = true;
         }
 
         /// <summary>
