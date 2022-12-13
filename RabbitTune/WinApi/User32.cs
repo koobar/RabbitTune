@@ -18,5 +18,8 @@ namespace RabbitTune.WinApi
 
         [DllImport("user32.dll")]
         public static extern int ShowWindow(IntPtr handle, int command);
+
+        [DllImport("user32.dll")]
+        public static extern bool SetProcessDPIAware();
     }
 }

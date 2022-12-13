@@ -17,6 +17,7 @@ namespace RabbitTune
         public const string KEY_DONOT_ADD_ASSOCIATED_FILE_TO_DEFAULT_PLAYLIST = @"DoNotAddAssociatedFileToDefaultPlaylist";
         public const string KEY_AUTOPLAY_WHEN_GIVEN_FILE_PATH_AS_COMMAND_LINE_ARGS = @"AutoPlayWhenGivenFilePathAsCommandLineArguments";
         public const string KEY_ALLOW_MULTI_INSTANCE = @"AllowMultiInstance";
+        public const string KEY_CALL_SET_PROCESS_DPI_AWARE_FUNC = @"CallSetProcessDPIAware";
 
         // 設定値
         public static string DefaultPlaylistPath;
@@ -29,5 +30,6 @@ namespace RabbitTune
         public static bool DoNotAddAssociatedFileToDefaultPlaylist;
         public static bool AutoPlayWhenGivenFilePathAsCommandLineArguments;
         public static bool AllowMultiInstance;
+        public static bool CallSetProcessDPIAware;
     }
 }

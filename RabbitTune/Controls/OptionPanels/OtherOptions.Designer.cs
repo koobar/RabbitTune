@@ -31,6 +31,7 @@
             this.DoNotAddAssociatedFileToDefaultPlaylistCheckBox = new System.Windows.Forms.CheckBox();
             this.AutoPlayWhenGivenFilePathAsCommandLineArgumentsCheckBox = new System.Windows.Forms.CheckBox();
             this.AllowMultiInstanceCheckBox = new System.Windows.Forms.CheckBox();
+            this.CallSetProcessDPIAwareFuncCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // DoNotAddAssociatedFileToDefaultPlaylistCheckBox
@@ -69,10 +70,23 @@
             this.AllowMultiInstanceCheckBox.Text = "RabbitTuneの多重起動を許可する";
             this.AllowMultiInstanceCheckBox.UseVisualStyleBackColor = true;
             // 
+            // CallSetProcessDPIAwareFuncCheckBox
+            // 
+            this.CallSetProcessDPIAwareFuncCheckBox.AutoSize = true;
+            this.CallSetProcessDPIAwareFuncCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.CallSetProcessDPIAwareFuncCheckBox.Location = new System.Drawing.Point(4, 88);
+            this.CallSetProcessDPIAwareFuncCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.CallSetProcessDPIAwareFuncCheckBox.Name = "CallSetProcessDPIAwareFuncCheckBox";
+            this.CallSetProcessDPIAwareFuncCheckBox.Size = new System.Drawing.Size(231, 20);
+            this.CallSetProcessDPIAwareFuncCheckBox.TabIndex = 3;
+            this.CallSetProcessDPIAwareFuncCheckBox.Text = "高DPIディスプレイでのスケーリングを有効化";
+            this.CallSetProcessDPIAwareFuncCheckBox.UseVisualStyleBackColor = true;
+            // 
             // OtherOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.Controls.Add(this.CallSetProcessDPIAwareFuncCheckBox);
             this.Controls.Add(this.AllowMultiInstanceCheckBox);
             this.Controls.Add(this.AutoPlayWhenGivenFilePathAsCommandLineArgumentsCheckBox);
             this.Controls.Add(this.DoNotAddAssociatedFileToDefaultPlaylistCheckBox);
@@ -90,5 +104,6 @@
         private System.Windows.Forms.CheckBox DoNotAddAssociatedFileToDefaultPlaylistCheckBox;
         private System.Windows.Forms.CheckBox AutoPlayWhenGivenFilePathAsCommandLineArgumentsCheckBox;
         private System.Windows.Forms.CheckBox AllowMultiInstanceCheckBox;
+        private System.Windows.Forms.CheckBox CallSetProcessDPIAwareFuncCheckBox;
     }
 }

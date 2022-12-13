@@ -1,4 +1,5 @@
 using RabbitTune.AudioEngine;
+using RabbitTune.WinApi;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -34,6 +35,9 @@ namespace RabbitTune
             // 設定を読み込む。
             AppConfigManager.LoadAllOptions();
 
+            // 高解像度ディスプレイ環境での表示モードを設定
+            SetAppDPIMode();
+
             // アプリのインスタンスを生成
             AppInstance = new App();
 
@@ -48,6 +52,14 @@ namespace RabbitTune
 
             // ライブラリの使用終了処理
             Engine.Free();
+        }
+
+        private static void SetAppDPIMode()
+        {
+            if (ApplicationOptions.CallSetProcessDPIAware)
+            {
+                User32.SetProcessDPIAware();
+            }
         }
 
         /// <summary>

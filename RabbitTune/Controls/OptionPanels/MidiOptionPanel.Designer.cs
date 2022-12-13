@@ -208,7 +208,7 @@
             this.UseSincInterpolationCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.UseSincInterpolationCheckBox.AutoSize = true;
             this.UseSincInterpolationCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.UseSincInterpolationCheckBox.Location = new System.Drawing.Point(6, 273);
+            this.UseSincInterpolationCheckBox.Location = new System.Drawing.Point(7, 273);
             this.UseSincInterpolationCheckBox.Name = "UseSincInterpolationCheckBox";
             this.UseSincInterpolationCheckBox.Size = new System.Drawing.Size(339, 20);
             this.UseSincInterpolationCheckBox.TabIndex = 13;
