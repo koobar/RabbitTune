@@ -9,11 +9,10 @@ namespace RabbitTune
     internal static class Program
     {
         // ŒöŠJ’è”
-        public const string MUTEX_NAME = "RabbitTune";
         public const string APPLICATION_NAME = "RabbitTune";
 
         // ŒöŠJ•Ï”
-        public static readonly Version ApplicationVersion = new Version(1, 0, 5, 0);
+        public static readonly Version ApplicationVersion = new Version(1, 0, 6, 0);
         public static bool ResetApplicationOptionRequested = false;
 
         // ”ñŒöŠJ•Ï”
