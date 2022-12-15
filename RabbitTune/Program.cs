@@ -54,6 +54,9 @@ namespace RabbitTune
             Engine.Free();
         }
 
+        /// <summary>
+        /// OSのスケーリングの使用設定を行う。
+        /// </summary>
         private static void SetAppDPIMode()
         {
             if (ApplicationOptions.CallSetProcessDPIAware)
