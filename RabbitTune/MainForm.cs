@@ -41,6 +41,7 @@ namespace RabbitTune
         private TaskbarListWrapper TaskbarExt;
         private ThumbButton[] taskbarThumbButtons;
         private ImageList TaskbarThumbButtonImages;
+        private bool IsFormShown = false;
 
         // コンストラクタ
         public MainForm()
@@ -1301,6 +1302,23 @@ namespace RabbitTune
         }
 
         /// <summary>
+        /// フォームが表示された際の処理
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnShown(EventArgs e)
+        {
+            if (!this.IsFormShown)
+            {
+                // コマンドライン引数を処理する。
+                ProcessCommandLineArguments();
+
+                this.IsFormShown = true;
+            }
+
+            base.OnShown(e);
+        }
+
+        /// <summary>
         /// ウィンドウプロシージャ
         /// </summary>
         /// <param name="m"></param>
@@ -1372,9 +1390,6 @@ namespace RabbitTune
 
             // デフォルトプレイリストを開く
             OpenDefaultPlaylist();
-
-            // コマンドライン引数を処理する。
-            ProcessCommandLineArguments();
 
             // プレイリストブラウザを更新
             this.PlaylistBrowser.Update();
