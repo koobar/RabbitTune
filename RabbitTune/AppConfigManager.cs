@@ -49,6 +49,7 @@ namespace RabbitTune
             writer.WriteProperty(ApplicationOptions.KEY_DONOT_ADD_ASSOCIATED_FILE_TO_DEFAULT_PLAYLIST, ApplicationOptions.DoNotAddAssociatedFileToDefaultPlaylist);
             writer.WriteProperty(ApplicationOptions.KEY_AUTOPLAY_WHEN_GIVEN_FILE_PATH_AS_COMMAND_LINE_ARGS, ApplicationOptions.AutoPlayWhenGivenFilePathAsCommandLineArguments);
             writer.WriteProperty(ApplicationOptions.KEY_ALLOW_MULTI_INSTANCE, ApplicationOptions.AllowMultiInstance);
+            writer.WriteProperty(ApplicationOptions.KEY_CREATE_NEW_PLAYLIST_WHEN_OPEN_FROM_COMMANDLINE_ARGS, ApplicationOptions.CreateNewPlaylistWhenOpenFromCommandlineArgs);
 
             // プレイリスト
             writer.WriteEmptyLine();
@@ -130,6 +131,7 @@ namespace RabbitTune
             ApplicationOptions.DoNotAddAssociatedFileToDefaultPlaylist = reader.GetValueAsBoolean(ApplicationOptions.KEY_DONOT_ADD_ASSOCIATED_FILE_TO_DEFAULT_PLAYLIST, false);
             ApplicationOptions.AutoPlayWhenGivenFilePathAsCommandLineArguments = reader.GetValueAsBoolean(ApplicationOptions.KEY_AUTOPLAY_WHEN_GIVEN_FILE_PATH_AS_COMMAND_LINE_ARGS, true);
             ApplicationOptions.AllowMultiInstance = reader.GetValueAsBoolean(ApplicationOptions.KEY_ALLOW_MULTI_INSTANCE, false);
+            ApplicationOptions.CreateNewPlaylistWhenOpenFromCommandlineArgs = reader.GetValueAsBoolean(ApplicationOptions.KEY_CREATE_NEW_PLAYLIST_WHEN_OPEN_FROM_COMMANDLINE_ARGS, false);
 
             // プレイリストなど
             PlaylistsDataBase.AutoInvokeAnyEvents = false;

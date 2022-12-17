@@ -18,6 +18,7 @@ namespace RabbitTune
         public const string KEY_AUTOPLAY_WHEN_GIVEN_FILE_PATH_AS_COMMAND_LINE_ARGS = @"AutoPlayWhenGivenFilePathAsCommandLineArguments";
         public const string KEY_ALLOW_MULTI_INSTANCE = @"AllowMultiInstance";
         public const string KEY_CALL_SET_PROCESS_DPI_AWARE_FUNC = @"CallSetProcessDPIAware";
+        public const string KEY_CREATE_NEW_PLAYLIST_WHEN_OPEN_FROM_COMMANDLINE_ARGS = @"CreateNewPlaylistWhenOpenFromCommandlineArgs";
 
         // 設定値
         public static string DefaultPlaylistPath;
@@ -31,5 +32,6 @@ namespace RabbitTune
         public static bool AutoPlayWhenGivenFilePathAsCommandLineArguments;
         public static bool AllowMultiInstance;
         public static bool CallSetProcessDPIAware;
+        public static bool CreateNewPlaylistWhenOpenFromCommandlineArgs;
     }
 }

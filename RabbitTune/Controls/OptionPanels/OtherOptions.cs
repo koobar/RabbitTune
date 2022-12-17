@@ -22,6 +22,7 @@ namespace RabbitTune.Controls.OptionPanels
                 this.AutoPlayWhenGivenFilePathAsCommandLineArgumentsCheckBox.Checked = ApplicationOptions.AutoPlayWhenGivenFilePathAsCommandLineArguments;
                 this.AllowMultiInstanceCheckBox.Checked = ApplicationOptions.AllowMultiInstance;
                 this.CallSetProcessDPIAwareFuncCheckBox.Checked = ApplicationOptions.CallSetProcessDPIAware;
+                this.CreateNewPlaylistWhenOpenFromCommandlineArgsCheckBox.Checked = ApplicationOptions.CreateNewPlaylistWhenOpenFromCommandlineArgs;
             }
         }
 
@@ -34,6 +35,12 @@ namespace RabbitTune.Controls.OptionPanels
             ApplicationOptions.AutoPlayWhenGivenFilePathAsCommandLineArguments = this.AutoPlayWhenGivenFilePathAsCommandLineArgumentsCheckBox.Checked;
             ApplicationOptions.AllowMultiInstance = this.AllowMultiInstanceCheckBox.Checked;
             ApplicationOptions.CallSetProcessDPIAware = this.CallSetProcessDPIAwareFuncCheckBox.Checked;
+            ApplicationOptions.CreateNewPlaylistWhenOpenFromCommandlineArgs = this.CreateNewPlaylistWhenOpenFromCommandlineArgsCheckBox.Checked;
+        }
+
+        private void DoNotAddAssociatedFileToDefaultPlaylistCheckBox_CheckedChanged(object sender, System.EventArgs e)
+        {
+            this.CreateNewPlaylistWhenOpenFromCommandlineArgsCheckBox.Enabled = this.DoNotAddAssociatedFileToDefaultPlaylistCheckBox.Checked;
         }
     }
 }

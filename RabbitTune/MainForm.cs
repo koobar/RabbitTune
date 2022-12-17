@@ -41,6 +41,7 @@ namespace RabbitTune
         private TaskbarListWrapper TaskbarExt;
         private ThumbButton[] taskbarThumbButtons;
         private ImageList TaskbarThumbButtonImages;
+        private TabPage CommandLineTracksTabPage;
         private bool IsFormShown = false;
 
         // コンストラクタ
@@ -280,7 +281,21 @@ namespace RabbitTune
                 // コマンドライン引数から渡されたファイルをデフォルトプレイリストに追加しないオプションが有効か？
                 if (ApplicationOptions.DoNotAddAssociatedFileToDefaultPlaylist)
                 {
-                    CreateNewPlaylist();
+                    // 関連付けやコマンドライン引数から開かれるたびに新しいプレイリストを作成するオプションが有効か？
+                    if (ApplicationOptions.CreateNewPlaylistWhenOpenFromCommandlineArgs)
+                    {
+                        CreateNewPlaylist();
+                    }
+                    else
+                    {
+                        if (this.CommandLineTracksTabPage == null)
+                        {
+                            this.CommandLineTracksTabPage = CreatePlaylistViewerTabPage();
+                            this.MainTabControl.TabPages.Add(this.CommandLineTracksTabPage);
+                        }
+
+                        this.MainTabControl.SelectedTab = this.CommandLineTracksTabPage;
+                    }
                 }
 
                 // コマンドライン引数で渡されたファイルを読み込む。

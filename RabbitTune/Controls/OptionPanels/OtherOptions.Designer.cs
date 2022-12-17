@@ -32,6 +32,7 @@
             this.AutoPlayWhenGivenFilePathAsCommandLineArgumentsCheckBox = new System.Windows.Forms.CheckBox();
             this.AllowMultiInstanceCheckBox = new System.Windows.Forms.CheckBox();
             this.CallSetProcessDPIAwareFuncCheckBox = new System.Windows.Forms.CheckBox();
+            this.CreateNewPlaylistWhenOpenFromCommandlineArgsCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // DoNotAddAssociatedFileToDefaultPlaylistCheckBox
@@ -45,12 +46,13 @@
             this.DoNotAddAssociatedFileToDefaultPlaylistCheckBox.TabIndex = 0;
             this.DoNotAddAssociatedFileToDefaultPlaylistCheckBox.Text = "関連付けで開かれた際にデフォルトプレイリストに追加しない";
             this.DoNotAddAssociatedFileToDefaultPlaylistCheckBox.UseVisualStyleBackColor = true;
+            this.DoNotAddAssociatedFileToDefaultPlaylistCheckBox.CheckedChanged += new System.EventHandler(this.DoNotAddAssociatedFileToDefaultPlaylistCheckBox_CheckedChanged);
             // 
             // AutoPlayWhenGivenFilePathAsCommandLineArgumentsCheckBox
             // 
             this.AutoPlayWhenGivenFilePathAsCommandLineArgumentsCheckBox.AutoSize = true;
             this.AutoPlayWhenGivenFilePathAsCommandLineArgumentsCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.AutoPlayWhenGivenFilePathAsCommandLineArgumentsCheckBox.Location = new System.Drawing.Point(4, 32);
+            this.AutoPlayWhenGivenFilePathAsCommandLineArgumentsCheckBox.Location = new System.Drawing.Point(4, 60);
             this.AutoPlayWhenGivenFilePathAsCommandLineArgumentsCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.AutoPlayWhenGivenFilePathAsCommandLineArgumentsCheckBox.Name = "AutoPlayWhenGivenFilePathAsCommandLineArgumentsCheckBox";
             this.AutoPlayWhenGivenFilePathAsCommandLineArgumentsCheckBox.Size = new System.Drawing.Size(282, 20);
@@ -62,7 +64,7 @@
             // 
             this.AllowMultiInstanceCheckBox.AutoSize = true;
             this.AllowMultiInstanceCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.AllowMultiInstanceCheckBox.Location = new System.Drawing.Point(4, 60);
+            this.AllowMultiInstanceCheckBox.Location = new System.Drawing.Point(4, 88);
             this.AllowMultiInstanceCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.AllowMultiInstanceCheckBox.Name = "AllowMultiInstanceCheckBox";
             this.AllowMultiInstanceCheckBox.Size = new System.Drawing.Size(201, 20);
@@ -74,7 +76,7 @@
             // 
             this.CallSetProcessDPIAwareFuncCheckBox.AutoSize = true;
             this.CallSetProcessDPIAwareFuncCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.CallSetProcessDPIAwareFuncCheckBox.Location = new System.Drawing.Point(4, 88);
+            this.CallSetProcessDPIAwareFuncCheckBox.Location = new System.Drawing.Point(4, 116);
             this.CallSetProcessDPIAwareFuncCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.CallSetProcessDPIAwareFuncCheckBox.Name = "CallSetProcessDPIAwareFuncCheckBox";
             this.CallSetProcessDPIAwareFuncCheckBox.Size = new System.Drawing.Size(231, 20);
@@ -82,10 +84,23 @@
             this.CallSetProcessDPIAwareFuncCheckBox.Text = "高DPIディスプレイでのスケーリングを有効化";
             this.CallSetProcessDPIAwareFuncCheckBox.UseVisualStyleBackColor = true;
             // 
+            // CreateNewPlaylistWhenOpenFromCommandlineArgsCheckBox
+            // 
+            this.CreateNewPlaylistWhenOpenFromCommandlineArgsCheckBox.Enabled = false;
+            this.CreateNewPlaylistWhenOpenFromCommandlineArgsCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.CreateNewPlaylistWhenOpenFromCommandlineArgsCheckBox.Location = new System.Drawing.Point(18, 32);
+            this.CreateNewPlaylistWhenOpenFromCommandlineArgsCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.CreateNewPlaylistWhenOpenFromCommandlineArgsCheckBox.Name = "CreateNewPlaylistWhenOpenFromCommandlineArgsCheckBox";
+            this.CreateNewPlaylistWhenOpenFromCommandlineArgsCheckBox.Size = new System.Drawing.Size(348, 20);
+            this.CreateNewPlaylistWhenOpenFromCommandlineArgsCheckBox.TabIndex = 4;
+            this.CreateNewPlaylistWhenOpenFromCommandlineArgsCheckBox.Text = "関連付けやコマンドライン引数から開くたびに新しいプレイリストを作成";
+            this.CreateNewPlaylistWhenOpenFromCommandlineArgsCheckBox.UseVisualStyleBackColor = true;
+            // 
             // OtherOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.Controls.Add(this.CreateNewPlaylistWhenOpenFromCommandlineArgsCheckBox);
             this.Controls.Add(this.CallSetProcessDPIAwareFuncCheckBox);
             this.Controls.Add(this.AllowMultiInstanceCheckBox);
             this.Controls.Add(this.AutoPlayWhenGivenFilePathAsCommandLineArgumentsCheckBox);
@@ -105,5 +120,6 @@
         private System.Windows.Forms.CheckBox AutoPlayWhenGivenFilePathAsCommandLineArgumentsCheckBox;
         private System.Windows.Forms.CheckBox AllowMultiInstanceCheckBox;
         private System.Windows.Forms.CheckBox CallSetProcessDPIAwareFuncCheckBox;
+        private System.Windows.Forms.CheckBox CreateNewPlaylistWhenOpenFromCommandlineArgsCheckBox;
     }
 }
