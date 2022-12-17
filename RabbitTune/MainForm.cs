@@ -777,8 +777,8 @@ namespace RabbitTune
         /// </summary>
         private void CreateNewPlaylist()
         {
-            var page = CreatePlaylistViewerTabPage();
-
+            var page = CreatePlaylistViewerTabPage(null);
+            
             // ページを追加して選択
             this.MainTabControl.TabPages.Add(page);
             this.MainTabControl.SelectedTab = page;

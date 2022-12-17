@@ -186,7 +186,7 @@ namespace RabbitTune.Controls
             }
             else
             {
-                string dirName = Path.GetDirectoryName(path);
+                string dirName = Path.GetFileName(path);
 
                 if (string.IsNullOrEmpty(dirName))
                 {
