@@ -12,7 +12,7 @@ namespace RabbitTune
         public const string APPLICATION_NAME = "RabbitTune";
 
         // ŒöŠJ•Ï”
-        public static readonly Version ApplicationVersion = new Version(1, 0, 6, 0);
+        public static readonly Version ApplicationVersion = new Version(1, 0, 5, 2);
         public static bool ResetApplicationOptionRequested = false;
 
         // ”ñŒöŠJ•Ï”
