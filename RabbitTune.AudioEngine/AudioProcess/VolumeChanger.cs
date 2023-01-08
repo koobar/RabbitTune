@@ -3,7 +3,7 @@ using NAudio.Wave.SampleProviders;
 
 namespace RabbitTune.AudioEngine.AudioProcess
 {
-    public class VolumeChanger : ISampleProvider
+    internal class VolumeChanger : ISampleProvider
     {
         // 非公開変数
         private ISampleProvider src;

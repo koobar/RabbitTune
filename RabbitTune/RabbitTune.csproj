@@ -161,6 +161,12 @@
       <DependentUpon>FindDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\FolderSelectDialog.cs" />
+    <Compile Include="Dialogs\MidSideMixerDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\MidSideMixerDialog.Designer.cs">
+      <DependentUpon>MidSideMixerDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\OptionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -242,6 +248,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\FindDialog.resx">
       <DependentUpon>FindDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\MidSideMixerDialog.resx">
+      <DependentUpon>MidSideMixerDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\OptionDialog.resx">
       <DependentUpon>OptionDialog.cs</DependentUpon>

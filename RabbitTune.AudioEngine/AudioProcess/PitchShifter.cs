@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace RabbitTune.AudioEngine.AudioProcess
 {
-    public class PitchShifter : ISampleProvider
+    internal class PitchShifter : ISampleProvider
     {
         // 非公開変数
         private readonly Dictionary<int, float> pitchFactors = new Dictionary<int, float>()     // ピッチ変化量とAの周波数の対応表

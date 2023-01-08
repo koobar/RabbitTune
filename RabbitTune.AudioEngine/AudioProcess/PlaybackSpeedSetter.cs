@@ -14,7 +14,7 @@ using System;
 
 namespace RabbitTune.AudioEngine.AudioProcess
 {
-    public class PlaybackSpeedSetter : ISampleProvider
+    internal class PlaybackSpeedSetter : ISampleProvider
     {
         // 非公開変数
         private ISampleProvider src;

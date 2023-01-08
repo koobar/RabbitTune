@@ -33,6 +33,7 @@ namespace RabbitTune
         private readonly FindDialog FindAudioTrackDialog;
         private readonly SampleRateConversionDialog SampleRateConversionDialog;
         private readonly EqualizerDialog EqualizerDialog;
+        private readonly MidSideMixerDialog MidSideMixerDialog;
         private readonly OptionDialog DetailOptionDialog;
         private readonly VersionDialog ApplicationVersionDialog;
         private bool showInTaskTray = false;                    // タスクトレイへ格納中かどうか
@@ -176,6 +177,7 @@ namespace RabbitTune
             this.FindAudioTrackDialog = new FindDialog();
             this.SampleRateConversionDialog = new SampleRateConversionDialog();
             this.EqualizerDialog = new EqualizerDialog();
+            this.MidSideMixerDialog = new MidSideMixerDialog();
             this.DetailOptionDialog = new OptionDialog();
             this.ApplicationVersionDialog = new VersionDialog();
 
@@ -2084,6 +2086,11 @@ namespace RabbitTune
             {
                 MessageBox.Show("変換するトラックを選択してから再度実行してください。", "トラックが未選択です", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void MidSideMixerMenu_Click(object sender, EventArgs e)
+        {
+            this.MidSideMixerDialog.ShowDialog();
         }
     }
 }

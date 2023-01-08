@@ -86,6 +86,9 @@ namespace RabbitTune
             writer.WriteProperty(AudioPlayerManager.KEY_PLAYBACK_PITCH, AudioPlayerManager.Pitch);
             writer.WriteProperty(AudioPlayerManager.KEY_SOUNDTOUCH_PITCHSHIFTER_PITCHSEMITONES, AudioPlayerManager.SoundTouchPitchSemitones);
             writer.WriteProperty(AudioPlayerManager.KEY_SOUNDTOUCH_PITCHSHIFTER_FIX_CLIP, AudioPlayerManager.SoundTouchPitchShifterFixClip);
+            writer.WriteProperty(AudioPlayerManager.KEY_USE_MIDSIDEMIXER, AudioPlayerManager.UseMidSideMixer);
+            writer.WriteProperty(AudioPlayerManager.KEY_MID_SIGNAL_BOOST_LEVEL, AudioPlayerManager.MidSignalBoostLevel);
+            writer.WriteProperty(AudioPlayerManager.KEY_SIDE_SIGNAL_BOOST_LEVEL, AudioPlayerManager.SideSignalBoostLevel);
 
             // MIDI・サウンドフォントの設定
             writer.WriteEmptyLine();
@@ -170,6 +173,9 @@ namespace RabbitTune
             AudioPlayerManager.Pitch = reader.GetValueAsInt(AudioPlayerManager.KEY_PLAYBACK_PITCH, 0);
             AudioPlayerManager.SoundTouchPitchSemitones = reader.GetValueAsInt(AudioPlayerManager.KEY_SOUNDTOUCH_PITCHSHIFTER_PITCHSEMITONES, 0);
             AudioPlayerManager.SoundTouchPitchShifterFixClip = reader.GetValueAsBoolean(AudioPlayerManager.KEY_SOUNDTOUCH_PITCHSHIFTER_FIX_CLIP);
+            AudioPlayerManager.UseMidSideMixer = reader.GetValueAsBoolean(AudioPlayerManager.KEY_USE_MIDSIDEMIXER, false);
+            AudioPlayerManager.MidSignalBoostLevel = reader.GetValueAsFloat(AudioPlayerManager.KEY_MID_SIGNAL_BOOST_LEVEL, 1.0f);
+            AudioPlayerManager.SideSignalBoostLevel = reader.GetValueAsFloat(AudioPlayerManager.KEY_SIDE_SIGNAL_BOOST_LEVEL, 1.0f);
 
             // MIDI・サウンドフォントの設定
             var soundFontOptions = reader.GetStringArrayValue(AudioPlayerManager.KEY_SOUNDFONTS);

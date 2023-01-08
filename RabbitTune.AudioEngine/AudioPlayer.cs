@@ -742,6 +742,89 @@ namespace RabbitTune.AudioEngine
 
         #endregion
 
+        #region ミッドサイドミキサー
+
+        // ミッドサイドミキサー用の非公開フィールド
+        private MidSideMixer midSideMixer;
+        private float midSignalBoostLevel = 0f;
+        private float sideSignalBoostLevel = 0.2f;
+        private bool useMidSideMixer = true;
+
+        /// <summary>
+        /// ミッドサイドミキサーを使用するかどうか
+        /// </summary>
+        public bool UseMidSideMixer
+        {
+            set
+            {
+                if (this.midSideMixer != null)
+                {
+                    this.midSideMixer.Enabled = value;
+                }
+
+                this.useMidSideMixer = value;
+            }
+            get
+            {
+                return this.useMidSideMixer;
+            }
+        }
+
+        /// <summary>
+        /// Mid信号のブーストレベル(0~2.0)
+        /// </summary>
+        public float MidSignalBoostLevel
+        {
+            set
+            {
+                if (this.midSideMixer != null)
+                {
+                    this.midSideMixer.MidLevel = value;
+                }
+
+                this.midSignalBoostLevel = value;
+            }
+            get
+            {
+                return this.midSignalBoostLevel;
+            }
+        }
+
+        /// <summary>
+        /// Mid信号のブーストレベル(0~2.0)
+        /// </summary>
+        public float SideSignalBoostLevel
+        {
+            set
+            {
+                if (this.midSideMixer != null)
+                {
+                    this.midSideMixer.SideLevel = value;
+                }
+
+                this.sideSignalBoostLevel = value;
+            }
+            get
+            {
+                return this.sideSignalBoostLevel;
+            }
+        }
+
+        /// <summary>
+        /// ミッドサイドミキサーを生成する。
+        /// </summary>
+        private void CreateMidSideMixer()
+        {
+            this.midSideMixer = new MidSideMixer(this.audioProcessSampleProvider);
+            this.midSideMixer.Enabled = this.UseMidSideMixer;
+            this.midSideMixer.MidLevel = this.MidSignalBoostLevel;
+            this.midSideMixer.SideLevel = this.SideSignalBoostLevel;
+
+            this.audioProcessSampleProvider = this.midSideMixer;
+        }
+
+        #endregion
+
         #region オーディオソースの読み込みなど、オーディオソース関連
 
         /// <summary>
@@ -814,6 +897,9 @@ namespace RabbitTune.AudioEngine
 
                 // 定位調節エフェクタの生成
                 CreatePanSetter();
+
+                // ミッドサイドミキサーの生成
+                CreateMidSideMixer();
 
                 // リサンプラーの生成
                 CreateReSampler(useReSampler, reSamplerSampleRate, reSamplerBitsPerSample, reSamplerChannels);          // 一般設定用

@@ -2,7 +2,7 @@
 
 namespace RabbitTune.AudioEngine.AudioProcess
 {
-    public class WaveFormatConversion : ISampleProvider
+    internal class WaveFormatConversion : ISampleProvider
     {
         // 非公開変数
         private ISampleProvider source;

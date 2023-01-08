@@ -51,6 +51,9 @@ namespace RabbitTune
         public const string KEY_ENABLE_MMCSS = @"EnableMMCSS";
         public const string KEY_DSDTOPCM_SAMPLERATE = @"DSDToPCMSampleRate";
         public const string KEY_DSDTOPCM_GAIN = @"DSDToPCMGain";
+        public const string KEY_USE_MIDSIDEMIXER = @"UseMSMixer";
+        public const string KEY_MID_SIGNAL_BOOST_LEVEL = @"MSMixerMidSignalBoostLevel";
+        public const string KEY_SIDE_SIGNAL_BOOST_LEVEL = @"MSMixerSideSignalBoostLevel";
 
         // 公開イベント
         public static event EventHandler PlaybackPositionChanged;
@@ -490,6 +493,75 @@ namespace RabbitTune
 
         #endregion
 
+        #region ミッドサイドミキサー関連
+
+        // ミッドサイドミキサー関連の非公開フィールド
+        private static bool useMidSideMixer;
+        private static float midSignalBoostLevel = 1.0f;
+        private static float sideSignalBoostLevel = 1.0f;
+
+        /// <summary>
+        /// ミッドサイドミキサーを使用するかどうか
+        /// </summary>
+        public static bool UseMidSideMixer
+        {
+            set
+            {
+                if (AudioPlayer != null)
+                {
+                    AudioPlayer.UseMidSideMixer = value;
+                }
+
+                useMidSideMixer = value;
+            }
+            get
+            {
+                return useMidSideMixer;
+            }
+        }
+
+        /// <summary>
+        /// Mid信号のブーストレベル
+        /// </summary>
+        public static float MidSignalBoostLevel
+        {
+            set
+            {
+                if (AudioPlayer != null)
+                {
+                    AudioPlayer.MidSignalBoostLevel = value;
+                }
+
+                midSignalBoostLevel = value;
+            }
+            get
+            {
+                return midSignalBoostLevel;
+            }
+        }
+
+        /// <summary>
+        /// Side信号のブーストレベル
+        /// </summary>
+        public static float SideSignalBoostLevel
+        {
+            set
+            {
+                if (AudioPlayer != null)
+                {
+                    AudioPlayer.SideSignalBoostLevel = value;
+                }
+
+                sideSignalBoostLevel = value;
+            }
+            get
+            {
+                return sideSignalBoostLevel;
+            }
+        }
+
+        #endregion
+
         #region デバイス出力フォーマットのプロパティ
 
         /// <summary>
@@ -763,6 +835,11 @@ namespace RabbitTune
 
             // 再生前に設定された定位を反映
             AudioPlayer.Balance = Balance;
+
+            // 再生前に設定されたミッドサイドミキサーのオプションを反映
+            AudioPlayer.UseMidSideMixer = UseMidSideMixer;
+            AudioPlayer.MidSignalBoostLevel = MidSignalBoostLevel;
+            AudioPlayer.SideSignalBoostLevel = SideSignalBoostLevel;
 
             // 後始末
             IsTrackLoaded = true;
