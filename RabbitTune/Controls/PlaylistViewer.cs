@@ -48,12 +48,14 @@ namespace RabbitTune.Controls
         private readonly ContextMenuStrip AudioTracksViewerContextMenu = new ContextMenuStrip();
         private readonly ToolStripMenuItem PlayContextMenu = new ToolStripMenuItem();
         private readonly ToolStripSeparator ContextMenuSeparator1 = new ToolStripSeparator();
+        private readonly ToolStripMenuItem ReloadContextMenu = new ToolStripMenuItem();
+        private readonly ToolStripSeparator ContextMenuSeparator2 = new ToolStripSeparator();
         private readonly ToolStripMenuItem MoveUpContextMenu = new ToolStripMenuItem();
         private readonly ToolStripMenuItem MoveDownContextMenu = new ToolStripMenuItem();
-        private readonly ToolStripSeparator ContextMenuSeparator2 = new ToolStripSeparator();
+        private readonly ToolStripSeparator ContextMenuSeparator3 = new ToolStripSeparator();
         private readonly ToolStripMenuItem DeleteItemFromListMenu = new ToolStripMenuItem();
         private readonly ToolStripMenuItem DeleteItemFromListWithFileMenu = new ToolStripMenuItem();
-        private readonly ToolStripSeparator ContextMenuSeparator3 = new ToolStripSeparator();
+        private readonly ToolStripSeparator ContextMenuSeparator4 = new ToolStripSeparator();
         private readonly ToolStripMenuItem OpenAudioTrackLocationMenu = new ToolStripMenuItem();
 
         // 非公開フィールド
@@ -122,6 +124,12 @@ namespace RabbitTune.Controls
             {
                 this.PlayCommandInvoked?.Invoke(null, null);
             };
+            this.ReloadContextMenu.Text = "最新の状態に更新";
+            this.ReloadContextMenu.ShortcutKeys = Keys.F5;
+            this.ReloadContextMenu.Click += delegate
+            {
+                Reload();
+            };
             this.MoveUpContextMenu.Text = "1つ上に移動";
             this.MoveUpContextMenu.Click += delegate
             {
@@ -166,12 +174,14 @@ namespace RabbitTune.Controls
             // メニュー項目の追加
             this.AudioTracksViewerContextMenu.Items.Add(this.PlayContextMenu);
             this.AudioTracksViewerContextMenu.Items.Add(this.ContextMenuSeparator1);
+            this.AudioTracksViewerContextMenu.Items.Add(this.ReloadContextMenu);
+            this.AudioTracksViewerContextMenu.Items.Add(this.ContextMenuSeparator2);
             this.AudioTracksViewerContextMenu.Items.Add(this.MoveUpContextMenu);
             this.AudioTracksViewerContextMenu.Items.Add(this.MoveDownContextMenu);
-            this.AudioTracksViewerContextMenu.Items.Add(this.ContextMenuSeparator2);
+            this.AudioTracksViewerContextMenu.Items.Add(this.ContextMenuSeparator3);
             this.AudioTracksViewerContextMenu.Items.Add(this.DeleteItemFromListMenu);
             this.AudioTracksViewerContextMenu.Items.Add(this.DeleteItemFromListWithFileMenu);
-            this.AudioTracksViewerContextMenu.Items.Add(this.ContextMenuSeparator3);
+            this.AudioTracksViewerContextMenu.Items.Add(this.ContextMenuSeparator4);
             this.AudioTracksViewerContextMenu.Items.Add(this.OpenAudioTrackLocationMenu);
 
             // コンテキストメニューを設定
@@ -586,6 +596,18 @@ namespace RabbitTune.Controls
         #endregion
 
         #region プレイリストそのものに影響しないメソッド
+
+        /// <summary>
+        /// プレイリストを最新の状態に更新する。
+        /// </summary>
+        public void Reload()
+        {
+            if (this.CurrentPlaylist != null)
+            {
+                Clear();
+                OpenPlaylist(this.CurrentPlaylist.Location);
+            }
+        }
 
         /// <summary>
         /// 指定されたインデックスのオーディオトラックを取得する。

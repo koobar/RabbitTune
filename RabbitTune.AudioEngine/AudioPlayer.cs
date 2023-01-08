@@ -1,5 +1,6 @@
 ﻿using NAudio.CoreAudioApi;
 using NAudio.Wave;
+using NAudio.Wave.SampleProviders;
 using RabbitTune.AudioEngine.AudioOutputApi;
 using RabbitTune.AudioEngine.AudioProcess;
 using System;
@@ -9,6 +10,7 @@ namespace RabbitTune.AudioEngine
 {
     public class AudioPlayer
     {
+        // 公開定数
         public const int WAVEFORMAT_NOCONV = -1;        // AudioSourceプロパティのWaveFormatをそのまま使用
 
         // 非公開変数
