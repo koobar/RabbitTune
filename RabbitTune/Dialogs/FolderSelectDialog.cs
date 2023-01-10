@@ -81,7 +81,5 @@ namespace RabbitTune.Dialogs
                 Marshal.ReleaseComObject(dialog);
             }
         }
-
-        
     }
 }
