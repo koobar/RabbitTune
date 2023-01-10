@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 using static RabbitTune.WinApi.DwmApi;
 
@@ -1262,7 +1263,6 @@ namespace RabbitTune
         private BackgroundWorker CreateEncodingWorker(AudioTrack source, string outputPath)
         {
             var worker = new BackgroundWorker();
-            int diskDriveDefaultSpeed = -1;
 
             worker.DoWork += delegate
             {
@@ -1272,13 +1272,7 @@ namespace RabbitTune
                 // オーディオCDのトラックか？
                 if (source.IsAudioCDTrack)
                 {
-                    char drive = source.Location[0];
-
-                    // ドライブの動作速度を取得する。
-                    diskDriveDefaultSpeed = BassCd.GetDriveSpeed(drive);
-
-                    // ドライブの動作速度を、サポートされる最高速度に設定する。
-                    BassCd.SetDriveSpeed(drive, BassCd.GetMaximumSpeed(drive));
+                    Thread.Sleep(1000);
                 }
 
                 // エンコード開始
@@ -1286,12 +1280,6 @@ namespace RabbitTune
             };
             worker.RunWorkerCompleted += delegate
             {
-                if (source.IsAudioCDTrack && diskDriveDefaultSpeed != -1)
-                {
-                    // ドライブの動作速度を元の速度に戻す。
-                    BassCd.SetDriveSpeed(source.Location[0], diskDriveDefaultSpeed);
-                }
-
                 MessageBox.Show("オーディオファイルの変換が正常に終了しました。", "変換終了", MessageBoxButtons.OK, MessageBoxIcon.Information);
             };
 
