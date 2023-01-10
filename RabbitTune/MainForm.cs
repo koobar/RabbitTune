@@ -237,6 +237,8 @@ namespace RabbitTune
             this.ShowAsMiniplayerMode = ApplicationOptions.ShowMainFormAsMiniplayerMode;
             this.VolumeSlider.Value = AudioPlayerManager.Volume;
             this.PanSlider.Value = AudioPlayerManager.Balance;
+            this.UseOppositeSignalGeneratorMenu.Checked = AudioPlayerManager.UseOppositeSignalGenerator;
+            this.UseLRChannelReverserMenu.Checked = AudioPlayerManager.UseLRSignalReverser;
             SetRepeatModeView(ApplicationOptions.RepeatMode);
             SetPlaybackSpeed(AudioPlayerManager.PlaybackSpeed);
             SetPitch(AudioPlayerManager.Pitch);
@@ -2079,6 +2081,16 @@ namespace RabbitTune
         private void MidSideMixerMenu_Click(object sender, EventArgs e)
         {
             this.MidSideMixerDialog.ShowDialog();
+        }
+
+        private void UseOppositeSignalGeneratorMenu_CheckedChanged(object sender, EventArgs e)
+        {
+            AudioPlayerManager.UseOppositeSignalGenerator = this.UseOppositeSignalGeneratorMenu.Checked;
+        }
+
+        private void UseLRChannelReverserMenu_CheckedChanged(object sender, EventArgs e)
+        {
+            AudioPlayerManager.UseLRSignalReverser = this.UseLRChannelReverserMenu.Checked;
         }
     }
 }

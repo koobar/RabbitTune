@@ -217,6 +217,8 @@ namespace RabbitTune
             this.ShowHistoryMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.VersionMenuSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ShowVersionInfoMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.UseOppositeSignalGeneratorMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.UseLRChannelReverserMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.MainContentsPanel.SuspendLayout();
@@ -974,6 +976,7 @@ namespace RabbitTune
             // 
             // AudioProcessMenu
             // 
+            this.AudioProcessMenu.CheckOnClick = true;
             this.AudioProcessMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.SampleRateConversionMenu,
             this.EqualizerMenu,
@@ -981,7 +984,9 @@ namespace RabbitTune
             this.PlaybackSpeedsMenu,
             this.PitchMenu,
             this.SoundTouchPitchMenu,
-            this.MidSideMixerMenu});
+            this.MidSideMixerMenu,
+            this.UseOppositeSignalGeneratorMenu,
+            this.UseLRChannelReverserMenu});
             this.AudioProcessMenu.Name = "AudioProcessMenu";
             this.AudioProcessMenu.Size = new System.Drawing.Size(59, 20);
             this.AudioProcessMenu.Text = "音響(&A)";
@@ -1783,6 +1788,22 @@ namespace RabbitTune
             this.ShowVersionInfoMenu.Text = "バージョン情報";
             this.ShowVersionInfoMenu.Click += new System.EventHandler(this.ShowVersionInfoMenu_Click);
             // 
+            // UseOppositeSignalGeneratorMenu
+            // 
+            this.UseOppositeSignalGeneratorMenu.CheckOnClick = true;
+            this.UseOppositeSignalGeneratorMenu.Name = "UseOppositeSignalGeneratorMenu";
+            this.UseOppositeSignalGeneratorMenu.Size = new System.Drawing.Size(198, 22);
+            this.UseOppositeSignalGeneratorMenu.Text = "逆位相に変換";
+            this.UseOppositeSignalGeneratorMenu.CheckedChanged += new System.EventHandler(this.UseOppositeSignalGeneratorMenu_CheckedChanged);
+            // 
+            // UseLRChannelReverserMenu
+            // 
+            this.UseLRChannelReverserMenu.CheckOnClick = true;
+            this.UseLRChannelReverserMenu.Name = "UseLRChannelReverserMenu";
+            this.UseLRChannelReverserMenu.Size = new System.Drawing.Size(198, 22);
+            this.UseLRChannelReverserMenu.Text = "左右チャンネルを反転";
+            this.UseLRChannelReverserMenu.CheckedChanged += new System.EventHandler(this.UseLRChannelReverserMenu_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -2003,5 +2024,7 @@ namespace RabbitTune
         private ToolStripMenuItem WriteToFileMenu;
         private ToolStripSeparator toolStripSeparator6;
         private ToolStripMenuItem MidSideMixerMenu;
+        private ToolStripMenuItem UseOppositeSignalGeneratorMenu;
+        private ToolStripMenuItem UseLRChannelReverserMenu;
     }
 }

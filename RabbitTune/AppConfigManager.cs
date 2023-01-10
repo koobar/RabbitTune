@@ -89,6 +89,8 @@ namespace RabbitTune
             writer.WriteProperty(AudioPlayerManager.KEY_USE_MIDSIDEMIXER, AudioPlayerManager.UseMidSideMixer);
             writer.WriteProperty(AudioPlayerManager.KEY_MID_SIGNAL_BOOST_LEVEL, AudioPlayerManager.MidSignalBoostLevel);
             writer.WriteProperty(AudioPlayerManager.KEY_SIDE_SIGNAL_BOOST_LEVEL, AudioPlayerManager.SideSignalBoostLevel);
+            writer.WriteProperty(AudioPlayerManager.KEY_USE_OPPOSITE_SIGNAL_GENERATOR, AudioPlayerManager.UseOppositeSignalGenerator);
+            writer.WriteProperty(AudioPlayerManager.KEY_USE_LR_SIGNAL_REVERSER, AudioPlayerManager.UseLRSignalReverser);
 
             // MIDI・サウンドフォントの設定
             writer.WriteEmptyLine();
@@ -176,6 +178,8 @@ namespace RabbitTune
             AudioPlayerManager.UseMidSideMixer = reader.GetValueAsBoolean(AudioPlayerManager.KEY_USE_MIDSIDEMIXER, false);
             AudioPlayerManager.MidSignalBoostLevel = reader.GetValueAsFloat(AudioPlayerManager.KEY_MID_SIGNAL_BOOST_LEVEL, 1.0f);
             AudioPlayerManager.SideSignalBoostLevel = reader.GetValueAsFloat(AudioPlayerManager.KEY_SIDE_SIGNAL_BOOST_LEVEL, 1.0f);
+            AudioPlayerManager.UseOppositeSignalGenerator = reader.GetValueAsBoolean(AudioPlayerManager.KEY_USE_OPPOSITE_SIGNAL_GENERATOR, false);
+            AudioPlayerManager.UseLRSignalReverser = reader.GetValueAsBoolean(AudioPlayerManager.KEY_USE_LR_SIGNAL_REVERSER, false);
 
             // MIDI・サウンドフォントの設定
             var soundFontOptions = reader.GetStringArrayValue(AudioPlayerManager.KEY_SOUNDFONTS);

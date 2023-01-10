@@ -79,7 +79,7 @@ namespace RabbitTune.AudioEngine.AudioProcess
         /// <returns></returns>
         private float Clamp(float value, float min, float max)
         {
-            if(value < min)
+            if (value < min)
             {
                 value = min;
             }

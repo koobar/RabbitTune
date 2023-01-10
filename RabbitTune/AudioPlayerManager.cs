@@ -54,6 +54,8 @@ namespace RabbitTune
         public const string KEY_USE_MIDSIDEMIXER = @"UseMSMixer";
         public const string KEY_MID_SIGNAL_BOOST_LEVEL = @"MSMixerMidSignalBoostLevel";
         public const string KEY_SIDE_SIGNAL_BOOST_LEVEL = @"MSMixerSideSignalBoostLevel";
+        public const string KEY_USE_OPPOSITE_SIGNAL_GENERATOR = @"UseOppositeSignalGenerator";
+        public const string KEY_USE_LR_SIGNAL_REVERSER = @"UseLRSignalReverser";
 
         // 公開イベント
         public static event EventHandler PlaybackPositionChanged;
@@ -562,6 +564,62 @@ namespace RabbitTune
 
         #endregion
 
+        #region 逆位相信号生成器関連
+
+        // 逆位相信号生成器関連の非公開フィールド
+        private static bool useOppositeSignalGenerator;
+
+        /// <summary>
+        /// 逆位相信号生成器を使用するかどうか
+        /// </summary>
+        public static bool UseOppositeSignalGenerator
+        {
+            set
+            {
+                if (AudioPlayer != null)
+                {
+                    AudioPlayer.UseOppositeSignalGenerator = value;
+                }
+
+                // 後始末
+                useOppositeSignalGenerator = value;
+            }
+            get
+            {
+                return useOppositeSignalGenerator;
+            }
+        }
+
+        #endregion
+
+        #region 左右信号反転器関連
+
+        // 左右信号反転器関連の非公開フィールド
+        private static bool useLRSignalReverser;
+
+        /// <summary>
+        /// 左右信号反転器を使用するかどうか
+        /// </summary>
+        public static bool UseLRSignalReverser
+        {
+            set
+            {
+                if (AudioPlayer != null)
+                {
+                    AudioPlayer.UseLRSignalReverser = value;
+                }
+
+                // 後始末
+                useLRSignalReverser= value;
+            }
+            get
+            {
+                return useLRSignalReverser;
+            }
+        }
+
+        #endregion
+
         #region デバイス出力フォーマットのプロパティ
 
         /// <summary>
@@ -840,6 +898,12 @@ namespace RabbitTune
             AudioPlayer.UseMidSideMixer = UseMidSideMixer;
             AudioPlayer.MidSignalBoostLevel = MidSignalBoostLevel;
             AudioPlayer.SideSignalBoostLevel = SideSignalBoostLevel;
+
+            // 再生前に設定された逆位相生成器のオプションを反映
+            AudioPlayer.UseOppositeSignalGenerator = UseOppositeSignalGenerator;
+
+            // 再生前に設定された左右信号反転器のオプションを反映
+            AudioPlayer.UseLRSignalReverser = UseLRSignalReverser;
 
             // 後始末
             IsTrackLoaded = true;

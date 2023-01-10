@@ -1,6 +1,9 @@
 ﻿using NAudio.MediaFoundation;
 using NAudio.Wave;
+using RabbitTune.AudioEngine.AudioProcess.RabbitTune.AudioEngine.AudioProcess;
 using System.IO;
+using System.Runtime.CompilerServices;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 namespace RabbitTune.AudioEngine
 {

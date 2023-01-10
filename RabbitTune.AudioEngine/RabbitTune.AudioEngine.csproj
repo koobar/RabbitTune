@@ -76,7 +76,9 @@
     <Compile Include="AudioPlayer.cs" />
     <Compile Include="AudioProcess\Equalizer.cs" />
     <Compile Include="AudioProcess\Dsp\NEquaizer.cs" />
+    <Compile Include="AudioProcess\LRReverser.cs" />
     <Compile Include="AudioProcess\MidSideMixer.cs" />
+    <Compile Include="AudioProcess\OppositeSignalGenerator.cs" />
     <Compile Include="AudioProcess\PitchShifter.cs" />
     <Compile Include="AudioProcess\PlaybackSpeedSetter.cs" />
     <Compile Include="AudioProcess\SampleToPcm.cs" />

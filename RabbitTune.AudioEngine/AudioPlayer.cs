@@ -3,6 +3,7 @@ using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using RabbitTune.AudioEngine.AudioOutputApi;
 using RabbitTune.AudioEngine.AudioProcess;
+using RabbitTune.AudioEngine.AudioProcess.RabbitTune.AudioEngine.AudioProcess;
 using System;
 using System.Windows.Forms;
 
@@ -825,6 +826,90 @@ namespace RabbitTune.AudioEngine
 
         #endregion
 
+        #region 逆位相信号生成器
+
+        // 逆位相信号生成器用の非公開フィールド
+        private bool useOppositeSignalGenerator = false;
+        private OppositeSignalGenerator oppositeSignalGenerator;
+
+        /// <summary>
+        /// 逆位相信号生成器を使用するかどうか
+        /// </summary>
+        public bool UseOppositeSignalGenerator
+        {
+            set
+            {
+                if (this.oppositeSignalGenerator != null)
+                {
+                    this.oppositeSignalGenerator.Enabled = value;
+                }
+
+                // 後始末
+                this.useOppositeSignalGenerator = value;
+            }
+            get
+            {
+                return this.useOppositeSignalGenerator;
+            }
+        }
+
+        /// <summary>
+        /// 逆位相信号生成器を生成する。
+        /// </summary>
+        private void CreateOppositeSignalGenerator()
+        {
+            // 逆位相信号生成器のインスタンスを生成
+            this.oppositeSignalGenerator = new OppositeSignalGenerator(this.audioProcessSampleProvider);
+            this.oppositeSignalGenerator.Enabled = this.useOppositeSignalGenerator;
+
+            // 後始末
+            this.audioProcessSampleProvider = this.oppositeSignalGenerator;
+        }
+
+        #endregion
+
+        #region 左右信号反転器
+
+        // 左右信号反転器に関連する非公開フィールド
+        private bool useLRSignalReverser = false;
+        private LRReverser LRSignalReverser;
+
+        /// <summary>
+        /// 左右信号反転器を使用するかどうか
+        /// </summary>
+        public bool UseLRSignalReverser
+        {
+            set
+            {
+                if (this.LRSignalReverser != null)
+                {
+                    this.LRSignalReverser.Enabled = value;
+                }
+
+                // 後始末
+                this.useLRSignalReverser = value;
+            }
+            get
+            {
+                return this.useLRSignalReverser;
+            }
+        }
+
+        /// <summary>
+        /// 左右信号反転器を生成する。
+        /// </summary>
+        private void CreateLRSignalReverser()
+        {
+            // 左右信号反転器のインスタンスを生成
+            this.LRSignalReverser = new LRReverser(this.audioProcessSampleProvider);
+            this.LRSignalReverser.Enabled = this.useLRSignalReverser;
+
+            // 後始末
+            this.audioProcessSampleProvider = this.LRSignalReverser;
+        }
+
+        #endregion
+
         #region オーディオソースの読み込みなど、オーディオソース関連
 
         /// <summary>
@@ -900,6 +985,12 @@ namespace RabbitTune.AudioEngine
 
                 // ミッドサイドミキサーの生成
                 CreateMidSideMixer();
+
+                // 逆位相信号生成器の生成
+                CreateOppositeSignalGenerator();
+
+                // 左右信号反転器の生成
+                CreateLRSignalReverser();
 
                 // リサンプラーの生成
                 CreateReSampler(useReSampler, reSamplerSampleRate, reSamplerBitsPerSample, reSamplerChannels);          // 一般設定用
